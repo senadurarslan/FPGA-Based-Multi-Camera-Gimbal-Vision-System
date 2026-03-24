@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Sat Mar 14 13:22:23 2026
+# Process ID: 19732
+# Current directory: D:/workspace/fbga_project/deneme_1/project_1.runs/synth_1
+# Command line: vivado.exe -log ders_3.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source ders_3.tcl
+# Log file: D:/workspace/fbga_project/deneme_1/project_1.runs/synth_1/ders_3.vds
+# Journal file: D:/workspace/fbga_project/deneme_1/project_1.runs/synth_1\vivado.jou
+# Running On: DESKTOP-TM7VUND, OS: Windows, CPU Frequency: 2918 MHz, CPU Physical cores: 14, Host memory: 34038 MB
+#-----------------------------------------------------------
+source ders_3.tcl -notrace

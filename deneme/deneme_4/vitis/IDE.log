@@ -1,0 +1,65 @@
+15:55:02 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/deneme_4/vitis/IDE.log'.
+15:55:07 INFO  : Registering command handlers for Vitis TCF services
+15:55:07 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\deneme_4\vitis\temp_xsdb_launch_script.tcl
+15:55:08 INFO  : Platform repository initialization has completed.
+15:55:12 INFO  : XSCT server has started successfully.
+15:55:12 INFO  : Successfully done setting XSCT server connection channel  
+15:55:21 INFO  : plnx-install-location is set to ''
+15:55:21 INFO  : Successfully done setting workspace for the tool. 
+15:55:21 INFO  : Successfully done query RDI_DATADIR 
+15:59:08 INFO  : Result from executing command 'getProjects': system_wrapper
+15:59:08 INFO  : Result from executing command 'getPlatforms': xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+15:59:08 WARN  : An unexpected exception occurred in the module 'platform project logging'
+15:59:09 INFO  : Platform 'system_wrapper' is added to custom repositories.
+15:59:22 INFO  : Platform 'system_wrapper' is added to custom repositories.
+16:22:36 INFO  : No changes in MSS file content so sources will not be generated.
+16:25:34 INFO  : Example project xgpio_example_1 has been created successfully.
+16:40:33 INFO  : Result from executing command 'getProjects': system_wrapper
+16:40:33 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/deneme_4/vitis/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+16:40:34 INFO  : Checking for BSP changes to sync application flags for project 'axi_gpio_sw'...
+16:43:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+16:43:52 INFO  : Jtag cable 'Digilent Zed 210248BEB531' is selected.
+16:43:52 INFO  : 'jtag frequency' command is executed.
+16:43:52 INFO  : Context for 'APU' is selected.
+16:43:52 INFO  : System reset is completed.
+16:43:55 INFO  : 'after 3000' command is executed.
+16:43:55 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}' command is executed.
+16:43:57 INFO  : Device configured successfully with "D:/workspace/fbga_project/deneme_4/vitis/axi_gpio_sw/_ide/bitstream/system_wrapper.bit"
+16:43:57 INFO  : Context for 'APU' is selected.
+16:43:57 INFO  : Hardware design and registers information is loaded from 'D:/workspace/fbga_project/deneme_4/vitis/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa'.
+16:43:57 INFO  : 'configparams force-mem-access 1' command is executed.
+16:43:58 INFO  : Context for 'APU' is selected.
+16:43:58 INFO  : Sourcing of 'D:/workspace/fbga_project/deneme_4/vitis/axi_gpio_sw/_ide/psinit/ps7_init.tcl' is done.
+16:43:58 INFO  : 'ps7_init' command is executed.
+16:43:58 INFO  : 'ps7_post_config' command is executed.
+16:43:58 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:43:58 INFO  : The application 'D:/workspace/fbga_project/deneme_4/vitis/axi_gpio_sw/Debug/axi_gpio_sw.elf' is downloaded to processor 'ps7_cortexa9_0'.
+16:43:58 INFO  : 'configparams force-mem-access 0' command is executed.
+16:43:58 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}
+fpga -file D:/workspace/fbga_project/deneme_4/vitis/axi_gpio_sw/_ide/bitstream/system_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw D:/workspace/fbga_project/deneme_4/vitis/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source D:/workspace/fbga_project/deneme_4/vitis/axi_gpio_sw/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow D:/workspace/fbga_project/deneme_4/vitis/axi_gpio_sw/Debug/axi_gpio_sw.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+16:43:58 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:43:59 INFO  : 'con' command is executed.
+16:43:59 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+16:43:59 INFO  : Launch script is exported to file 'D:\workspace\fbga_project\deneme_4\vitis\axi_gpio_sw_system\_ide\scripts\debugger_axi_gpio_sw-default.tcl'
+16:49:00 INFO  : Disconnected from the channel tcfchan#2.
