@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="FMC_Pcam_Adapter_demo" location="D:/bau/ZedBoard/sw/ws/FMC_Pcam_Adapter_demo" platform="D:/bau/ZedBoard/sw/ws/system_wrapper/export/system_wrapper/system_wrapper.xpfm" platformUID="xilinx:zed::0.0(custom)" systemProject="FMC_Pcam_Adapter_demo_system" sysConfig="system_wrapper" runtime="C/C++" cpu="standalone_ps7_cortexa9_0" cpuInstance="ps7_cortexa9_0" os="standalone" language="CPP" mssSignature="550fee732c1286c0007ee3ef8affe39d">
+  <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.1828036487">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.armv7.exe.release.2118759478" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>
