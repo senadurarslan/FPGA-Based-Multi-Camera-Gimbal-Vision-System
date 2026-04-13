@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Wed Mar 11 03:57:35 2026
+# Process ID: 23816
+# Current directory: D:/workspace/LAB/section4_shifter/project_2.runs/synth_1
+# Command line: vivado.exe -log section4_shifter.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source section4_shifter.tcl
+# Log file: D:/workspace/LAB/section4_shifter/project_2.runs/synth_1/section4_shifter.vds
+# Journal file: D:/workspace/LAB/section4_shifter/project_2.runs/synth_1\vivado.jou
+# Running On: DESKTOP-TM7VUND, OS: Windows, CPU Frequency: 2918 MHz, CPU Physical cores: 14, Host memory: 34038 MB
+#-----------------------------------------------------------
+source section4_shifter.tcl -notrace

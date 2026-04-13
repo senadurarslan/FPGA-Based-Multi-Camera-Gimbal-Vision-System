@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1773192362">
+  <File Type="ROUTE-PWR" Name="section4_C2_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="section4_C2.tcl"/>
+  <File Type="ROUTE-PWR-SUM" Name="section4_C2_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="section4_C2_reports.tcl"/>
+  <File Type="BITSTR-MSK" Name="section4_C2.msk"/>
+  <File Type="ROUTE-CLK" Name="section4_C2_clock_utilization_routed.rpt"/>
+  <File Type="RDI-RDI" Name="section4_C2.vdi"/>
+  <File Type="BG-BIT" Name="section4_C2.bit"/>
+  <File Type="BG-DRC" Name="section4_C2.drc"/>
+  <File Type="BG-BGN" Name="section4_C2.bgn"/>
+  <File Type="BG-BIN" Name="section4_C2.bin"/>
+  <File Type="BITSTR-RBT" Name="section4_C2.rbt"/>
+  <File Type="BITSTR-NKY" Name="section4_C2.nky"/>
+  <File Type="BITSTR-BMM" Name="section4_C2_bd.bmm"/>
+  <File Type="BITSTR-MMI" Name="section4_C2.mmi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="section4_C2_methodology_drc_routed.rpt"/>
+  <File Type="BITSTR-SYSDEF" Name="section4_C2.sysdef"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="section4_C2.ltx"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="OPT-DRC" Name="section4_C2_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="section4_C2.hwdef"/>
+  <File Type="PLACE-IO" Name="section4_C2_io_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="section4_C2_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="section4_C2_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="section4_C2_control_sets_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="section4_C2_incremental_reuse_pre_placed.rpt"/>
+  <File Type="ROUTE-DRC" Name="section4_C2_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="section4_C2_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="section4_C2_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="section4_C2_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="section4_C2_route_status.pb"/>
+  <File Type="ROUTE-DCP" Name="section4_C2_routed.dcp"/>
+  <File Type="ROUTE-ERROR-DCP" Name="section4_C2_routed_error.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="section4_C2_routed_bb.dcp"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="section4_C2_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="section4_C2_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="section4_C2_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-BUS-SKEW" Name="section4_C2_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="section4_C2_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="section4_C2_bus_skew_routed.rpx"/>
+  <File Type="OPT-DCP" Name="section4_C2_opt.dcp"/>
+  <File Type="PLACE-DCP" Name="section4_C2_placed.dcp"/>
+  <File Type="PWROPT-DCP" Name="section4_C2_pwropt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="section4_C2_postplace_pwropt.dcp"/>
+  <File Type="PHYSOPT-DCP" Name="section4_C2_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="section4_C2_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="section4_C2_postroute_physopt_bb.dcp"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="section4_C2_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="section4_C2_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="section4_C2_methodology_drc_routed.rpx"/>
+  <File Type="PDI-FILE" Name="section4_C2.pdi"/>
+  <File Type="RCFI_FILE" Name="section4_C2.rcfi"/>
+  <File Type="CFI_FILE" Name="section4_C2.cfi"/>
+  <File Type="RNPI_FILE" Name="section4_C2.rnpi"/>
+  <File Type="NPI_FILE" Name="section4_C2.npi"/>
+  <File Type="RBD_FILE" Name="section4_C2.rbd"/>
+  <File Type="ROUTE-RQS" Name="section4_C2_routed.rqs"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="section4_C2_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/section4_C2.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="section4_C2"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PPRDIR/Basys-3-Master.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+    <Step Id="write_device_image"/>
+  </Strategy>
+</GenRun>

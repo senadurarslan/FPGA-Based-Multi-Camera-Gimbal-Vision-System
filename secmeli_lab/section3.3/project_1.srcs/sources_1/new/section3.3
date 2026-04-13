@@ -1,0 +1,33 @@
+`timescale 1ns / 1ps
+
+module section3_3(
+    input  [7:0] sw,
+    output reg led
+);
+
+always @(*) begin
+
+    // önce üst bitleri kontrol et
+    if(sw[7] & ~sw[6] & sw[5]) begin
+
+        // 160-175 arasý 175 dahil olacak çünkü 176 10110000 olarak sw4 için bit deðiþimi oluyor 
+        if(~sw[4])
+            led = 1;
+
+        // 176-184 arasý 184 binary karþýlýk olarak 10111000 karþýlýk geliyor
+        else if( (~sw[3] & ~sw[2]) |
+                 (~sw[3] & ~sw[1]) |
+                 (~sw[3] & ~sw[0]) |
+                 (~sw[2] & ~sw[1] & ~sw[0]) )
+            led = 1;
+
+        else
+            led = 0;
+
+    end
+    else
+        led = 0;
+
+end
+
+endmodule

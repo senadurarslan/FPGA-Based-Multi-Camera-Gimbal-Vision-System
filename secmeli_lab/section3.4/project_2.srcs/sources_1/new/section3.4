@@ -1,0 +1,19 @@
+`timescale 1ns / 1ps
+
+module section3(
+    input  [4:0] sw,
+    output [1:0] led
+);
+
+    wire C, T, OL, E, OT; // arabada bulunan sensörler
+
+    assign C  = sw[0];
+    assign T  = sw[1];
+    assign OL = sw[2];
+    assign E  = sw[3];
+    assign OT = sw[4];
+
+    assign led[0] = C | OL | (T & OT);      // SI uyarý lambasý
+    assign led[1] = T | E | OL | (C & OT);  // CE uyarý lambasý
+
+endmodule
