@@ -1,0 +1,462 @@
+04:45:24 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+04:45:27 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+04:45:27 INFO  : Registering command handlers for Vitis TCF services
+04:45:28 INFO  : Platform repository initialization has completed.
+04:45:34 INFO  : XSCT server has started successfully.
+04:45:34 INFO  : Successfully done setting XSCT server connection channel  
+04:45:34 INFO  : plnx-install-location is set to ''
+04:45:47 INFO  : Successfully done setting workspace for the tool. 
+04:45:47 INFO  : Successfully done query RDI_DATADIR 
+04:46:12 INFO  : Platform 'system_wrapper' is added to custom repositories.
+04:46:14 INFO  : [Import] Updating active build configuration of the system project 'FMC_Pcam_Adapter_demo_system' to 'Release' after the import.
+04:46:14 INFO  : Build configuration of 'FMC_Pcam_Adapter_demo_system' is updated to 'Release'
+04:46:15 INFO  : Build configuration of 'FMC_Pcam_Adapter_demo' is updated to 'Release'
+12:40:23 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+12:40:24 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+12:40:27 INFO  : Platform repository initialization has completed.
+12:40:29 INFO  : Registering command handlers for Vitis TCF services
+12:40:29 INFO  : XSCT server has started successfully.
+12:40:35 INFO  : plnx-install-location is set to ''
+12:40:35 INFO  : Successfully done setting XSCT server connection channel  
+12:40:35 INFO  : Successfully done query RDI_DATADIR 
+12:40:35 INFO  : Successfully done setting workspace for the tool. 
+13:35:03 ERROR : Failed to update hardware specification for project 'system_wrapper'.
+Reason: Failed to execute command 'platform config -updatehw {D:/bau/ZedBoard/sw/src/system_wrapper/system_wrapper.xsa}'. Click on details for more information.
+13:37:16 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+13:37:17 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+13:37:20 INFO  : Registering command handlers for Vitis TCF services
+13:37:20 INFO  : Platform repository initialization has completed.
+13:37:21 INFO  : XSCT server has started successfully.
+13:37:21 INFO  : plnx-install-location is set to ''
+13:37:27 INFO  : Successfully done setting XSCT server connection channel  
+13:37:27 INFO  : Successfully done query RDI_DATADIR 
+13:37:27 INFO  : Successfully done setting workspace for the tool. 
+13:38:17 INFO  : Hardware specification for platform project 'system_wrapper' is updated.
+13:39:45 INFO  : Hardware specification for platform project 'system_wrapper' is updated.
+13:48:32 INFO  : Result from executing command 'getProjects': system_wrapper
+13:48:32 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+13:51:17 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+13:57:10 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+13:57:19 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+13:57:48 INFO  : Result from executing command 'removePlatformRepo': 
+13:58:13 INFO  : Result from executing command 'getProjects': system_wrapper
+13:58:13 INFO  : Result from executing command 'getPlatforms': xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+13:58:14 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+13:59:58 INFO  : Result from executing command 'removePlatformRepo': 
+14:00:21 INFO  : Result from executing command 'getProjects': system_wrapper
+14:00:21 INFO  : Result from executing command 'getPlatforms': xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+14:00:23 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+14:03:37 INFO  : Result from executing command 'removePlatformRepo': 
+14:04:02 INFO  : Result from executing command 'getProjects': system_wrapper
+14:04:02 INFO  : Result from executing command 'getPlatforms': xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+14:04:02 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+14:05:11 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:05:11 INFO  : Jtag cable 'Digilent Zed 210248BEB531' is selected.
+14:05:11 INFO  : 'jtag frequency' command is executed.
+14:05:11 INFO  : Context for 'APU' is selected.
+14:05:11 INFO  : System reset is completed.
+14:05:14 INFO  : 'after 3000' command is executed.
+14:05:14 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}' command is executed.
+14:05:17 INFO  : Device configured successfully with "D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit"
+14:05:17 INFO  : Context for 'APU' is selected.
+14:05:18 INFO  : Hardware design and registers information is loaded from 'D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa'.
+14:05:18 INFO  : 'configparams force-mem-access 1' command is executed.
+14:05:18 INFO  : Context for 'APU' is selected.
+14:05:18 INFO  : Sourcing of 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl' is done.
+14:05:19 INFO  : 'ps7_init' command is executed.
+14:05:19 INFO  : 'ps7_post_config' command is executed.
+14:05:19 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:05:22 INFO  : The application 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:05:22 INFO  : 'configparams force-mem-access 0' command is executed.
+14:05:22 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}
+fpga -file D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:05:22 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:05:22 INFO  : 'con' command is executed.
+14:05:22 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:05:22 INFO  : Disconnected from the channel tcfchan#8.
+14:09:42 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+14:09:42 INFO  : Jtag cable 'Digilent Zed 210248BEB531' is selected.
+14:09:42 INFO  : 'jtag frequency' command is executed.
+14:09:42 INFO  : Context for 'APU' is selected.
+14:09:42 INFO  : System reset is completed.
+14:09:45 INFO  : 'after 3000' command is executed.
+14:09:45 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}' command is executed.
+14:09:47 INFO  : Device configured successfully with "D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit"
+14:09:48 INFO  : Context for 'APU' is selected.
+14:09:48 INFO  : Hardware design and registers information is loaded from 'D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa'.
+14:09:48 INFO  : 'configparams force-mem-access 1' command is executed.
+14:09:48 INFO  : Context for 'APU' is selected.
+14:09:48 INFO  : Sourcing of 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl' is done.
+14:09:48 INFO  : 'ps7_init' command is executed.
+14:09:48 INFO  : 'ps7_post_config' command is executed.
+14:09:48 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:09:50 INFO  : The application 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf' is downloaded to processor 'ps7_cortexa9_0'.
+14:09:50 INFO  : 'configparams force-mem-access 0' command is executed.
+14:09:50 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}
+fpga -file D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+14:09:50 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+14:09:50 INFO  : 'con' command is executed.
+14:09:50 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+14:09:50 INFO  : Disconnected from the channel tcfchan#9.
+21:27:08 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+21:27:09 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+21:27:13 INFO  : XSCT server has started successfully.
+21:27:13 INFO  : plnx-install-location is set to ''
+21:27:13 INFO  : Successfully done setting XSCT server connection channel  
+21:27:13 INFO  : Successfully done setting workspace for the tool. 
+21:27:15 INFO  : Registering command handlers for Vitis TCF services
+21:27:17 INFO  : Platform repository initialization has completed.
+21:27:24 INFO  : Successfully done query RDI_DATADIR 
+23:23:04 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+23:23:11 INFO  : The hardware specification used by project 'FMC_Pcam_Adapter_demo' is out of sync with the platform. Resource files extracted from the hardware specification will be updated.
+23:23:11 INFO  : The file 'D:\workspace\fbga_project\dual_demo\FMC_Pcam_Adapter_demo\_ide\bitstream\system_wrapper.bit' stored in project is removed.
+23:23:11 INFO  : The updated bitstream files are copied from platform to folder 'D:\workspace\fbga_project\dual_demo\FMC_Pcam_Adapter_demo\_ide\bitstream' in project 'FMC_Pcam_Adapter_demo'.
+23:23:11 INFO  : The file 'D:\workspace\fbga_project\dual_demo\FMC_Pcam_Adapter_demo\_ide\psinit\ps7_init.tcl' stored in project is removed.
+23:23:15 INFO  : The updated ps init files are copied from platform to folder 'D:\workspace\fbga_project\dual_demo\FMC_Pcam_Adapter_demo\_ide\psinit' in project 'FMC_Pcam_Adapter_demo'.
+23:23:17 ERROR : (XSDB Server)ERROR: [Hsi 55-1571] The design file D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa is already opened
+
+12:26:47 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+12:26:48 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+12:26:52 INFO  : Registering command handlers for Vitis TCF services
+12:26:52 INFO  : Platform repository initialization has completed.
+12:26:53 INFO  : XSCT server has started successfully.
+12:26:53 INFO  : Successfully done setting XSCT server connection channel  
+12:26:58 INFO  : plnx-install-location is set to ''
+12:26:58 INFO  : Successfully done setting workspace for the tool. 
+12:26:58 INFO  : Successfully done query RDI_DATADIR 
+15:19:59 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+15:20:01 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+15:20:10 INFO  : XSCT server has started successfully.
+15:20:10 INFO  : Successfully done setting XSCT server connection channel  
+15:20:11 INFO  : Registering command handlers for Vitis TCF services
+15:20:12 INFO  : Platform repository initialization has completed.
+15:20:22 INFO  : plnx-install-location is set to ''
+15:20:22 INFO  : Successfully done setting workspace for the tool. 
+15:20:22 INFO  : Successfully done query RDI_DATADIR 
+15:39:47 INFO  : Result from executing command 'getProjects': system_wrapper
+15:39:47 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+15:39:49 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+15:41:15 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:41:16 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}' command is executed.
+15:41:18 INFO  : Device configured successfully with "D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit"
+15:43:37 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+15:47:42 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+15:47:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+15:47:51 INFO  : Jtag cable 'Digilent Zed 210248BEB531' is selected.
+15:47:51 INFO  : 'jtag frequency' command is executed.
+15:47:51 INFO  : Context for 'APU' is selected.
+15:47:52 INFO  : System reset is completed.
+15:47:55 INFO  : 'after 3000' command is executed.
+15:47:55 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}' command is executed.
+15:47:57 INFO  : Device configured successfully with "D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit"
+15:47:57 INFO  : Context for 'APU' is selected.
+15:47:57 INFO  : Hardware design and registers information is loaded from 'D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa'.
+15:47:57 INFO  : 'configparams force-mem-access 1' command is executed.
+15:47:57 INFO  : Context for 'APU' is selected.
+15:47:58 INFO  : Sourcing of 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl' is done.
+15:47:58 INFO  : 'ps7_init' command is executed.
+15:47:58 INFO  : 'ps7_post_config' command is executed.
+15:47:58 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:48:00 INFO  : The application 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf' is downloaded to processor 'ps7_cortexa9_0'.
+15:48:00 INFO  : 'configparams force-mem-access 0' command is executed.
+15:48:00 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}
+fpga -file D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+15:48:00 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+15:48:00 INFO  : 'con' command is executed.
+15:48:00 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+15:48:00 INFO  : Launch script is exported to file 'D:\workspace\fbga_project\dual_demo\FMC_Pcam_Adapter_demo_system\_ide\scripts\systemdebugger_fmc_pcam_adapter_demo_system_standalone.tcl'
+16:25:04 INFO  : No changes in MSS file content so sources will not be generated.
+16:28:44 INFO  : No changes in MSS file content so sources will not be generated.
+16:28:56 INFO  : Disconnected from the channel tcfchan#3.
+16:29:52 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+16:29:52 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+16:29:54 INFO  : XSCT server has started successfully.
+16:29:54 INFO  : plnx-install-location is set to ''
+16:29:54 INFO  : Successfully done setting XSCT server connection channel  
+16:29:54 INFO  : Successfully done setting workspace for the tool. 
+16:29:54 INFO  : Successfully done query RDI_DATADIR 
+16:29:55 INFO  : Registering command handlers for Vitis TCF services
+16:29:55 INFO  : Platform repository initialization has completed.
+16:30:08 INFO  : No changes in MSS file content so sources will not be generated.
+16:36:15 INFO  : Result from executing command 'getProjects': system_wrapper
+16:36:15 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+16:36:17 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+16:36:17 INFO  : Updating application flags with new BSP settings...
+16:36:18 INFO  : Successfully updated application flags for project FMC_Pcam_Adapter_demo.
+16:36:57 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+16:40:06 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+16:40:06 INFO  : Jtag cable 'Digilent Zed 210248BEB531' is selected.
+16:40:06 INFO  : 'jtag frequency' command is executed.
+16:40:06 INFO  : Context for 'APU' is selected.
+16:40:06 INFO  : System reset is completed.
+16:40:09 INFO  : 'after 3000' command is executed.
+16:40:09 INFO  : 'targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}' command is executed.
+16:40:12 INFO  : Device configured successfully with "D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit"
+16:40:12 INFO  : Context for 'APU' is selected.
+16:40:12 INFO  : Hardware design and registers information is loaded from 'D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa'.
+16:40:12 INFO  : 'configparams force-mem-access 1' command is executed.
+16:40:12 INFO  : Context for 'APU' is selected.
+16:40:12 INFO  : Sourcing of 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl' is done.
+16:40:13 INFO  : 'ps7_init' command is executed.
+16:40:13 INFO  : 'ps7_post_config' command is executed.
+16:40:13 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:40:15 INFO  : The application 'D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf' is downloaded to processor 'ps7_cortexa9_0'.
+16:40:15 INFO  : 'configparams force-mem-access 0' command is executed.
+16:40:15 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+targets -set -nocase -filter {name =~"APU*"}
+rst -system
+after 3000
+targets -set -filter {jtag_cable_name =~ "Digilent Zed 210248BEB531" && level==0 && jtag_device_ctx=="jsn-Zed-210248BEB531-23727093-0"}
+fpga -file D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/bitstream/system_wrapper.bit
+targets -set -nocase -filter {name =~"APU*"}
+loadhw -hw D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/hw/system_wrapper.xsa -mem-ranges [list {0x40000000 0xbfffffff}] -regs
+configparams force-mem-access 1
+targets -set -nocase -filter {name =~"APU*"}
+source D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/_ide/psinit/ps7_init.tcl
+ps7_init
+ps7_post_config
+targets -set -nocase -filter {name =~ "*A9*#0"}
+dow D:/workspace/fbga_project/dual_demo/FMC_Pcam_Adapter_demo/Release/FMC_Pcam_Adapter_demo.elf
+configparams force-mem-access 0
+----------------End of Script----------------
+
+16:40:15 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:40:15 INFO  : 'con' command is executed.
+16:40:15 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "*A9*#0"}
+con
+----------------End of Script----------------
+
+16:40:15 INFO  : Launch script is exported to file 'D:\workspace\fbga_project\dual_demo\FMC_Pcam_Adapter_demo_system\_ide\scripts\systemdebugger_fmc_pcam_adapter_demo_system_standalone.tcl'
+17:14:00 INFO  : Result from executing command 'getProjects': system_wrapper
+17:14:00 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+17:14:01 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+17:25:26 INFO  : Disconnected from the channel tcfchan#4.
+18:06:55 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+18:06:56 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+18:06:59 INFO  : XSCT server has started successfully.
+18:06:59 INFO  : plnx-install-location is set to ''
+18:06:59 INFO  : Successfully done setting XSCT server connection channel  
+18:06:59 INFO  : Successfully done query RDI_DATADIR 
+18:06:59 INFO  : Successfully done setting workspace for the tool. 
+18:07:00 INFO  : Registering command handlers for Vitis TCF services
+18:07:00 INFO  : Platform repository initialization has completed.
+18:17:38 INFO  : Result from executing command 'getProjects': system_wrapper
+18:17:38 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+18:17:39 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+18:32:11 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+18:32:39 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:46:06 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:46:50 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:47:55 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:52:18 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:53:15 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:53:32 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:54:16 INFO  : Checking for BSP changes to sync application flags for project 'eth_app'...
+19:55:03 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:55:49 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:55:59 INFO  : Checking for BSP changes to sync application flags for project 'FMC_Pcam_Adapter_demo'...
+19:58:05 ERROR : The following application project(s) included in the system project 'FMC_Pcam_Adapter_demo_system' are missing from the workspace.
+Please import the applications using 'File -> Import -> Existing Projects into Workspace' option or delete the application project entries from the system project settings editor.
+
+ 1. FMC_Pcam_Adapter_demo
+19:58:27 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+19:58:27 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+19:58:27 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+19:59:31 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+19:59:31 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+19:59:31 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+20:01:50 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:01:51 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:01:53 INFO  : XSCT server has started successfully.
+20:01:53 INFO  : plnx-install-location is set to ''
+20:01:53 INFO  : Successfully done setting XSCT server connection channel  
+20:01:53 INFO  : Successfully done query RDI_DATADIR 
+20:01:53 INFO  : Successfully done setting workspace for the tool. 
+20:01:54 INFO  : Registering command handlers for Vitis TCF services
+20:01:54 INFO  : Platform repository initialization has completed.
+20:02:41 INFO  : Result from executing command 'removePlatformRepo': 
+20:05:49 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+20:05:49 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+20:08:32 INFO  : Hardware specification for platform project 'system_wrapper' is updated.
+20:11:27 INFO  : Hardware specification for platform project 'system_wrapper' is updated.
+20:11:57 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:11:58 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:12:00 INFO  : XSCT server has started successfully.
+20:12:00 INFO  : plnx-install-location is set to ''
+20:12:00 INFO  : Successfully done setting XSCT server connection channel  
+20:12:00 INFO  : Successfully done query RDI_DATADIR 
+20:12:00 INFO  : Successfully done setting workspace for the tool. 
+20:12:01 INFO  : Registering command handlers for Vitis TCF services
+20:12:01 INFO  : Platform repository initialization has completed.
+20:17:20 INFO  : No changes in MSS file content so sources will not be generated.
+20:20:01 ERROR : (XSDB Server)arm-none-eabi-ar: creating ../../../lib/libxil.a
+
+20:20:04 ERROR : (XSDB Server)In file included from ../../../include/xstatus.h:33,
+                 from xclk_wiz.c:35:
+xclk_wiz.c: In function 'XClk_Wiz_SetMinErr':
+
+20:20:04 ERROR : (XSDB Server)../../../include/xil_assert.h:118:16: warning: 'return' with a value, in function returning void [-Wreturn-type]
+  118 |         return 0;                                  \
+      |                ^
+xclk_wiz.c:299:9: note: in expansion of macro 'Xil_AssertNonvoid'
+  299 |         Xil_AssertNonvoid(InstancePtr != NULL);
+      |         ^~~~~~~~~~~~~~~~~
+xclk_wiz.c:297:6: note: declared here
+  297 | void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr)
+      |      ^~~~~~~~~~~~~~~~~~
+In file included from ../../../include/xstatus.h:33,
+                 from xclk_wiz.c:35:
+../../../include/xil_assert.h:118:16: warning: 'return' with a value, in function returning void [-Wreturn-type]
+  118 |         return 0;                                  \
+      |                ^
+xclk_wiz.c:300:9: note: in expansion of macro 'Xil_AssertNonvoid'
+  300 |         Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+      |         ^~~~~~~~~~~~~~~~~
+xclk_wiz.c:297:6: note: declared here
+  297 | void XClk_Wiz_SetMinErr(XClk_Wiz  *InstancePtr, u64 Minerr)
+      |      ^~~~~~~~~~~~~~~~~~
+
+20:20:05 ERROR : (XSDB Server)xtime_l.c:45:9: note: '#pragma message: For the sleep routines, Global timer is being used'
+   45 | #pragma message ("For the sleep routines, Global timer is being used")
+      |         ^~~~~~~
+
+20:20:06 INFO  : Result from executing command 'getProjects': system_wrapper
+20:20:06 INFO  : Result from executing command 'getPlatforms': xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+20:20:33 INFO  : Result from executing command 'getProjects': system_wrapper
+20:20:33 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+20:20:35 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+20:20:35 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+20:20:35 ERROR : Failed to change build configuration of project 'FMC_Pcam_Adapter_demo' to 'Debug'
+20:22:35 INFO  : [Import] Updating active build configuration of the system project 'FMC_Pcam_Adapter_demo_system' to 'Release' after the import.
+20:26:24 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:26:25 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:26:27 INFO  : XSCT server has started successfully.
+20:26:27 INFO  : plnx-install-location is set to ''
+20:26:27 INFO  : Successfully done setting XSCT server connection channel  
+20:26:27 INFO  : Successfully done setting workspace for the tool. 
+20:26:29 INFO  : Successfully done query RDI_DATADIR 
+20:26:30 INFO  : Platform repository initialization has completed.
+20:26:31 INFO  : Registering command handlers for Vitis TCF services
+20:27:03 INFO  : [Import] Updating active build configuration of the system project 'FMC_Pcam_Adapter_demo_system' to 'Release' after the import.
+20:27:38 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:27:39 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:27:41 INFO  : XSCT server has started successfully.
+20:27:41 INFO  : plnx-install-location is set to ''
+20:27:41 INFO  : Successfully done setting XSCT server connection channel  
+20:27:41 INFO  : Successfully done setting workspace for the tool. 
+20:27:42 INFO  : Successfully done query RDI_DATADIR 
+20:27:43 INFO  : Platform repository initialization has completed.
+20:27:43 INFO  : Registering command handlers for Vitis TCF services
+20:31:16 INFO  : [Import] Updating active build configuration of the system project 'FMC_Pcam_Adapter_demo_system' to 'Release' after the import.
+20:32:59 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:32:59 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:33:01 INFO  : XSCT server has started successfully.
+20:33:01 INFO  : plnx-install-location is set to ''
+20:33:01 INFO  : Successfully done setting XSCT server connection channel  
+20:33:01 INFO  : Successfully done setting workspace for the tool. 
+20:33:03 INFO  : Successfully done query RDI_DATADIR 
+20:33:04 INFO  : Platform repository initialization has completed.
+20:33:04 INFO  : Registering command handlers for Vitis TCF services
+20:34:45 INFO  : Result from executing command 'getProjects': system_wrapper
+20:34:45 INFO  : Result from executing command 'getPlatforms': system_wrapper|D:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/system_wrapper.xpfm;xilinx_vck190_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_202210_1/xilinx_vck190_base_202210_1.xpfm;xilinx_vck190_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vck190_base_dfx_202210_1/xilinx_vck190_base_dfx_202210_1.xpfm;xilinx_vmk180_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_vmk180_base_202210_1/xilinx_vmk180_base_202210_1.xpfm;xilinx_zcu102_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_202210_1/xilinx_zcu102_base_202210_1.xpfm;xilinx_zcu102_base_dfx_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu102_base_dfx_202210_1/xilinx_zcu102_base_dfx_202210_1.xpfm;xilinx_zcu104_base_202210_1|C:/Xilinx/Vitis/2022.1/base_platforms/xilinx_zcu104_base_202210_1/xilinx_zcu104_base_202210_1.xpfm
+20:48:06 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:48:06 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:48:08 INFO  : XSCT server has started successfully.
+20:48:08 INFO  : plnx-install-location is set to ''
+20:48:08 INFO  : Successfully done setting XSCT server connection channel  
+20:48:08 INFO  : Successfully done setting workspace for the tool. 
+20:48:09 INFO  : Successfully done query RDI_DATADIR 
+20:48:09 INFO  : Registering command handlers for Vitis TCF services
+20:48:10 INFO  : Platform repository initialization has completed.
+20:48:51 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:48:51 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:48:53 INFO  : XSCT server has started successfully.
+20:48:53 INFO  : Successfully done setting XSCT server connection channel  
+20:48:53 INFO  : plnx-install-location is set to ''
+20:48:53 INFO  : Successfully done setting workspace for the tool. 
+20:48:54 INFO  : Successfully done query RDI_DATADIR 
+20:48:54 INFO  : Platform repository initialization has completed.
+20:48:54 INFO  : Registering command handlers for Vitis TCF services
+20:52:05 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:52:05 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:52:07 INFO  : XSCT server has started successfully.
+20:52:07 INFO  : plnx-install-location is set to ''
+20:52:07 INFO  : Successfully done setting XSCT server connection channel  
+20:52:07 INFO  : Successfully done setting workspace for the tool. 
+20:52:11 INFO  : Successfully done query RDI_DATADIR 
+20:52:11 INFO  : Registering command handlers for Vitis TCF services
+20:52:11 INFO  : Platform repository initialization has completed.
+20:53:21 DEBUG : Logs will be stored at 'D:/workspace/fbga_project/dual_demo/IDE.log'.
+20:53:22 INFO  : Launching XSCT server: xsct.bat -n  -interactive D:\workspace\fbga_project\dual_demo\temp_xsdb_launch_script.tcl
+20:53:24 INFO  : XSCT server has started successfully.
+20:53:24 INFO  : plnx-install-location is set to ''
+20:53:24 INFO  : Successfully done setting XSCT server connection channel  
+20:53:24 INFO  : Successfully done setting workspace for the tool. 
+20:53:24 INFO  : Registering command handlers for Vitis TCF services
+20:53:24 INFO  : Successfully done query RDI_DATADIR 
+20:53:25 INFO  : Platform repository initialization has completed.

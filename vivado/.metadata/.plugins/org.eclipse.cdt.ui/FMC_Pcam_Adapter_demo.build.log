@@ -1,0 +1,18 @@
+19:55:59 **** Incremental Build of configuration Release for project FMC_Pcam_Adapter_demo ****
+make all 
+make --no-print-directory pre-build
+a9-linaro-pre-build-step
+' '
+make --no-print-directory main-build
+'Building file: ../src/network.c'
+'Invoking: ARM v7 g++ compiler'
+arm-none-eabi-g++ -Wall -O2 -I"D:\workspace\fbga_project\dual_demo\FMC_Pcam_Adapter_demo\src" -c -fmessage-length=0 -MT"src/network.o" -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -ID:/workspace/fbga_project/dual_demo/system_wrapper/export/system_wrapper/sw/system_wrapper/standalone_ps7_cortexa9_0/bspinclude/include -MMD -MP -MF"src/network.d" -MT"src/network.o" -o "src/network.o" "../src/network.c"
+../src/network.c: In function 'int init_network()':
+../src/network.c:47:20: error: 'PLATFORM_EMAC_BASEADDR' was not declared in this scope
+   47 |                    PLATFORM_EMAC_BASEADDR))
+      |                    ^~~~~~~~~~~~~~~~~~~~~~
+make[1]: *** [src/subdir.mk:62: src/network.o] Error 1
+make: *** [makefile:49: all] Error 2
+
+19:56:00 Build Finished (took 704ms)
+

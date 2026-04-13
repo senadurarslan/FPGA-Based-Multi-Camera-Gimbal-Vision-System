@@ -1,0 +1,19 @@
+#-----------------------------------------------------------
+# Vivado v2022.1.1 (64-bit)
+# SW Build 3557992 on Fri Jun  3 09:58:00 MDT 2022
+# IP Build 3556342 on Fri Jun  3 19:31:36 MDT 2022
+# Start of session at: Wed Sep 14 12:37:35 2022
+# Process ID: 12720
+# Current directory: D:/bau/ZedBoard/hw/proj/hw.runs/system_AXI_BayerToRGB_D_0_synth_1
+# Command line: vivado.exe -log system_AXI_BayerToRGB_D_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source system_AXI_BayerToRGB_D_0.tcl
+# Log file: D:/bau/ZedBoard/hw/proj/hw.runs/system_AXI_BayerToRGB_D_0_synth_1/system_AXI_BayerToRGB_D_0.vds
+# Journal file: D:/bau/ZedBoard/hw/proj/hw.runs/system_AXI_BayerToRGB_D_0_synth_1\vivado.jou
+# Running On: ROCLUDT-G5O3H19, OS: Windows, CPU Frequency: 3194 MHz, CPU Physical cores: 16, Host memory: 34287 MB
+#-----------------------------------------------------------
+source system_AXI_BayerToRGB_D_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1609.918 ; gain = 0.000
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository 'd:/bau/ZedBoard/hw/repo'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2022.1/data/ip'.
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP system_AXI_BayerToRGB_D_0, cache-ID = 8c7113807ba9f335.
+INFO: [Common 17-206] Exiting Vivado at Wed Sep 14 12:38:08 2022...

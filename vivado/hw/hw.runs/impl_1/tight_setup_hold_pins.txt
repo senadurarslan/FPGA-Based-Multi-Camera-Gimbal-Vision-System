@@ -1,0 +1,13 @@
++=============================+=============================+=============================================================================================================================================+
+| Launch Setup Clock          | Launch Hold Clock           | Pin                                                                                                                                         |
++=============================+=============================+=============================================================================================================================================+
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_C/U0/DataLaneGen[0].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_A/U0/DataLaneGen[1].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_C/U0/DataLaneGen[1].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_A/U0/DataLaneGen[0].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_D/U0/DataLaneGen[0].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_D/U0/DataLaneGen[1].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_B/U0/DataLaneGen[1].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| dphy_hs_clock_p             | dphy_hs_clock_p             | system_i/MIPI_D_PHY_RX_B/U0/DataLaneGen[0].DPHY_LaneSFEN_X/HSDeserializerX/Deserializer/DDLY                                                |
+| clk_out2_system_clk_wiz_0_0 | clk_out2_system_clk_wiz_0_0 | system_i/axi_mem_intercon_1/xbar/inst/gen_samd.crossbar_samd/gen_slave_slots[0].gen_si_write.wdata_router_w/wrouter_aw_fifo/s_ready_i_reg/D |
++-----------------------------+-----------------------------+---------------------------------------------------------------------------------------------------------------------------------------------+

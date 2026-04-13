@@ -1,0 +1,110 @@
+timestamp=[2026-03-19 04:45:26], mode=WORKBENCH_START, duration=0:00:05.959, duration_ms=5959, data={}
+timestamp=[2026-03-19 04:45:26], mode=WORKBENCH_UI_INIT, duration=0:00:00.495, duration_ms=495, data={editors_count=0, platform_editors_count=0, projects_count=0, platform_projects_count=0, active_platform_editor=false, projects=}
+timestamp=[2026-03-19 04:45:28], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:01.099, duration_ms=1099, data={}
+timestamp=[2026-03-28 12:40:27], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:01.242, duration_ms=1242, data={}
+timestamp=[2026-03-28 12:40:28], mode=WORKBENCH_START, duration=0:00:09.390, duration_ms=9390, data={}
+timestamp=[2026-03-28 12:40:29], mode=WORKBENCH_UI_INIT, duration=0:00:00.312, duration_ms=312, data={editors_count=3, platform_editors_count=2, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-03-28 13:37:19], mode=WORKBENCH_START, duration=0:00:07.168, duration_ms=7168, data={}
+timestamp=[2026-03-28 13:37:19], mode=WORKBENCH_UI_INIT, duration=0:00:00.508, duration_ms=508, data={editors_count=2, platform_editors_count=1, projects_count=4, platform_projects_count=1, active_platform_editor=true, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-03-28 13:37:20], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.877, duration_ms=877, data={}
+timestamp=[2026-03-28 13:48:34], mode=PLATFORM_GENERATION, duration=0:00:49.392, duration_ms=49392, data={name=system_wrapper}
+timestamp=[2026-03-28 13:51:24], mode=BUILD, duration=0:00:03.817, duration_ms=3817, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-03-28 13:57:14], mode=BUILD, duration=0:00:03.431, duration_ms=3431, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-03-28 13:57:19], mode=BUILD, duration=0:00:00.300, duration_ms=300, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-03-28 13:57:51], mode=PLATFORM_GENERATION, duration=0:00:05.228, duration_ms=5228, data={name=system_wrapper}
+timestamp=[2026-03-28 13:57:51], mode=BUILD, duration=0:00:00.196, duration_ms=196, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=true}
+timestamp=[2026-03-28 13:58:14], mode=PLATFORM_GENERATION, duration=0:00:19.298, duration_ms=19298, data={name=system_wrapper}
+timestamp=[2026-03-28 13:58:18], mode=BUILD, duration=0:00:03.405, duration_ms=3405, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-03-28 14:00:01], mode=PLATFORM_GENERATION, duration=0:00:05.948, duration_ms=5948, data={name=system_wrapper}
+timestamp=[2026-03-28 14:00:01], mode=BUILD, duration=0:00:00.213, duration_ms=213, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=true}
+timestamp=[2026-03-28 14:00:23], mode=PLATFORM_GENERATION, duration=0:00:21.679, duration_ms=21679, data={name=system_wrapper}
+timestamp=[2026-03-28 14:00:27], mode=BUILD, duration=0:00:04.277, duration_ms=4277, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-03-28 14:03:40], mode=PLATFORM_GENERATION, duration=0:00:04.973, duration_ms=4973, data={name=system_wrapper}
+timestamp=[2026-03-28 14:03:41], mode=BUILD, duration=0:00:00.222, duration_ms=222, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=true}
+timestamp=[2026-03-28 14:04:02], mode=PLATFORM_GENERATION, duration=0:00:19.085, duration_ms=19085, data={name=system_wrapper}
+timestamp=[2026-03-28 14:04:07], mode=BUILD, duration=0:00:04.421, duration_ms=4421, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-03-30 21:27:13], mode=WORKBENCH_START, duration=0:00:09.584, duration_ms=9584, data={}
+timestamp=[2026-03-30 21:27:15], mode=WORKBENCH_UI_INIT, duration=0:00:02.017, duration_ms=2017, data={editors_count=4, platform_editors_count=2, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-03-30 21:27:17], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:02.591, duration_ms=2591, data={}
+timestamp=[2026-03-30 23:23:11], mode=BUILD, duration=0:00:06.344, duration_ms=6344, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-03-30 23:23:22], mode=BUILD, duration=0:00:06.725, duration_ms=6725, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-03-31 12:26:50], mode=WORKBENCH_START, duration=0:00:07.183, duration_ms=7183, data={}
+timestamp=[2026-03-31 12:26:51], mode=WORKBENCH_UI_INIT, duration=0:00:00.801, duration_ms=801, data={editors_count=7, platform_editors_count=2, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-03-31 12:26:52], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.991, duration_ms=991, data={}
+timestamp=[2026-04-04 15:20:08], mode=WORKBENCH_START, duration=0:00:21.662, duration_ms=21662, data={}
+timestamp=[2026-04-04 15:20:11], mode=WORKBENCH_UI_INIT, duration=0:00:02.663, duration_ms=2663, data={editors_count=7, platform_editors_count=2, projects_count=4, platform_projects_count=1, active_platform_editor=false, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 15:20:12], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:03.112, duration_ms=3112, data={}
+timestamp=[2026-04-04 15:39:49], mode=PLATFORM_GENERATION, duration=0:00:43.397, duration_ms=43397, data={name=system_wrapper}
+timestamp=[2026-04-04 15:40:05], mode=BUILD, duration=0:00:08.645, duration_ms=8645, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 15:40:18], mode=BUILD, duration=0:00:11.763, duration_ms=11763, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 15:43:38], mode=BUILD, duration=0:00:00.809, duration_ms=809, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 15:43:47], mode=BUILD, duration=0:00:08.445, duration_ms=8445, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 15:47:43], mode=BUILD, duration=0:00:00.355, duration_ms=355, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 15:47:49], mode=BUILD, duration=0:00:06.074, duration_ms=6074, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 16:29:54], mode=WORKBENCH_START, duration=0:00:05.264, duration_ms=5264, data={}
+timestamp=[2026-04-04 16:29:54], mode=WORKBENCH_UI_INIT, duration=0:00:00.619, duration_ms=619, data={editors_count=8, platform_editors_count=3, projects_count=4, platform_projects_count=1, active_platform_editor=true, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 16:29:55], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.629, duration_ms=629, data={}
+timestamp=[2026-04-04 16:36:17], mode=PLATFORM_GENERATION, duration=0:00:25.019, duration_ms=25019, data={name=system_wrapper}
+timestamp=[2026-04-04 16:36:24], mode=BUILD, duration=0:00:05.746, duration_ms=5746, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 16:36:32], mode=BUILD, duration=0:00:06.637, duration_ms=6637, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 16:36:57], mode=BUILD, duration=0:00:00.344, duration_ms=344, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 16:37:04], mode=BUILD, duration=0:00:06.740, duration_ms=6740, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 16:38:36], mode=APP_CREATION, duration=0:00:07.083, duration_ms=7083, data={name=eth_app, project_type=sdk, os=standalone, processor=cortex-a9, runtime=C/C++, platform=system_wrapper, application_type=application}
+timestamp=[2026-04-04 17:14:01], mode=PLATFORM_GENERATION, duration=0:00:03.813, duration_ms=3813, data={name=system_wrapper}
+timestamp=[2026-04-04 17:14:02], mode=BUILD, duration=0:00:00.445, duration_ms=445, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 18:06:58], mode=WORKBENCH_START, duration=0:00:07.980, duration_ms=7980, data={}
+timestamp=[2026-04-04 18:06:59], mode=WORKBENCH_UI_INIT, duration=0:00:01.081, duration_ms=1081, data={editors_count=6, platform_editors_count=1, projects_count=6, platform_projects_count=1, active_platform_editor=true, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,eth_app,eth_app_system,system_wrapper}
+timestamp=[2026-04-04 18:07:00], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.863, duration_ms=863, data={}
+timestamp=[2026-04-04 18:17:39], mode=PLATFORM_GENERATION, duration=0:00:03.685, duration_ms=3685, data={name=system_wrapper}
+timestamp=[2026-04-04 18:17:43], mode=BUILD, duration=0:00:00.414, duration_ms=414, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 18:17:52], mode=BUILD, duration=0:00:08.607, duration_ms=8607, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 18:32:16], mode=BUILD, duration=0:00:05.370, duration_ms=5370, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 18:32:26], mode=BUILD, duration=0:00:08.864, duration_ms=8864, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 18:32:39], mode=BUILD, duration=0:00:00.476, duration_ms=476, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 18:32:54], mode=BUILD, duration=0:00:14.767, duration_ms=14767, data={name=FMC_Pcam_Adapter_demo_system, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:46:07], mode=BUILD, duration=0:00:00.871, duration_ms=871, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:46:52], mode=BUILD, duration=0:00:01.964, duration_ms=1964, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:47:57], mode=BUILD, duration=0:00:01.959, duration_ms=1959, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:52:19], mode=BUILD, duration=0:00:00.694, duration_ms=694, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:53:18], mode=BUILD, duration=0:00:02.832, duration_ms=2832, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:53:33], mode=BUILD, duration=0:00:00.688, duration_ms=688, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:54:19], mode=BUILD, duration=0:00:02.577, duration_ms=2577, data={name=eth_app, configuration=Debug, clean_build=false}
+timestamp=[2026-04-04 19:55:04], mode=BUILD, duration=0:00:01.222, duration_ms=1222, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:55:51], mode=BUILD, duration=0:00:01.196, duration_ms=1196, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:56:00], mode=BUILD, duration=0:00:00.711, duration_ms=711, data={name=FMC_Pcam_Adapter_demo, configuration=Release, clean_build=false}
+timestamp=[2026-04-04 19:58:27], mode=BUILD, duration=0:00:01.550, duration_ms=1550, data={name=FMC_Pcam_Adapter_demo_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-04 19:59:31], mode=BUILD, duration=0:00:01.470, duration_ms=1470, data={name=FMC_Pcam_Adapter_demo_system, configuration=Debug, clean_build=false}
+timestamp=[2026-04-04 20:01:52], mode=WORKBENCH_START, duration=0:00:05.386, duration_ms=5386, data={}
+timestamp=[2026-04-04 20:01:53], mode=WORKBENCH_UI_INIT, duration=0:00:00.666, duration_ms=666, data={editors_count=7, platform_editors_count=1, projects_count=5, platform_projects_count=1, active_platform_editor=true, projects=FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,eth_app,eth_app_system,system_wrapper}
+timestamp=[2026-04-04 20:01:54], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.628, duration_ms=628, data={}
+timestamp=[2026-04-04 20:02:45], mode=PLATFORM_GENERATION, duration=0:00:06.072, duration_ms=6072, data={name=system_wrapper}
+timestamp=[2026-04-04 20:02:45], mode=BUILD, duration=0:00:00.184, duration_ms=184, data={name=eth_app, configuration=Debug, clean_build=true}
+timestamp=[2026-04-04 20:02:45], mode=BUILD, duration=0:00:00.170, duration_ms=170, data={name=eth_app_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-04 20:11:59], mode=WORKBENCH_START, duration=0:00:05.254, duration_ms=5254, data={}
+timestamp=[2026-04-04 20:12:00], mode=WORKBENCH_UI_INIT, duration=0:00:00.757, duration_ms=757, data={editors_count=4, platform_editors_count=1, projects_count=3, platform_projects_count=1, active_platform_editor=true, projects=FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:12:01], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.614, duration_ms=614, data={}
+timestamp=[2026-04-04 20:19:56], mode=PLATFORM_GENERATION, duration=0:00:44.279, duration_ms=44279, data={name=system_wrapper}
+timestamp=[2026-04-04 20:20:34], mode=PLATFORM_GENERATION, duration=0:00:17.358, duration_ms=17358, data={name=system_wrapper}
+timestamp=[2026-04-04 20:20:34], mode=BUILD, duration=0:00:00.123, duration_ms=123, data={name=FMC_Pcam_Adapter_demo_system, configuration=Debug, clean_build=true}
+timestamp=[2026-04-04 20:26:28], mode=WORKBENCH_START, duration=0:00:06.116, duration_ms=6116, data={}
+timestamp=[2026-04-04 20:26:30], mode=WORKBENCH_UI_INIT, duration=0:00:02.163, duration_ms=2163, data={editors_count=0, platform_editors_count=0, projects_count=2, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:26:30], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:01.794, duration_ms=1794, data={}
+timestamp=[2026-04-04 20:27:41], mode=WORKBENCH_START, duration=0:00:06.162, duration_ms=6162, data={}
+timestamp=[2026-04-04 20:27:43], mode=WORKBENCH_UI_INIT, duration=0:00:01.267, duration_ms=1267, data={editors_count=0, platform_editors_count=0, projects_count=2, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:27:43], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.868, duration_ms=868, data={}
+timestamp=[2026-04-04 20:33:02], mode=WORKBENCH_START, duration=0:00:06.844, duration_ms=6844, data={}
+timestamp=[2026-04-04 20:33:04], mode=WORKBENCH_UI_INIT, duration=0:00:01.308, duration_ms=1308, data={editors_count=0, platform_editors_count=0, projects_count=2, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:33:04], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.840, duration_ms=840, data={}
+timestamp=[2026-04-04 20:34:46], mode=PLATFORM_GENERATION, duration=0:00:23.052, duration_ms=23052, data={name=system_wrapper}
+timestamp=[2026-04-04 20:48:08], mode=WORKBENCH_START, duration=0:00:05.271, duration_ms=5271, data={}
+timestamp=[2026-04-04 20:48:09], mode=WORKBENCH_UI_INIT, duration=0:00:00.648, duration_ms=648, data={editors_count=0, platform_editors_count=0, projects_count=2, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:48:10], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.784, duration_ms=784, data={}
+timestamp=[2026-04-04 20:48:53], mode=WORKBENCH_START, duration=0:00:07.163, duration_ms=7163, data={}
+timestamp=[2026-04-04 20:48:54], mode=WORKBENCH_UI_INIT, duration=0:00:00.700, duration_ms=700, data={editors_count=0, platform_editors_count=0, projects_count=2, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:48:54], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.730, duration_ms=730, data={}
+timestamp=[2026-04-04 20:52:10], mode=WORKBENCH_START, duration=0:00:08.592, duration_ms=8592, data={}
+timestamp=[2026-04-04 20:52:10], mode=WORKBENCH_UI_INIT, duration=0:00:00.555, duration_ms=555, data={editors_count=0, platform_editors_count=0, projects_count=2, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:52:11], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.791, duration_ms=791, data={}
+timestamp=[2026-04-04 20:53:23], mode=WORKBENCH_START, duration=0:00:08.958, duration_ms=8958, data={}
+timestamp=[2026-04-04 20:53:24], mode=WORKBENCH_UI_INIT, duration=0:00:00.523, duration_ms=523, data={editors_count=0, platform_editors_count=0, projects_count=2, platform_projects_count=1, active_platform_editor=false, projects=RemoteSystemsTempFiles,system_wrapper}
+timestamp=[2026-04-04 20:53:25], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.778, duration_ms=778, data={}

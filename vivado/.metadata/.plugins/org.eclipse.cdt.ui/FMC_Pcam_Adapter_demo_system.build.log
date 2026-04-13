@@ -1,0 +1,8 @@
+20:20:34 **** Clean-only build of configuration Debug for project FMC_Pcam_Adapter_demo_system ****
+make clean 
+rm -rf ./_sds
+rm -rf package
+rm -f system.bif
+
+20:20:34 Build Finished (took 118ms)
+
