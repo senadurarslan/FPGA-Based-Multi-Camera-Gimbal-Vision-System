@@ -1,93 +1,185 @@
-# Mühtas2-220208041
+# FPGA Tabanlı Çift Kamera Destekli Gerçek Zamanlı Görüntü Aktarım Sistemi
 
+Bu proje, **ZedBoard (Zynq-7000)** platformu üzerinde çalışan, **iki adet MIPI CSI-2 kamera** üzerinden alınan görüntü verisinin FPGA tabanlı işlenmesi ve **Ethernet üzerinden bilgisayara aktarılması** amacıyla geliştirilmektedir. Sistem, gömülü donanım-yazılım birlikte tasarım yaklaşımıyla kurgulanmış olup, gerçek zamanlı görüntü alma, tamponlama, temel işleme ve ağ üzerinden veri iletimi adımlarını içermektedir.
 
+Proje, özellikle **FPGA tabanlı akıllı kamera sistemleri**, **yüksek hızlı veri akışı**, **gömülü görüntü işleme**, ve **donanım-yazılım birlikte tasarımı** konularında uygulamalı bir çalışma sunmaktadır.
 
-## Getting started
+---
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Proje Amacı
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Bu projenin temel amacı:
 
-## Add your files
+- İki farklı kameradan eş zamanlı veya sıralı görüntü verisi almak,
+- Bu veriyi FPGA tabanlı mimari üzerinde yönetmek,
+- Gerekli ara tamponlama ve veri akışı kontrolünü sağlamak,
+- Ethernet altyapısı üzerinden görüntü/veri paketlerini bilgisayara aktarmak,
+- Bilgisayar tarafında alınan veriyi doğrulamak, işlemek ve görüntülemek,
+- İlerleyen aşamalarda görüntü birleştirme (stitching) ve ileri görüntü işleme adımlarına zemin hazırlamaktır.
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+---
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/senadurarslan/muhtas2-220208041.git
-git branch -M main
-git push -uf origin main
-```
+## Proje Kapsamı
 
-## Integrate with your tools
+Bu çalışma aşağıdaki temel alt sistemleri kapsamaktadır:
 
-* [Set up project integrations](https://gitlab.com/senadurarslan/muhtas2-220208041/-/settings/integrations)
+- **Kamera arayüzü**
+  - MIPI CSI-2 tabanlı kamera bağlantısı
+  - Dual Pcam yapısının incelenmesi ve uyarlanması
 
-## Collaborate with your team
+- **FPGA / PL tarafı**
+  - Görüntü verisinin donanım katmanında alınması
+  - IP blokları üzerinden veri akışının yönetimi
+  - VDMA / frame buffer yapılarının kullanılması
+  - Gerekli durumlarda AXI tabanlı veri aktarımı
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+- **PS tarafı (ARM Cortex-A9)**
+  - Bare-metal yazılım yürütme
+  - Kamera ve çevre birimlerinin kontrolü
+  - Ağ yapılandırması
+  - lwIP ile Ethernet haberleşmesi
 
-## Test and Deploy
+- **PC tarafı**
+  - Python ile UDP/socket tabanlı veri alma testleri
+  - Gelen veri paketlerinin doğrulanması
+  - İlerleyen aşamalarda görüntüleme / birleştirme / kayıt işlemleri
 
-Use the built-in continuous integration in GitLab.
+---
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+## Kullanılan Donanım ve Yazılım Bileşenleri
 
-***
+### Donanım
+- **ZedBoard**
+- **FMC Pcam Adapter**
+- **2 adet Pcam / MIPI kamera modülü**
+- Ethernet bağlantısı
+- Geliştirme bilgisayarı
 
-# Editing this README
+### Yazılım ve Araçlar
+- **Vivado**
+- **Vitis / Xilinx SDK**  
+- **C / C++**
+- **lwIP**
+- **Python/openCv**
+- Gerekli Xilinx BSP ve sürücü bileşenleri
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+---
 
-## Suggestions for a good README
+## Sistem Mimarisi
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Proje genel olarak iki ana bölümden oluşmaktadır:
 
-## Name
-Choose a self-explaining name for your project.
+### 1. Donanım Katmanı
+Donanım katmanında kameradan gelen görüntü verisi alınmakta, gerekli IP blokları üzerinden yönlendirilmekte ve bellek / tampon yapıları ile işlenmektedir. Bu katman, yüksek hızlı veri akışının güvenilir biçimde sürdürülmesinde kritik rol oynar.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### 2. Yazılım Katmanı
+Yazılım katmanında ise ARM işlemci üzerinde çalışan bare-metal uygulama ile:
+- donanım başlatma,
+- kamera konfigürasyonu,
+- ağ ayarlarının yapılması,
+- veri paketlerinin oluşturulması,
+- Ethernet üzerinden iletim
+gerçekleştirilmektedir.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+---
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Neden Bu Mimari Tercih Edildi?
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Projede tercih edilen mimari ve teknolojik kararların başlıca nedenleri şunlardır:
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Neden ZedBoard / Zynq-7000?
+- Hem **işlemci sistemi (PS)** hem de **programlanabilir mantık (PL)** aynı çip üzerinde bulunmaktadır.
+- Görüntü işleme gibi yüksek veri akışı gerektiren uygulamalarda uygundur.
+- Kamera, bellek ve Ethernet gibi bileşenleri tek sistem içinde yönetmeye elverişlidir.
+- Eğitim ve akademik prototipleme için yaygın kullanılan, kaynak desteği güçlü bir platformdur.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Neden Bare-metal?
+- Linux’a göre daha düşük gecikme sağlar.
+- Donanım kaynaklarına daha doğrudan erişim sunar.
+- Gerçek zamanlı davranış açısından daha kontrollü bir yapı sağlar.
+- Prototip geliştirme ve donanım doğrulama aşamasında daha sade bir yapı sunar.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Neden Ethernet?
+- Bilgisayara veri aktarmanın pratik ve yaygın bir yoludur.
+- USB/UART gibi arayüzlere göre daha yüksek veri taşıma potansiyeli sunar.
+- Ağ tabanlı veri alma, kaydetme ve işleme uygulamalarına uygundur.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Neden UDP?
+- TCP’ye göre daha düşük protokol yüküne sahiptir.
+- Gerçek zamanlı veri akışı için daha hafif bir iletişim yapısı sunar.
+- Görüntü aktarımında düşük gecikme öncelikli olduğunda avantaj sağlar.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### Neden Python?
+- Bilgisayar tarafında hızlı prototipleme sağlar.
+- `socket` ile UDP veri alma testleri kolayca yapılabilir.
+- İlerleyen aşamalarda OpenCV, NumPy gibi kütüphanelerle görüntü işleme entegrasyonu kolaydır.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+---
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Şu Ana Kadar Yapılan Çalışmalar
 
-## License
-For open source projects, say how it is licensed.
+Bu repo, projenin geliştirme sürecini ve ara çıktıları içermektedir. Şu ana kadar tamamlanan başlıca adımlar:
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- FPGA ve ZedBoard geliştirme ortamının kurulması
+- Temel Vivado / Vitis iş akışının öğrenilmesi
+- LED / buton / switch gibi temel donanım testlerinin yapılması
+- Referans kamera projelerinin incelenmesi
+- Digilent Dual Pcam Demo yapısının analiz edilmesi
+- Kamera veri akışına yönelik blok diyagramın incelenmesi
+- UART üzerinden test mesajlarının başarıyla alınması
+- Ethernet altyapısının oluşturulması
+- Statik IP yapılandırmasının yapılması
+- Board ile bilgisayar arasında temel ağ haberleşmesinin doğrulanması
+- Python üzerinden socket kullanılarak veri alma testlerinin yapılması
+- “Hello Zynq” benzeri test mesajlarının başarıyla alınması
+- Bu aşamanın, Ethernet yapılandırmasının doğru çalıştığını gösteren bir kilometre taşı olarak doğrulanması
+
+---
+
+## Mevcut Durum
+
+Proje halen geliştirme aşamasındadır. Mevcut durumda sistemde aşağıdaki yapı doğrulanmış / üzerinde çalışılmıştır:
+
+- Donanım platformunun oluşturulması
+- Yazılım ortamının hazırlanması
+- Ethernet haberleşmesinin temel seviyede çalıştırılması
+- Bilgisayar tarafında test verisinin alınması
+
+Geliştirme süreci, kamera verisinin güvenilir biçimde alınması ve bilgisayara görüntü verisi olarak aktarılması yönünde ilerlemektedir.
+
+---
+
+## Hedeflenen Sonraki Aşamalar
+
+Planlanan sonraki çalışmalar şunlardır:
+
+- Kameradan alınan ham frame verisinin doğrulanması
+- Ethernet üzerinden görüntü verisi paketlerinin iletilmesi
+- Paketleme yapısının optimize edilmesi
+- Bilgisayar tarafında frame yeniden oluşturma
+- Görüntünün ekranda gösterilmesi
+- Çift kamera verisinin senkronizasyonu
+- Görüntü birleştirme (stitching) için ön işleme altyapısının hazırlanması
+- Gerekirse temel FPGA tabanlı ön işleme bloklarının eklenmesi
+
+---
+
+## Klasör Yapısı
+
+> Not: Aşağıdaki yapı örnek olarak verilmiştir. Repo içeriğine göre güncellenebilir.
+
+```bash
+.
+├── vivado/
+
+├── vitis/
+
+├── python/
+
+├── deneme/
+
+├── secmeli_lab/
+
+├── belgeler/
+
+└── README.md
