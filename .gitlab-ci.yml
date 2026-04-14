@@ -1,7 +1,0 @@
-stages:
-  - test
-
-test_job:
-  stage: test
-  script:
-    - echo "CI calisiyor"
