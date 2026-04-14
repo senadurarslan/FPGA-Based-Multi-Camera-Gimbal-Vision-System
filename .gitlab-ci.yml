@@ -4,18 +4,56 @@ stages:
 project_structure_check:
   stage: check
   script:
-    - echo "Proje yapisi kontrol ediliyor..."
+    - |
+      echo "Proje yapisi kontrol ediliyor..."
 
-    - if [ -d "vivado" ]; then echo "vivado klasoru bulundu"; else echo "HATA: vivado klasoru yok"; exit 1; fi
-    - if [ -d "Vitis_project" ]; then echo "Vitis_project klasoru bulundu"; else echo "HATA: Vitis_project klasoru yok"; exit 1; fi
+      if [ -d "vivado" ]; then
+        echo "vivado klasoru bulundu"
+      else
+        echo "HATA: vivado klasoru yok"
+        exit 1
+      fi
 
-    - if [ "$(ls -A vivado)" ]; then echo "vivado klasoru dolu"; else echo "HATA: vivado klasoru bos"; exit 1; fi
-    - if [ "$(ls -A Vitis_project)" ]; then echo "Vitis_project klasoru dolu"; else echo "HATA: Vitis_project klasoru bos"; exit 1; fi
+      if [ -d "Vitis_project" ]; then
+        echo "Vitis_project klasoru bulundu"
+      else
+        echo "HATA: Vitis_project klasoru yok"
+        exit 1
+      fi
 
-    - if [ -f "README.md" ]; then echo "README bulundu"; else echo "HATA: README.md yok"; exit 1; fi
+      if [ "$(ls -A vivado)" ]; then
+        echo "vivado klasoru dolu"
+      else
+        echo "HATA: vivado klasoru bos"
+        exit 1
+      fi
 
-    - if find vivado -type f -name "*.xpr" | grep -q .; then echo "Vivado proje dosyasi (.xpr) bulundu"; else echo "HATA: vivado icinde .xpr dosyasi bulunamadi"; exit 1; fi
+      if [ "$(ls -A Vitis_project)" ]; then
+        echo "Vitis_project klasoru dolu"
+      else
+        echo "HATA: Vitis_project klasoru bos"
+        exit 1
+      fi
 
-    - if find Vitis_project \( -name "*.c" -o -name "*.cc" -o -name "*.cpp" -o -name "*.h" \) | grep -q .; then echo "Vitis kaynak dosyalari bulundu"; else echo "HATA: Vitis_project icinde kaynak kod dosyasi bulunamadi"; exit 1; fi
+      if [ -f "README.md" ]; then
+        echo "README bulundu"
+      else
+        echo "HATA: README.md yok"
+        exit 1
+      fi
 
-    - echo "Tum kontroller basarili ✅"
+      if find vivado -type f -name "*.xpr" | grep -q .; then
+        echo "Vivado proje dosyasi (.xpr) bulundu"
+      else
+        echo "HATA: vivado icinde .xpr dosyasi bulunamadi"
+        exit 1
+      fi
+
+      if find Vitis_project -type f \( -name "*.c" -o -name "*.cc" -o -name "*.cpp" -o -name "*.h" \) | grep -q .; then
+        echo "Vitis kaynak dosyalari bulundu"
+      else
+        echo "HATA: Vitis_project icinde kaynak kod dosyasi bulunamadi"
+        exit 1
+      fi
+
+      echo "Tum kontroller basarili"
