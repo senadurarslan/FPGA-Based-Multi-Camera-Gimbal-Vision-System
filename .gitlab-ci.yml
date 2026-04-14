@@ -28,4 +28,4 @@ project_structure_check:
         exit 1
       fi
 
-      echo "Temel kontroller basarili ✅"
+      echo "Temel kontroller basarili"
