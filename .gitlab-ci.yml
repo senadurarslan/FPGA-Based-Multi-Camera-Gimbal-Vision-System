@@ -4,4 +4,4 @@ stages:
 test_job:
   stage: test
   script:
-    - echo "CI calisiyor" 
+    - echo "CI calisiyor"
