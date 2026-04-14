@@ -1,7 +1,11 @@
 stages:
-  - test
+  - validate
 
-test_job:
-  stage: test
+validate_structure:
+  stage: validate
   script:
-    - echo "CI calisiyor"
+    - echo "Proje yapisi kontrol ediliyor"
+    - test -d vivado || exit 1
+    - test -d Vitis_project || exit 1
+    - test -f README.md || exit 1
+    - echo "Temel kontroller basarili"
