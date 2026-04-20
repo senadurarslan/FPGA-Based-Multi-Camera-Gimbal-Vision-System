@@ -14,10 +14,22 @@ extern "C" {
 #include "lwip/pbuf.h"
 #include "lwip/udp.h"
 #include "netif/xadapter.h"
+#include "xil_cache.h"
+#define UDP_PAYLOAD_SIZE 1400
+
+typedef struct __attribute__((packed)) {
+    u32 frame_id;
+    u16 packet_id;
+    u16 total_packets;
+    u16 payload_size;
+} frame_pkt_hdr_t;
+
+int send_fragmented_frame(uintptr_t frame_addr, u32 frame_size, u32 frame_id, u32 max_packets);
 
 int init_network(void);
 int start_udp(void);
 int send_test_packet(void);
+int send_ddr_packet(uintptr_t frame_addr, u32 length);
 void network_poll(void);
 
 #ifdef __cplusplus

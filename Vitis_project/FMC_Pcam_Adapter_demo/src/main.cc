@@ -266,13 +266,13 @@ int main()
 
 		xil_printf("[MAIN] start_udp ok\r\n");
 
-		if (send_test_packet() != XST_SUCCESS)
+		if (send_fragmented_frame(frame_baseaddr, 1400 * 3, 1, 3) != XST_SUCCESS)
 		{
-			xil_printf("[MAIN] send_test_packet failed\r\n");
+			xil_printf("[MAIN] send_fragmented_frame failed\r\n");
 		}
 		else
 		{
-			xil_printf("[MAIN] send_test_packet ok\r\n");
+			xil_printf("[MAIN] send_fragmented_frame ok\r\n");
 		}
 
 		while (1)

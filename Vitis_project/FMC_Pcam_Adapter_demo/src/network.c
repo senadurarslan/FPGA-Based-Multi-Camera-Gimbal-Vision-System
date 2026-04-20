@@ -1,4 +1,5 @@
 #include "network.h"
+#include "xil_cache.h"
 #include <string.h>
 
 #ifdef __cplusplus
@@ -105,11 +106,10 @@ int start_udp(void)
     return XST_SUCCESS;
 }
 
-int send_test_packet(void)
-{
-    static const char msg[] = "HELLO_FROM_ZYNQ";
 
-    xil_printf("[NET] send_test_packet entered\r\n");
+int send_fragmented_frame(uintptr_t frame_addr, u32 frame_size, u32 frame_id, u32 max_packets)
+{
+    xil_printf("[NET] send_fragmented_frame entered\r\n");
 
     if (udp_pcb_ptr == 0)
     {
@@ -117,25 +117,62 @@ int send_test_packet(void)
         return XST_FAILURE;
     }
 
-    struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, sizeof(msg), PBUF_RAM);
-    if (p == 0)
+    if (frame_size == 0)
     {
-        xil_printf("[NET] ERROR: pbuf_alloc failed\r\n");
+        xil_printf("[NET] ERROR: frame_size is zero\r\n");
         return XST_FAILURE;
     }
 
-    memcpy(p->payload, msg, sizeof(msg));
+    Xil_DCacheInvalidateRange((INTPTR)frame_addr, frame_size);
 
-    if (udp_send(udp_pcb_ptr, p) != ERR_OK)
+    u32 total_packets = (frame_size + UDP_PAYLOAD_SIZE - 1) / UDP_PAYLOAD_SIZE;
+
+    if (max_packets > total_packets)
+        max_packets = total_packets;
+
+    xil_printf("[NET] frame_size=%lu total_packets=%lu sending=%lu\r\n",
+               frame_size, total_packets, max_packets);
+
+    for (u32 pkt = 0; pkt < max_packets; pkt++)
     {
-        xil_printf("[NET] ERROR: udp_send failed\r\n");
+        u32 offset = pkt * UDP_PAYLOAD_SIZE;
+        u32 remaining = frame_size - offset;
+        u32 payload_size = (remaining > UDP_PAYLOAD_SIZE) ? UDP_PAYLOAD_SIZE : remaining;
+
+        frame_pkt_hdr_t hdr;
+        hdr.frame_id = frame_id;
+        hdr.packet_id = (u16)pkt;
+        hdr.total_packets = (u16)total_packets;
+        hdr.payload_size = (u16)payload_size;
+
+        u32 tx_len = sizeof(frame_pkt_hdr_t) + payload_size;
+
+        struct pbuf *p = pbuf_alloc(PBUF_TRANSPORT, tx_len, PBUF_RAM);
+        if (p == 0)
+        {
+            xil_printf("[NET] ERROR: pbuf_alloc failed at packet %lu\r\n", pkt);
+            return XST_FAILURE;
+        }
+
+        memcpy((u8 *)p->payload, &hdr, sizeof(frame_pkt_hdr_t));
+        memcpy((u8 *)p->payload + sizeof(frame_pkt_hdr_t),
+               (void *)(frame_addr + offset),
+               payload_size);
+
+        if (udp_send(udp_pcb_ptr, p) != ERR_OK)
+        {
+            xil_printf("[NET] ERROR: udp_send failed at packet %lu\r\n", pkt);
+            pbuf_free(p);
+            return XST_FAILURE;
+        }
+
         pbuf_free(p);
-        return XST_FAILURE;
+
+        xil_printf("[NET] packet %lu/%lu sent, payload=%lu\r\n",
+                   pkt + 1, max_packets, payload_size);
     }
 
-    pbuf_free(p);
-
-    xil_printf("[NET] TEST PACKET SENT\r\n");
+    xil_printf("[NET] fragmented frame send done\r\n");
     return XST_SUCCESS;
 }
 
