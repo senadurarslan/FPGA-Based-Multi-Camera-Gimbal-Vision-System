@@ -65,7 +65,7 @@ using namespace digilent;
 static void input_pipeline_mode_change(AXI_VDMA<ScuGicInterruptController>& vdma_driver, OV5640& cam, Scaler& scaler, Resolution HW_ScaledCaptureRes, Resolution VideoOutputRes, OV5640_cfg::mode_t mode, uintptr_t dphy_baseaddr, uintptr_t csi2_baseaddr, uintptr_t gamma_baseaddr, u8 master_select, bool is_master);
 static void output_pipeline_mode_change(AXI_VDMA<ScuGicInterruptController>& vdma_driver, VideoOutput& vid, Resolution VideoOutputRes, u8 master_select);
 
-
+static u32 test_frame_id = 1;
 
 int main()
 {
@@ -257,6 +257,7 @@ int main()
 
 		xil_printf("[MAIN] init_network ok\r\n");
 
+
 		if (start_udp() != XST_SUCCESS)
 		{
 			xil_printf("[MAIN] start_udp failed\r\n");
@@ -266,19 +267,20 @@ int main()
 
 		xil_printf("[MAIN] start_udp ok\r\n");
 
-		if (send_fragmented_frame(frame_baseaddr, 1400 * 3, 1, 3) != XST_SUCCESS)
+		xil_printf("[MAIN] Sending frame...\r\n");
+		if (send_fragmented_frame(frame_baseaddr, 1400 * 10, test_frame_id++, 10) != XST_SUCCESS)
 		{
-			xil_printf("[MAIN] send_fragmented_frame failed\r\n");
+		    xil_printf("[MAIN] send_fragmented_frame failed\r\n");
 		}
 		else
 		{
-			xil_printf("[MAIN] send_fragmented_frame ok\r\n");
+		    xil_printf("[MAIN] send_fragmented_frame ok\r\n");
 		}
 
 		while (1)
 		{
-			network_poll();
-			::usleep(1000);
+		    network_poll();
+		    ::usleep(1000);
 		}
 }
 

@@ -1,5 +1,6 @@
 #include "network.h"
 #include "xil_cache.h"
+#include "sleep.h"
 #include <string.h>
 
 #ifdef __cplusplus
@@ -103,6 +104,25 @@ int start_udp(void)
     xil_printf("[NET] UDP ready local=%d remote=%d\r\n",
                UDP_LOCAL_PORT, UDP_REMOTE_PORT);
 
+    /* ARP pre-resolution */
+        xil_printf("[NET] ARP pre-resolution...\r\n");
+
+        struct pbuf *arp_probe = pbuf_alloc(PBUF_TRANSPORT, 1, PBUF_RAM);
+        if (arp_probe != 0)
+        {
+            *((u8 *)arp_probe->payload) = 0xAA;
+            udp_send(udp_pcb_ptr, arp_probe);
+            pbuf_free(arp_probe);
+        }
+
+        for (int i = 0; i < 500; i++)
+        {
+            network_poll();
+            usleep(1000);
+        }
+
+        xil_printf("[NET] ARP pre-resolution done\r\n");
+
     return XST_SUCCESS;
 }
 
@@ -159,21 +179,22 @@ int send_fragmented_frame(uintptr_t frame_addr, u32 frame_size, u32 frame_id, u3
                (void *)(frame_addr + offset),
                payload_size);
 
-        if (udp_send(udp_pcb_ptr, p) != ERR_OK)
-        {
-            xil_printf("[NET] ERROR: udp_send failed at packet %lu\r\n", pkt);
-            pbuf_free(p);
-            return XST_FAILURE;
-        }
+        err_t err = udp_send(udp_pcb_ptr, p);
+              pbuf_free(p);
 
-        pbuf_free(p);
+              if (err != ERR_OK)
+              {
+                  xil_printf("[NET] ERROR: udp_send err=%d pkt=%lu\r\n", err, pkt);
+                  return XST_FAILURE;
+              }
 
-        xil_printf("[NET] packet %lu/%lu sent, payload=%lu\r\n",
-                   pkt + 1, max_packets, payload_size);
-    }
+              /* kritik: her paketten sonra lwIP/netif'i iþlet */
+              network_poll();
+              usleep(1000);
+          }
 
-    xil_printf("[NET] fragmented frame send done\r\n");
-    return XST_SUCCESS;
+          xil_printf("[NET] frame %lu sent (%lu packets)\r\n", frame_id, max_packets);
+          return XST_SUCCESS;
 }
 
 void network_poll(void)
