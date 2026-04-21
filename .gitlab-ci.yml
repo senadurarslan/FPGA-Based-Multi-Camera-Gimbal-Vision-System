@@ -1,0 +1,21 @@
+stages:
+  - verify
+
+verify_vitis_sources:
+  stage: verify
+  script:
+    - echo "Vitis proje klasorleri kontrol ediliyor"
+    - test -d Vitis_project
+    - test -d Vitis_project/FMC_Pcam_Adapter_demo
+    - test -d Vitis_project/FMC_Pcam_Adapter_demo/src
+
+    - echo "src altindaki tum dosyalar listeleniyor"
+    - find Vitis_project/FMC_Pcam_Adapter_demo/src -type f
+
+    - echo "C/C++ kaynak dosyalari aranıyor"
+    - find Vitis_project/FMC_Pcam_Adapter_demo/src \( -name "*.c" -o -name "*.cc" -o -name "*.h" -o -name "*.hpp" \) | tee source_list.txt
+
+    - echo "En az bir kaynak dosyasi var mi kontrol ediliyor"
+    - test -s source_list.txt
+
+    - echo "Vitis kaynak dosyalari bulundu"
