@@ -98,3 +98,18 @@ timestamp=[2026-04-21 00:46:30], mode=BUILD, duration=0:00:02.711, duration_ms=2
 timestamp=[2026-04-21 01:36:58], mode=BUILD, duration=0:00:03.515, duration_ms=3515, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
 timestamp=[2026-04-21 01:40:19], mode=BUILD, duration=0:00:00.363, duration_ms=363, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
 timestamp=[2026-04-21 01:41:57], mode=BUILD, duration=0:00:03.152, duration_ms=3152, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
+timestamp=[2026-04-21 01:48:34], mode=WORKBENCH_START, duration=0:00:13.790, duration_ms=13790, data={}
+timestamp=[2026-04-21 01:48:35], mode=WORKBENCH_UI_INIT, duration=0:00:01.573, duration_ms=1573, data={editors_count=4, platform_editors_count=0, projects_count=6, platform_projects_count=1, active_platform_editor=false, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,eth_app,eth_app_system,system_wrapper}
+timestamp=[2026-04-21 01:48:36], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:01.585, duration_ms=1585, data={}
+timestamp=[2026-04-21 01:49:35], mode=BUILD, duration=0:00:00.442, duration_ms=442, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
+timestamp=[2026-04-21 01:57:32], mode=BUILD, duration=0:00:03.428, duration_ms=3428, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
+timestamp=[2026-04-21 02:02:48], mode=BUILD, duration=0:00:02.766, duration_ms=2766, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
+timestamp=[2026-04-21 02:11:18], mode=BUILD, duration=0:00:02.993, duration_ms=2993, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
+timestamp=[2026-04-21 02:22:00], mode=BUILD, duration=0:00:02.499, duration_ms=2499, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
+timestamp=[2026-04-25 13:05:53], mode=WORKBENCH_START, duration=0:00:19.273, duration_ms=19273, data={}
+timestamp=[2026-04-25 13:05:54], mode=WORKBENCH_UI_INIT, duration=0:00:01.152, duration_ms=1152, data={editors_count=4, platform_editors_count=0, projects_count=6, platform_projects_count=1, active_platform_editor=false, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,eth_app,eth_app_system,system_wrapper}
+timestamp=[2026-04-25 13:05:58], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:00.884, duration_ms=884, data={}
+timestamp=[2026-04-25 13:06:13], mode=BUILD, duration=0:00:01.543, duration_ms=1543, data={name=FMC_Pcam_Adapter_demo, configuration=Debug, clean_build=false}
+timestamp=[2026-04-25 13:57:00], mode=WORKBENCH_START, duration=0:00:18.897, duration_ms=18897, data={}
+timestamp=[2026-04-25 13:57:02], mode=WORKBENCH_UI_INIT, duration=0:00:01.785, duration_ms=1785, data={editors_count=4, platform_editors_count=0, projects_count=6, platform_projects_count=1, active_platform_editor=false, projects=FMC_Pcam_Adapter_demo,FMC_Pcam_Adapter_demo_system,RemoteSystemsTempFiles,eth_app,eth_app_system,system_wrapper}
+timestamp=[2026-04-25 13:57:04], mode=PLATFORM_REPOSITORY_INIT, duration=0:00:02.152, duration_ms=2152, data={}

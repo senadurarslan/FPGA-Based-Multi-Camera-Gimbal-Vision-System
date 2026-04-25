@@ -267,16 +267,15 @@ int main()
 
 		xil_printf("[MAIN] start_udp ok\r\n");
 
-		xil_printf("[MAIN] Sending frame...\r\n");
-		if (send_fragmented_frame(frame_baseaddr, 1400 * 10, test_frame_id++, 10) != XST_SUCCESS)
+		xil_printf("[MAIN] Sending Port A frame...\r\n");
+		if (send_port_a_frame(frame_baseaddr, test_frame_id++) != XST_SUCCESS)
 		{
-		    xil_printf("[MAIN] send_fragmented_frame failed\r\n");
+		    xil_printf("[MAIN] send_port_a_frame failed\r\n");
 		}
 		else
 		{
-		    xil_printf("[MAIN] send_fragmented_frame ok\r\n");
+		    xil_printf("[MAIN] send_port_a_frame ok\r\n");
 		}
-
 		while (1)
 		{
 		    network_poll();
