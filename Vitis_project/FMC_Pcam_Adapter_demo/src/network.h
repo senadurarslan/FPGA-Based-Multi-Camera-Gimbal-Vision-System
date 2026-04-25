@@ -32,6 +32,7 @@ int start_udp(void);
 int send_test_packet(void);
 int send_ddr_packet(uintptr_t frame_addr, u32 length);
 int send_fragmented_frame(uintptr_t frame_addr, u32 frame_size, u32 frame_id, u32 max_packets);
+int send_port_a_frame(uintptr_t frame_addr, u32 frame_id);
 void network_poll(void);
 
 #ifdef __cplusplus
