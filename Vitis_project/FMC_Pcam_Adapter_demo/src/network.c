@@ -143,6 +143,8 @@ int send_fragmented_frame(uintptr_t frame_addr, u32 frame_size, u32 frame_id, u3
         return XST_FAILURE;
     }
 
+    Xil_DCacheInvalidateRange((INTPTR)frame_addr, frame_size);
+
     u32 total_packets = (frame_size + UDP_PAYLOAD_SIZE - 1) / UDP_PAYLOAD_SIZE;
 
     if (max_packets > total_packets)
@@ -193,36 +195,6 @@ int send_fragmented_frame(uintptr_t frame_addr, u32 frame_size, u32 frame_id, u3
 
           xil_printf("[NET] frame %lu sent (%lu packets)\r\n", frame_id, max_packets);
           return XST_SUCCESS;
-}
-
-int send_port_a_frame(uintptr_t frame_addr, u32 frame_id)
-{
-    const u32 SRC_WIDTH = 1920;
-    const u32 ROI_WIDTH = 960;
-    const u32 ROI_HEIGHT = 540;
-    const u32 BPP = 3;
-
-    const u32 src_stride = SRC_WIDTH * BPP;
-    const u32 roi_row_bytes = ROI_WIDTH * BPP;
-    const u32 roi_size = ROI_WIDTH * ROI_HEIGHT * BPP;
-
-    xil_printf("[NET] send_port_a_frame entered\r\n");
-    xil_printf("[NET] roi_size = %lu\r\n", roi_size);
-
-    static u8 packed_frame[960 * 540 * 3];
-
-    Xil_DCacheInvalidateRange((INTPTR)frame_addr, 1920 * 1080 * BPP);
-
-    for (u32 row = 0; row < ROI_HEIGHT; row++)
-    {
-        u8 *src = (u8 *)(frame_addr + row * src_stride);
-        u8 *dst = &packed_frame[row * roi_row_bytes];
-        memcpy(dst, src, roi_row_bytes);
-    }
-
-    Xil_DCacheFlushRange((INTPTR)packed_frame, roi_size);
-
-    return send_fragmented_frame((uintptr_t)packed_frame, roi_size, frame_id, 2000);
 }
 
 void network_poll(void)
