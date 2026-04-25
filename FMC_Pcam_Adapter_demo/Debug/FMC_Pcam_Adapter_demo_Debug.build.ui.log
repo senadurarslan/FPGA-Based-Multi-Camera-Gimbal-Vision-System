@@ -1,0 +1,10 @@
+2026-04-25T13:06:11.545691600255-13:06:11 **** Incremental Build of configuration Debug for project FMC_Pcam_Adapter_demo ****
+000-make all 
+000-make --no-print-directory pre-build
+000-a9-linaro-pre-build-step
+000-' '
+000-make --no-print-directory main-build
+000-make[1]: Nothing to be done for 'main-build'.
+00255-
+13:06:13 Build Finished (took 1s.503ms)
+
