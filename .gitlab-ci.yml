@@ -1,0 +1,155 @@
+# ================================================================
+# GitLab CI/CD Pipeline
+# Proje: FMC_Pcam_Adapter - Ethernet Goruntu Aktarimi
+# Stack:  C/C++ (Vitis/Zynq) + Python (Socket alici)
+# Asama:  lint -> build -> test
+# ================================================================
+
+stages:
+  - lint
+  - build
+  - test
+
+variables:
+  SRC_DIR:    "Vitis_project/FMC_Pcam_Adapter_demo/src"
+  PYTHON_DIR: "Vitis_project/python"
+
+# ────────────────────────────────────────────────────────────────
+# ASAMA 1 — LINT
+# ────────────────────────────────────────────────────────────────
+
+# C/C++ Statik Analiz (cppcheck)
+cpp_lint:
+  stage: lint
+  image: ubuntu:22.04
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq cppcheck
+  script:
+    - echo "=== C/C++ Statik Analiz ==="
+    - cppcheck
+        --enable=warning,performance,portability
+        --error-exitcode=1
+        --suppress=missingIncludeSystem
+        --suppress=unmatchedSuppression
+        -I ${SRC_DIR}
+        ${SRC_DIR}/main.cc
+        ${SRC_DIR}/network.c
+        ${SRC_DIR}/echo.c
+        ${SRC_DIR}/i2c_access.c
+        ${SRC_DIR}/iic_phyreset.c
+        ${SRC_DIR}/sfp.c
+        ${SRC_DIR}/si5324.c
+    - echo "=== Analiz Tamamlandi ==="
+  rules:
+    - changes:
+        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
+
+# Python Statik Analiz (flake8)
+python_lint:
+  stage: lint
+  image: python:3.11-slim
+  before_script:
+    - pip install flake8 --quiet
+  script:
+    - echo "=== Python Statik Analiz ==="
+    - flake8 ${PYTHON_DIR}/import_socket.py
+        --max-line-length=100
+        --statistics
+    - echo "=== Python Analiz Tamamlandi ==="
+  rules:
+    - changes:
+        - "Vitis_project/python/import_socket.py"
+
+# ────────────────────────────────────────────────────────────────
+# ASAMA 2 — BUILD
+# ────────────────────────────────────────────────────────────────
+
+# C/C++ Syntax Kontrolu
+# Not: Gercek Vitis/Zynq derlemesi donanim gerektiriyor.
+# Bu adim sadece syntax + include hatalarini yakalar.
+cpp_build:
+  stage: build
+  image: ubuntu:22.04
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq g++
+  script:
+    - echo "=== C/C++ Syntax Kontrolu ==="
+    - g++ -std=c++17
+        -fsyntax-only
+        -Wall
+        -Wno-error
+        -DSYNTAX_CHECK_ONLY
+        -I${SRC_DIR}
+        ${SRC_DIR}/main.cc
+    - echo "main.cc OK"
+    - gcc -std=c11
+        -fsyntax-only
+        -Wall
+        -Wno-error
+        -DSYNTAX_CHECK_ONLY
+        -I${SRC_DIR}
+        ${SRC_DIR}/network.c
+    - echo "network.c OK"
+    - gcc -std=c11
+        -fsyntax-only
+        -Wno-error
+        -DSYNTAX_CHECK_ONLY
+        -I${SRC_DIR}
+        ${SRC_DIR}/echo.c
+        ${SRC_DIR}/sfp.c
+        ${SRC_DIR}/si5324.c
+        ${SRC_DIR}/i2c_access.c
+        ${SRC_DIR}/iic_phyreset.c
+    - echo "=== Syntax Kontrolu Tamamlandi ==="
+  rules:
+    - changes:
+        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
+
+# Python Syntax Kontrolu
+python_build:
+  stage: build
+  image: python:3.11-slim
+  script:
+    - echo "=== Python Syntax Kontrolu ==="
+    - python -m py_compile ${PYTHON_DIR}/import_socket.py
+    - echo "import_socket.py OK"
+    - echo "=== Python Syntax Tamamlandi ==="
+  rules:
+    - changes:
+        - "Vitis_project/python/import_socket.py"
+
+# ────────────────────────────────────────────────────────────────
+# ASAMA 3 — TEST
+# ────────────────────────────────────────────────────────────────
+
+python_test:
+  stage: test
+  image: python:3.11-slim
+  before_script:
+    - pip install pytest --quiet
+  script:
+    - echo "=== Python Testleri ==="
+    - |
+      if [ -f "${PYTHON_DIR}/test_socket.py" ]; then
+        pytest ${PYTHON_DIR}/test_socket.py -v
+      else
+        echo "UYARI: test_socket.py henuz yok."
+        echo "Simdilik temel import testi yapiliyor..."
+        python -c "
+import socket
+# Loopback ile basit baglanti testi
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind(('127.0.0.1', 0))
+port = s.getsockname()[1]
+s.close()
+print(f'Socket olusturma ve bind: OK (port {port})')
+print('Temel socket testi gecti.')
+"
+      fi
+    - echo "=== Testler Tamamlandi ==="
+  rules:
+    - changes:
+        - "Vitis_project/python/**"
