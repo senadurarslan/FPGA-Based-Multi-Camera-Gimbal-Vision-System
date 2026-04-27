@@ -11,30 +11,29 @@ python_lint:
   tags:
     - windows
   script:
-    - echo "Bulundugumuz klasor:"
-    - pwd
-    - echo "Klasor icerigi:"
-    - ls
-    - echo "Vitis_project icerigi:"
-    - ls Vitis_project
-    - echo "Python klasoru:"
-    - ls Vitis_project/python
     - pip install flake8 --quiet
-    - flake8 $env:PYTHON_DIR/import_socket.py --max-line-length=100
+    - flake8 "$env:PYTHON_DIR/import_socket.py" --max-line-length=100
+  rules:
+    - changes:
+        - "Vitis_project/python/import_socket.py"
 
 python_test:
   stage: test
   tags:
     - windows
   script:
-    - python -m py_compile $env:PYTHON_DIR/import_socket.py
+    - python -m py_compile "$env:PYTHON_DIR/import_socket.py"
     - python -c "import socket; s = socket.socket(); s.bind(('127.0.0.1', 0)); p = s.getsockname()[1]; s.close(); print('Socket OK port:', p)"
+  rules:
+    - changes:
+        - "Vitis_project/python/**"
 
 cpp_lint:
   stage: lint
   tags:
     - windows
   script:
-    - echo "SRC_DIR:"
-    - ls $env:SRC_DIR
-    - cppcheck --enable=warning --error-exitcode=1 --suppress=missingIncludeSystem -I $env:SRC_DIR $env:SRC_DIR/network.c $env:SRC_DIR/echo.c $env:SRC_DIR/i2c_access.c $env:SRC_DIR/sfp.c $env:SRC_DIR/si5324.c
+    - cppcheck --enable=warning --error-exitcode=1 --suppress=missingIncludeSystem -I $env:SRC_DIR $env:SRC_DIR
+  rules:
+    - changes:
+        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
