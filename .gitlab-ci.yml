@@ -135,19 +135,8 @@ python_test:
       if [ -f "${PYTHON_DIR}/test_socket.py" ]; then
         pytest ${PYTHON_DIR}/test_socket.py -v
       else
-        echo "UYARI: test_socket.py henuz yok."
-        echo "Simdilik temel import testi yapiliyor..."
-        python -c "
-import socket
-# Loopback ile basit baglanti testi
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(('127.0.0.1', 0))
-port = s.getsockname()[1]
-s.close()
-print(f'Socket olusturma ve bind: OK (port {port})')
-print('Temel socket testi gecti.')
-"
+        echo "UYARI: test_socket.py henuz yok, temel test yapiliyor..."
+        python -c "import socket; s = socket.socket(); s.bind(('127.0.0.1', 0)); p = s.getsockname()[1]; s.close(); print('Socket OK, port:', p)"
       fi
     - echo "=== Testler Tamamlandi ==="
   rules:
