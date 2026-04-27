@@ -1,10 +1,15 @@
 stages:
   - lint
+  - build
   - test
 
 variables:
   SRC_DIR: "Vitis_project/FMC_Pcam_Adapter_demo/src"
   PYTHON_DIR: "Vitis_project/python"
+
+# ─────────────────────────────────────────
+# LINT
+# ─────────────────────────────────────────
 
 python_lint:
   stage: lint
@@ -17,6 +22,41 @@ python_lint:
     - changes:
         - "Vitis_project/python/import_socket.py"
 
+cpp_lint:
+  stage: lint
+  tags:
+    - windows
+  script:
+    - cppcheck --enable=warning --error-exitcode=1 --suppress=missingIncludeSystem -I $env:SRC_DIR $env:SRC_DIR
+  rules:
+    - changes:
+        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
+
+# ─────────────────────────────────────────
+# BUILD (CMake)
+# ─────────────────────────────────────────
+
+cmake_build:
+  stage: build
+  tags:
+    - windows
+  script:
+    - echo "CMake build basliyor..."
+    - cmake --version
+    - mkdir -p build
+    - cd build
+    - cmake .. -G "MinGW Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
+    - cmake --build . --config Release
+    - echo "CMake build tamamlandi."
+  rules:
+    - changes:
+        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
+        - "CMakeLists.txt"
+
+# ─────────────────────────────────────────
+# TEST
+# ─────────────────────────────────────────
+
 python_test:
   stage: test
   tags:
@@ -27,13 +67,3 @@ python_test:
   rules:
     - changes:
         - "Vitis_project/python/**"
-
-cpp_lint:
-  stage: lint
-  tags:
-    - windows
-  script:
-    - cppcheck --enable=warning --error-exitcode=1 --suppress=missingIncludeSystem -I $env:SRC_DIR $env:SRC_DIR
-  rules:
-    - changes:
-        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
