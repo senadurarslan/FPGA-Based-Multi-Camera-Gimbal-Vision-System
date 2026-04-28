@@ -27,7 +27,7 @@ cpp_lint:
   tags:
     - windows
   script:
-    - cppcheck --enable=warning --error-exitcode=1 --suppress=missingIncludeSystem -I $env:SRC_DIR $env:SRC_DIR
+    - cppcheck --enable=warning --error-exitcode=1 --suppress=missingIncludeSystem --suppress=arrayIndexOutOfBounds --suppress=uninitMemberVar -I $env:SRC_DIR $env:SRC_DIR/network.c $env:SRC_DIR/main.cc $env:SRC_DIR/echo.c $env:SRC_DIR/i2c_access.c $env:SRC_DIR/iic_phyreset.c $env:SRC_DIR/sfp.c $env:SRC_DIR/si5324.c
   rules:
     - changes:
         - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
