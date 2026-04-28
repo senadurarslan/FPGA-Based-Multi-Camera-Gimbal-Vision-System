@@ -1,3 +1,4 @@
+[![Pipeline Status](https://gitlab.com/senadurarslan/muhtas2-220208041/badges/main/pipeline.svg)](https://gitlab.com/senadurarslan/muhtas2-220208041/-/pipelines) 
 # FPGA Tabanlı Çift Kamera Destekli Gerçek Zamanlı Görüntü Aktarım Sistemi
 
 Bu proje, **ZedBoard (Zynq-7000)** platformu üzerinde çalışan, **iki adet MIPI CSI-2 kamera** üzerinden alınan görüntü verisinin FPGA tabanlı işlenmesi ve **Ethernet üzerinden bilgisayara aktarılması** amacıyla geliştirilmektedir. Sistem, gömülü donanım-yazılım birlikte tasarım yaklaşımıyla kurgulanmış olup, gerçek zamanlı görüntü alma, tamponlama, temel işleme ve ağ üzerinden veri iletimi adımlarını içermektedir.
