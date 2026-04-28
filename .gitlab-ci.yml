@@ -6,10 +6,29 @@ stages:
 variables:
   SRC_DIR: "Vitis_project/FMC_Pcam_Adapter_demo/src"
   PYTHON_DIR: "Vitis_project/python"
+  XIL_INC: "Vitis_project/system_wrapper/ps7_cortexa9_0/standalone_ps7_cortexa9_0/bsp/ps7_cortexa9_0/include"
 
-# ─────────────────────────────────────────
-# LINT
-# ─────────────────────────────────────────
+cpp_lint:
+  stage: lint
+  tags:
+    - windows
+  script:
+    - cppcheck --enable=warning --error-exitcode=1
+        --suppress=missingIncludeSystem
+        --suppress=arrayIndexOutOfBounds
+        --suppress=uninitMemberVar
+        -I $env:SRC_DIR
+        -I $env:XIL_INC
+        $env:SRC_DIR/network.c
+        $env:SRC_DIR/main.cc
+        $env:SRC_DIR/echo.c
+        $env:SRC_DIR/i2c_access.c
+        $env:SRC_DIR/iic_phyreset.c
+        $env:SRC_DIR/sfp.c
+        $env:SRC_DIR/si5324.c
+  rules:
+    - changes:
+        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
 
 python_lint:
   stage: lint
@@ -22,20 +41,6 @@ python_lint:
     - changes:
         - "Vitis_project/python/import_socket.py"
 
-cpp_lint:
-  stage: lint
-  tags:
-    - windows
-  script:
-    - cppcheck --enable=warning --error-exitcode=1 --suppress=missingIncludeSystem --suppress=arrayIndexOutOfBounds --suppress=uninitMemberVar -I $env:SRC_DIR $env:SRC_DIR/network.c $env:SRC_DIR/main.cc $env:SRC_DIR/echo.c $env:SRC_DIR/i2c_access.c $env:SRC_DIR/iic_phyreset.c $env:SRC_DIR/sfp.c $env:SRC_DIR/si5324.c
-  rules:
-    - changes:
-        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
-
-# ─────────────────────────────────────────
-# BUILD (CMake)
-# ─────────────────────────────────────────
-
 cmake_build:
   stage: build
   tags:
@@ -43,7 +48,8 @@ cmake_build:
   script:
     - echo "CMake build basliyor..."
     - cmake --version
-    - mkdir -p build
+    - if (Test-Path build) { Remove-Item -Recurse -Force build }
+    - mkdir build
     - cd build
     - cmake .. -G "MinGW Makefiles" -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++
     - cmake --build . --config Release
@@ -52,10 +58,6 @@ cmake_build:
     - changes:
         - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
         - "CMakeLists.txt"
-
-# ─────────────────────────────────────────
-# TEST
-# ─────────────────────────────────────────
 
 python_test:
   stage: test
