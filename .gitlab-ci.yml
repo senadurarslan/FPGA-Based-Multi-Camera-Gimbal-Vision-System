@@ -2,11 +2,14 @@ stages:
   - lint
   - build
   - test
+  - hardware_test
 
 variables:
   SRC_DIR:    "Vitis_project/FMC_Pcam_Adapter_demo/src"
   PYTHON_DIR: "Vitis_project/python"
   BSP_INC:    "Vitis_project/system_wrapper/ps7_cortexa9_0/standalone_ps7_cortexa9_0/bsp/ps7_cortexa9_0/include"
+  BOARD_IP:   "192.168.1.10"
+  UDP_PORT:   "7000"
 
 cpp_lint:
   stage: lint
@@ -55,7 +58,7 @@ cmake_check:
     - echo "CMake konfigurasyon kontrolu basliyor..."
     - cmake --version
     - echo "CMakeLists.txt mevcut ve gecerli."
-    - echo "CMake konfigurasyon kontrolu tamamlandi."
+    - echo "cmake_check tamamlandi."
   rules:
     - changes:
         - "CMakeLists.txt"
@@ -69,10 +72,23 @@ python_test:
     - echo "Python testleri basliyor..."
     - pip install -r "$env:PYTHON_DIR/requirements.txt" --quiet
     - python -m py_compile "$env:PYTHON_DIR/import_socket.py"
-    - echo "Syntax kontrolu OK"
-    - python -c "import socket; import numpy; import cv2; print('Tum kutuphaneler OK')"
-    - python -c "import socket; s = socket.socket(); s.bind(('127.0.0.1', 0)); p = s.getsockname()[1]; s.close(); print('Socket testi OK, port:', p)"
+    - python -c "import socket; import numpy; import cv2; print('Kutuphaneler OK')"
+    - python -c "import socket; s = socket.socket(); s.bind(('127.0.0.1', 0)); p = s.getsockname()[1]; s.close(); print('Socket OK port:', p)"
     - echo "Python testleri tamamlandi."
   rules:
     - changes:
         - "Vitis_project/python/**"
+
+hardware_test:
+  stage: hardware_test
+  tags:
+    - windows
+  when: manual
+  script:
+    - echo "Donanim testi basliyor..."
+    - echo "Kart IP $env:BOARD_IP UDP Port $env:UDP_PORT"
+    - pip install -r "$env:PYTHON_DIR/requirements.txt" --quiet
+    - python tests/hardware_test.py --ip $env:BOARD_IP --port $env:UDP_PORT
+    - echo "Donanim testi tamamlandi."
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
