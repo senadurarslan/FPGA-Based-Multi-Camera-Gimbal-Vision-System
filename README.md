@@ -16,7 +16,7 @@ Bu projenin temel amacı:
 - Gerekli ara tamponlama ve veri akışı kontrolünü sağlamak,
 - Ethernet altyapısı üzerinden görüntü/veri paketlerini bilgisayara aktarmak,
 - Bilgisayar tarafında alınan veriyi doğrulamak, işlemek ve görüntülemek,
-- İlerleyen aşamalarda görüntü birleştirme (stitching) ve ileri görüntü işleme adımlarına zemin hazırlamaktır.
+- Stereo kamera oluşturarak derinlik algısı ve nesne takibini eklemek
 
 ---
 
@@ -43,9 +43,17 @@ Bu çalışma aşağıdaki temel alt sistemleri kapsamaktadır:
 - **PC tarafı**
   - Python ile UDP/socket tabanlı veri alma testleri
   - Gelen veri paketlerinin doğrulanması
-  - İlerleyen aşamalarda görüntüleme / birleştirme / kayıt işlemleri
+  - Görüntüleme, birleştirme
 
 ---
+
+##Stereo Vision Nedir? 
+
+Stereo kamera sistemi, iki farklı açıdan alınan görüntüler sayesinde:
+
+-Derinlik bilgisi çıkarma
+-Nesne mesafesi hesaplama
+-3D algılama  gibi işlemleri mümkün kılar.
 
 ## Kullanılan Donanım ve Yazılım Bileşenleri
 
@@ -133,35 +141,26 @@ Bu repo, projenin geliştirme sürecini ve ara çıktıları içermektedir. Şu 
 - Board ile bilgisayar arasında temel ağ haberleşmesinin doğrulanması
 - Python üzerinden socket kullanılarak veri alma testlerinin yapılması
 - “Hello Zynq” benzeri test mesajlarının başarıyla alınması
-- Bu aşamanın, Ethernet yapılandırmasının doğru çalıştığını gösteren bir kilometre taşı olarak doğrulanması
-
----
-
-## Mevcut Durum
-
-Proje halen geliştirme aşamasındadır. Mevcut durumda sistemde aşağıdaki yapı doğrulanmış / üzerinde çalışılmıştır:
-
-- Donanım platformunun oluşturulması
-- Yazılım ortamının hazırlanması
-- Ethernet haberleşmesinin temel seviyede çalıştırılması
-- Bilgisayar tarafında test verisinin alınması
-
-Geliştirme süreci, kamera verisinin güvenilir biçimde alınması ve bilgisayara görüntü verisi olarak aktarılması yönünde ilerlemektedir.
-
----
-
-## Hedeflenen Sonraki Aşamalar
-
-Planlanan sonraki çalışmalar şunlardır:
-
 - Kameradan alınan ham frame verisinin doğrulanması
 - Ethernet üzerinden görüntü verisi paketlerinin iletilmesi
 - Paketleme yapısının optimize edilmesi
 - Bilgisayar tarafında frame yeniden oluşturma
 - Görüntünün ekranda gösterilmesi
 - Çift kamera verisinin senkronizasyonu
+---
+
+## Mevcut Durum
+
+Proje halen geliştirme aşamasındadır. 
+---
+
+## Hedeflenen Sonraki Aşamalar
+
+Planlanan sonraki çalışmalar şunlardır:
+
+
 - Görüntü birleştirme (stitching) için ön işleme altyapısının hazırlanması
-- Gerekirse temel FPGA tabanlı ön işleme bloklarının eklenmesi
+- 
 
 ---
 
