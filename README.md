@@ -37,32 +37,8 @@ Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek 
 ##  Sistem Mimarisi
 
 ```
-  ┌─────────────┐   MIPI CSI-2   ┌──────────────────────────────────────────────────────┐
-  │  OV5640     ├───────────────►│                   Zynq-7020 SoC                      │
-  │  Kamera 1   │                │  ┌────────────────────────────────────────────────┐   │
-  │  (Port A)   │                │  │           PL — Programlanabilir Mantık         │   │
-  └─────────────┘                │  │                                                │   │
-                                 │  │  MIPI D-PHY → CSI-2 RX → Bayer-to-RGB →      │   │
-  ┌─────────────┐   MIPI CSI-2   │  │  Gamma Correction → Video Scaler → AXI VDMA  │   │
-  │  OV5640     ├───────────────►│  │                        │                       │   │
-  │  Kamera 2   │   (FMC PCam)   │  └────────────────────────┼───────────────────────┘   │
-  │  (Port B)   │                │                           │ AXI                        │
-  └─────────────┘                │  ┌────────────────────────▼───────────────────────┐   │
-                                 │  │           DDR3 Frame Buffer                     │   │
-                                 │  └────────────────────────┬───────────────────────┘   │
-                                 │                           │                            │
-                                 │  ┌────────────────────────▼───────────────────────┐   │
-                                 │  │        PS — ARM Cortex-A9                       │   │
-                                 │  │  I²C Init → Kesme Kontrolü → lwIP UDP Stack    │   │
-                                 │  └────────────────────────┬───────────────────────┘   │
-                                 └──────────────────────────┬┘                           │
-                                                Gigabit Ethernet (GbE)                   │
-                                                            │                             │
-                                              ┌─────────────▼──────────────┐             │
-                                              │   PC — Python / OpenCV      │             │
-                                              │  UDP RX → Frame Reassembly  │             │
-                                              │  → Stereo İşleme → Görüntü  │             │
-                                              └─────────────────────────────┘             │
+![Sistem Mimarisi](görseller/sistem_mimari.png)
+![Blok Diyagramı](görseller/blok_diagram.png)
 ```
 
 ### PL Boru Hattı Blokları
