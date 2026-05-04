@@ -1,4 +1,4 @@
-# 🎥 FPGA Tabanlı Çift Kamera Destekli Gerçek Zamanlı Görüntü Aktarım Sistemi
+#  FPGA Tabanlı Çift Kamera Destekli Gerçek Zamanlı Görüntü Aktarım Sistemi
 
 <div align="center">
 
@@ -16,7 +16,7 @@ Elektronik ve Haberleşme Mühendisliği — 2025-2026 Dönem Projesi
 
 ---
 
-## 📌 Proje Özeti
+##  Proje Özeti
 
 Bu proje, **ZedBoard (Zynq-7020 SoC)** platformu üzerinde **iki adet OV5640 MIPI CSI-2 kamera** kullanarak gerçek zamanlı stereo görüntü yakalama, FPGA tabanlı donanım boru hattında işleme ve **Ethernet (UDP) üzerinden bilgisayara aktarım** sistemini gerçekleştirmektedir.
 
@@ -24,7 +24,7 @@ Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek 
 
 ---
 
-## 🎯 Proje Amacı
+##  Proje Amacı
 
 - İki farklı kameradan **eş zamanlı** görüntü verisi almak (Port A ve Port B)
 - Görüntüleri FPGA donanım boru hattında işleyip DDR3 belleğe tamponlamak
@@ -34,7 +34,7 @@ Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek 
 
 ---
 
-## 🏗️ Sistem Mimarisi
+##  Sistem Mimarisi
 
 ```
   ┌─────────────┐   MIPI CSI-2   ┌──────────────────────────────────────────────────────┐
@@ -79,7 +79,7 @@ Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek 
 
 ---
 
-## 📸 Sistem Görselleri
+##  Sistem Görselleri
 
 ### Çalışan Sistem — Dual Kamera Canlı Akışı
 
@@ -123,7 +123,7 @@ Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek 
 
 ---
 
-## 🔬 Stereo Vision Nedir?
+##  Stereo Vision Nedir?
 
 İki kamera aynı sahneye farklı açılardan bakarak insan gözünün derinlik algısını taklit eder. Bu proje bağlamında stereo vision sistemi şu işlemleri hedeflemektedir:
 
@@ -154,7 +154,7 @@ Sol Kamera (Port A)    Sağ Kamera (Port B)
 
 ---
 
-## 🧩 Neden Bu Mimari?
+##  Neden Bu Mimari?
 
 | Karar | Gerekçe |
 |-------|---------|
@@ -168,27 +168,27 @@ Sol Kamera (Port A)    Sağ Kamera (Port B)
 
 ---
 
-## ✅ Tamamlanan Aşamalar
+##  Tamamlanan Aşamalar
 
-### 🔧 Altyapı ve Ortam
+###  Altyapı ve Ortam
 - [x] FPGA geliştirme ortamının kurulumu (Vivado + Vitis)
 - [x] LED / buton / switch temel donanım testleri
 - [x] UART üzerinden başarılı test mesajları
 
-### 📡 Ağ Altyapısı
+###  Ağ Altyapısı
 - [x] Statik IP yapılandırması (Board: `192.168.1.50`, PC: `192.168.1.100`)
 - [x] Temel Ethernet haberleşmesinin doğrulanması
 - [x] lwIP ile UDP socket kurulumu
 - [x] Python socket üzerinden veri alma testleri
 
-### 📷 Kamera ve Görüntü Sistemi
+###  Kamera ve Görüntü Sistemi
 - [x] OV5640 kamera başlatma (I²C üzerinden)
 - [x] MIPI CSI-2 → AXI boru hattının yapılandırılması
 - [x] VDMA ile DDR3 frame buffering
 - [x] Port A kamera verisinin DDR'den okunması
 - [x] Port B kamera verisinin DDR'den okunması
 
-### 🚀 Veri Aktarımı
+###  Veri Aktarımı
 - [x] Ham frame verisinin UDP paketlere bölünmesi (fragmentation)
 - [x] 1111 paket / 1.555.200 byte tam frame transferi
 - [x] Python tarafında frame yeniden oluşturma (reassembly)
@@ -197,7 +197,7 @@ Sol Kamera (Port A)    Sağ Kamera (Port B)
 
 ---
 
-## 🚧 Devam Eden / Planlanan Aşamalar
+##  Devam Eden / Planlanan Aşamalar
 
 ### Kısa Vadeli
 - [ ] Stereo kalibrasyon (kamera iç ve dış parametreleri)
@@ -215,7 +215,7 @@ Sol Kamera (Port A)    Sağ Kamera (Port B)
 
 ---
 
-## ⚙️ Ağ Yapılandırması
+##  Ağ Yapılandırması
 
 | Parametre | Değer |
 |-----------|-------|
@@ -230,7 +230,7 @@ Sol Kamera (Port A)    Sağ Kamera (Port B)
 
 ---
 
-## 🛠️ Kullanılan Donanım ve Yazılım
+##  Kullanılan Donanım ve Yazılım
 
 ### Donanım
 | Bileşen | Detay |
@@ -282,7 +282,7 @@ Sol Kamera (Port A)    Sağ Kamera (Port B)
 
 ---
 
-## 📊 Performans Özeti
+##  Performans Özeti
 
 | Metrik | Değer |
 |--------|-------|
