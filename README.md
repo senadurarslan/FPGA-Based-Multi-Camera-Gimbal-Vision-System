@@ -36,10 +36,10 @@ Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek 
 
 ##  Sistem Mimarisi
 
-```
+
 ![Sistem Mimarisi](görseller/sistem_mimari.png)
 ![Blok Diyagramı](görseller/blok_diagram.png)
-```
+
 
 ### PL Boru Hattı Blokları
 
