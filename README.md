@@ -57,47 +57,32 @@ Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek 
 
 ##  Sistem Görselleri
 
-### Çalışan Sistem — Dual Kamera Canlı Akışı
-
-> İki kameranın eş zamanlı çalışması: Port A ve Port B görüntüleri Vitis IDE üzerinden izleniyor.
-
-![Dual Camera Live Stream](20260425_222824.png)
-
-*Port A (960×540) ve Port B (960×540) — ~30 FPS canlı UDP akışı*
-
----
-
-### Ethernet Üzerinden Başarılı Frame Aktarımı
-
-> İlk tam frame transferi: UART logu, Python terminali ve OpenCV penceresi bir arada.
-
-![First Frame Transfer](20260421_022454.png)
-
-*`[MAIN] send_port_a_frame ok` — 1111 UDP paketi, 1.555.200 byte tam frame*
-
----
 
 ### PC Tarafı — OpenCV ile Görüntü Gösterimi
 
-![OpenCV Frame Display](20260421_005515.png)
+![OpenCV Frame Display](görseller/portA.png)
 
 *Python socket → NumPy → OpenCV pipeline ile gerçek zamanlıya yakın görüntüleme*
 
 ---
 
+### Çalışan Sistem — Dual Kamera Canlı Akışı
+
+> İki kameranın eş zamanlı çalışması: Port A ve Port B görüntüleri Vitis IDE üzerinden izleniyor.
+
+![Dual Camera Live Stream](görseller/portA-B.png)
+
+*Port A (960×540) ve Port B (960×540) — ~30 FPS canlı UDP akışı*
+
+---
+
+
 ### FPGA Geliştirme Ortamı — Vivado Blok Tasarımı
 
-![Vivado Block Design](20260328_213156.png)
+![Vivado Block Design](görseller/vivado.png)
 
 ---
 
-### ZedBoard Donanım Kurulumu
-
-![ZedBoard Hardware Setup](20260420_194853.png)
-
-*ZedBoard + FMC PCam Adapter + 2× OV5640 Pcam modülü*
-
----
 
 ##  Stereo Vision Nedir?
 
