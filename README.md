@@ -18,7 +18,7 @@ Elektronik ve Haberleşme Mühendisliği — 2025-2026 Dönem Projesi
 
 ##  Proje Özeti
 
-Bu proje, **ZedBoard (Zynq-7020 SoC)** platformu üzerinde **iki adet OV5640 MIPI CSI-2 kamera** kullanarak gerçek zamanlı stereo görüntü yakalama, FPGA tabanlı donanım boru hattında işleme ve **Ethernet (UDP) üzerinden bilgisayara aktarım** sistemini gerçekleştirmektedir.
+Bu proje, **ZedBoard (Zynq-7000 SoC)** platformu üzerinde **iki adet OV5640 MIPI CSI-2 kamera** kullanarak gerçek zamanlı stereo görüntü yakalama, FPGA tabanlı donanım boru hattında işleme ve **Ethernet (UDP) üzerinden bilgisayara aktarım** sistemini gerçekleştirmektedir.
 
 Sistem; MIPI D-PHY, AXI VDMA, lwIP ve OpenCV bileşenlerini bir araya getirerek **bare-metal donanım-yazılım birlikte tasarım (HW/SW Co-Design)** yaklaşımıyla geliştirilmiştir. Nihai hedef, iki kameradan elde edilen stereo görüntünün PC tarafında işlenerek derinlik haritası ve nesne tespiti uygulamalarına zemin hazırlamaktır.
 
