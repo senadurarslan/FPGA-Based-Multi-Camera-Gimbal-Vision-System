@@ -219,12 +219,32 @@ Sol Kamera (Port A)    Sağ Kamera (Port B)
 
 ```bash
 .
-├── vivado/          # Blok tasarımı, constraint dosyaları, IP yapılandırmaları
-├── vitis/           # Bare-metal C/C++ yazılım projesi (main.cc, network.c, ...)
-├── python/          # PC tarafı socket alma ve OpenCV görüntüleme scriptleri
-├── deneme/          # Test ve deney kodları
-├── secmeli_lab/     # Seçmeli lab çalışmaları
-├── belgeler/        # Raporlar, SRS, ara rapor
+├── Vitis_project/                       # Vitis workspace
+│   ├── FMC_Pcam_Adapter_demo/           # Ana uygulama projesi (main.cc, network.c ...)
+│   ├── FMC_Pcam_Adapter_demo_system/    # Sistem platform projesi
+│   ├── Vitis/                           # Vitis IDE dosyaları
+│   ├── eth_app/                         # Ethernet test uygulaması
+│   ├── eth_app_system/                  # Ethernet sistem projesi
+│   ├── python/                          # PC tarafı scriptler (import_socket.py)
+│   ├── system_wrapper/                  # Hardware platform wrapper
+│   ├── .analytics
+│   └── .gitignore
+├── vivado/                              # FPGA blok tasarımı ve bitstream
+├── belgeler/                            # Raporlar, SRS, ara rapor
+├── deneme/                              # Test ve deney kodları
+├── görseller/                           # README görselleri
+│   ├── sistem_mimari.png
+│   ├── blok_diagram.png
+│   ├── portA.png
+│   ├── portA-B.png
+│   └── vivado.png
+├── mock_includes/                       # Test header dosyaları 
+├── secmeli_lab/                         # Seçmeli lab çalışmaları
+├── hardware_test.py                     # Donanım test scripti
+├── udp_listen.py                        # UDP dinleme test scripti
+├── toolchain-arm-none-eab...            # Cross-compiler toolchain config
+├── .gitlab-ci.yml                       # CI/CD pipeline
+├── CMakeLists.txt                       # CMake build
 └── README.md
 ```
 
