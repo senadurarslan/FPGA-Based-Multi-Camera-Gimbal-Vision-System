@@ -8,7 +8,7 @@ variables:
   SRC_DIR:    "Vitis_project/FMC_Pcam_Adapter_demo/src"
   PYTHON_DIR: "Vitis_project/python"
   BSP_INC:    "Vitis_project/system_wrapper/ps7_cortexa9_0/standalone_ps7_cortexa9_0/bsp/ps7_cortexa9_0/include"
-  BOARD_IP: "192.168.1.50"
+  BOARD_IP:   "192.168.1.50"
   UDP_PORT:   "7000"
 
 cpp_lint:
@@ -88,7 +88,7 @@ hardware_test:
     - echo "Donanim testi basliyor..."
     - echo "Kart IP $env:BOARD_IP UDP Port $env:UDP_PORT"
     - pip install -r "$env:PYTHON_DIR/requirements.txt" --quiet
-    - python tests/hardware_test.py --ip $env:BOARD_IP --port $env:UDP_PORT
+    - python hardware_test.py --ip $env:BOARD_IP --port $env:UDP_PORT
     - echo "Donanim testi tamamlandi."
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
