@@ -246,7 +246,7 @@ def test_frame_content(port: int, timeout: float = 10.0) -> bool:
 # ─── Ana Test Akışı ─────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser(description="FPGA Donanim Testi")
-    parser.add_argument("--ip",   default="192.168.1.10", help="Kart IP adresi")
+    parser.add_argument("--ip",   default="192.168.1.50", help="Kart IP adresi")
     parser.add_argument("--port", default=7000, type=int,  help="UDP port")
     parser.add_argument("--skip-ping", action="store_true", help="Ping testini atla")
     args = parser.parse_args()
