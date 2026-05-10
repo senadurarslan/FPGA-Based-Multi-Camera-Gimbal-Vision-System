@@ -87,7 +87,7 @@ vitis_build:
     - windows
   script:
     - echo "Vitis ARM build basliyor..."
-    - $env:PATH = "$env:ARM_GCC;$env:PATH"
+    - $env:PATH = "C:\Xilinx\Vitis\2022.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin;$env:PATH"
     - arm-xilinx-eabi-gcc --version
     - echo "Kaynak dosyalar derleniyor..."
     - $INC = "-I$env:SRC_DIR -I$env:SRC_DIR/cam -I$env:SRC_DIR/intc -I$env:SRC_DIR/platform -I$env:SRC_DIR/uart -I$env:SRC_DIR/verbose -I$env:SRC_DIR/video -I$env:BSP_INC"
