@@ -88,17 +88,17 @@ vitis_build:
   script:
     - echo "Vitis ARM build basliyor..."
     - $env:PATH = "C:\Xilinx\Vitis\2022.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin;$env:PATH"
-    - arm-xilinx-eabi-gcc --version
+    - arm-none-eabi-gcc --version
     - echo "Kaynak dosyalar derleniyor..."
     - $INC = "-I$env:SRC_DIR -I$env:SRC_DIR/cam -I$env:SRC_DIR/intc -I$env:SRC_DIR/platform -I$env:SRC_DIR/uart -I$env:SRC_DIR/verbose -I$env:SRC_DIR/video -I$env:BSP_INC"
     - $FLAGS = "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Os -Wall -Wno-error -ffunction-sections -fdata-sections -std=c++17"
     - $SRCS = "$env:SRC_DIR/main.cc $env:SRC_DIR/network.c $env:SRC_DIR/echo.c $env:SRC_DIR/i2c_access.c $env:SRC_DIR/iic_phyreset.c $env:SRC_DIR/sfp.c $env:SRC_DIR/si5324.c"
     - $LIBS = "-L$env:BSP_LIB -Wl,--start-group -lxil -llwip4 -lm -Wl,--end-group"
     - $LINKER = "-T$env:SRC_DIR/lscript.ld -Wl,--gc-sections"
-    - Invoke-Expression "arm-xilinx-eabi-g++ $FLAGS $INC $SRCS $LIBS $LINKER -o fmc_pcam_adapter.elf"
+    - Invoke-Expression "arm-none-eabi-g++ $FLAGS $INC $SRCS $LIBS $LINKER -o fmc_pcam_adapter.elf"
     - echo "ELF dosyasi olusturuldu:"
     - ls fmc_pcam_adapter.elf
-    - arm-xilinx-eabi-size fmc_pcam_adapter.elf
+    - arm-none-eabi-size fmc_pcam_adapter.elf
     - echo "Vitis ARM build tamamlandi."
   artifacts:
     name: "elf-$CI_COMMIT_SHORT_SHA"
