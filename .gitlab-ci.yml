@@ -92,34 +92,11 @@ vitis_build:
     - echo "Kaynak dosyalar derleniyor..."
     - $GCC = "C:\Xilinx\Vitis\2022.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\arm-none-eabi-g++.exe"
     - $SIZE = "C:\Xilinx\Vitis\2022.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\arm-none-eabi-size.exe"
-    - >-
-      & $GCC
-      -mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard
-      -Os -Wall -Wno-error
-      -ffunction-sections -fdata-sections
-      -std=c++17
-      -I$env:SRC_DIR
-      -I$env:SRC_DIR/cam
-      -I$env:SRC_DIR/intc
-      -I$env:SRC_DIR/platform
-      -I$env:SRC_DIR/uart
-      -I$env:SRC_DIR/verbose
-      -I$env:SRC_DIR/video
-      -I$env:BSP_INC
-      $env:SRC_DIR/main.cc
-      $env:SRC_DIR/network.c
-      $env:SRC_DIR/echo.c
-      $env:SRC_DIR/i2c_access.c
-      $env:SRC_DIR/iic_phyreset.c
-      $env:SRC_DIR/sfp.c
-      $env:SRC_DIR/si5324.c
-      -L$env:BSP_LIB
-      -lxil -llwip4 -lm
-      -T$env:SRC_DIR/lscript.ld
-      -o fmc_pcam_adapter.elf
+    - $args_list = @("-mcpu=cortex-a9", "-mfpu=vfpv3", "-mfloat-abi=hard", "-Os", "-Wall", "-Wno-error", "-ffunction-sections", "-fdata-sections", "-std=c++17", "-I$env:SRC_DIR", "-I$env:SRC_DIR/cam", "-I$env:SRC_DIR/intc", "-I$env:SRC_DIR/platform", "-I$env:SRC_DIR/uart", "-I$env:SRC_DIR/verbose", "-I$env:SRC_DIR/video", "-I$env:BSP_INC", "$env:SRC_DIR/main.cc", "$env:SRC_DIR/network.c", "$env:SRC_DIR/echo.c", "$env:SRC_DIR/i2c_access.c", "$env:SRC_DIR/iic_phyreset.c", "$env:SRC_DIR/sfp.c", "$env:SRC_DIR/si5324.c", "-L$env:BSP_LIB", "-lxil", "-llwip4", "-lm", "-T$env:SRC_DIR/lscript.ld", "-o", "fmc_pcam_adapter.elf")
+    - '& $GCC $args_list'
     - echo "ELF dosyasi olusturuldu:"
     - ls fmc_pcam_adapter.elf
-    - & $SIZE fmc_pcam_adapter.elf
+    - '& $SIZE fmc_pcam_adapter.elf'
     - echo "Vitis ARM build tamamlandi."
   artifacts:
     name: "elf-$CI_COMMIT_SHORT_SHA"
