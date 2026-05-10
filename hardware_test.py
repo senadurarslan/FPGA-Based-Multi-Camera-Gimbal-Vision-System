@@ -274,12 +274,12 @@ def main():
         sys.exit(1)
 
     # Test 4: Frame assembly
-    if not test_frame_assembly(args.port):
+    if not test_frame_assembly(args.port, timeout=30.0):
         print("\n[SONUC] FAIL - Frame oluşturulamadı.")
         sys.exit(1)
 
     # Test 5: Frame içerik
-    if not test_frame_content(args.port):
+    if not test_frame_content(args.port, timeout=30.0):
         print("\n[SONUC] FAIL - Frame içerik hatası.")
         sys.exit(1)
 
