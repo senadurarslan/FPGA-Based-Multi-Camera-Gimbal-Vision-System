@@ -8,9 +8,14 @@ variables:
   SRC_DIR:    "Vitis_project/FMC_Pcam_Adapter_demo/src"
   PYTHON_DIR: "Vitis_project/python"
   BSP_INC:    "Vitis_project/system_wrapper/ps7_cortexa9_0/standalone_ps7_cortexa9_0/bsp/ps7_cortexa9_0/include"
+  BSP_LIB:    "D:\\workspace\\fbga_project\\projem\\system_wrapper\\ps7_cortexa9_0\\standalone_ps7_cortexa9_0\\bsp\\ps7_cortexa9_0\\lib"
+  ARM_GCC:    "C:\\Xilinx\\Vitis\\2022.1\\gnu\\aarch32\\nt\\gcc-arm-none-eabi\\bin"
   BOARD_IP:   "192.168.1.50"
   UDP_PORT:   "7000"
 
+# ────────────────────────────────────────────────────────────────
+# LINT — C/C++ Statik Analiz
+# ────────────────────────────────────────────────────────────────
 cpp_lint:
   stage: lint
   tags:
@@ -37,6 +42,9 @@ cpp_lint:
     - changes:
         - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
 
+# ────────────────────────────────────────────────────────────────
+# LINT — Python Statik Analiz
+# ────────────────────────────────────────────────────────────────
 python_lint:
   stage: lint
   tags:
@@ -50,6 +58,9 @@ python_lint:
     - changes:
         - "Vitis_project/python/**"
 
+# ────────────────────────────────────────────────────────────────
+# BUILD — CMake Konfigurasyon Kontrolu
+# ────────────────────────────────────────────────────────────────
 cmake_check:
   stage: build
   tags:
@@ -64,6 +75,43 @@ cmake_check:
         - "CMakeLists.txt"
         - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
 
+# ────────────────────────────────────────────────────────────────
+# BUILD — Vitis ARM ELF Derlemesi
+# Amac: Gercek ARM Cortex-A9 ELF dosyasi uret
+# Arac: arm-xilinx-eabi-gcc (Vitis 2022.1)
+# Cikti: fmc_pcam_adapter.elf (GitLab artifact olarak saklanir)
+# ────────────────────────────────────────────────────────────────
+vitis_build:
+  stage: build
+  tags:
+    - windows
+  script:
+    - echo "Vitis ARM build basliyor..."
+    - $env:PATH = "$env:ARM_GCC;$env:PATH"
+    - arm-xilinx-eabi-gcc --version
+    - echo "Kaynak dosyalar derleniyor..."
+    - $INC = "-I$env:SRC_DIR -I$env:SRC_DIR/cam -I$env:SRC_DIR/intc -I$env:SRC_DIR/platform -I$env:SRC_DIR/uart -I$env:SRC_DIR/verbose -I$env:SRC_DIR/video -I$env:BSP_INC"
+    - $FLAGS = "-mcpu=cortex-a9 -mfpu=vfpv3 -mfloat-abi=hard -Os -Wall -Wno-error -ffunction-sections -fdata-sections -std=c++17"
+    - $SRCS = "$env:SRC_DIR/main.cc $env:SRC_DIR/network.c $env:SRC_DIR/echo.c $env:SRC_DIR/i2c_access.c $env:SRC_DIR/iic_phyreset.c $env:SRC_DIR/sfp.c $env:SRC_DIR/si5324.c"
+    - $LIBS = "-L$env:BSP_LIB -Wl,--start-group -lxil -llwip4 -lm -Wl,--end-group"
+    - $LINKER = "-T$env:SRC_DIR/lscript.ld -Wl,--gc-sections"
+    - Invoke-Expression "arm-xilinx-eabi-g++ $FLAGS $INC $SRCS $LIBS $LINKER -o fmc_pcam_adapter.elf"
+    - echo "ELF dosyasi olusturuldu:"
+    - ls fmc_pcam_adapter.elf
+    - arm-xilinx-eabi-size fmc_pcam_adapter.elf
+    - echo "Vitis ARM build tamamlandi."
+  artifacts:
+    name: "elf-$CI_COMMIT_SHORT_SHA"
+    paths:
+      - fmc_pcam_adapter.elf
+    expire_in: 7 days
+  rules:
+    - changes:
+        - "Vitis_project/FMC_Pcam_Adapter_demo/src/**"
+
+# ────────────────────────────────────────────────────────────────
+# TEST — Python Birim Testleri
+# ────────────────────────────────────────────────────────────────
 python_test:
   stage: test
   tags:
@@ -79,6 +127,10 @@ python_test:
     - changes:
         - "Vitis_project/python/**"
 
+# ────────────────────────────────────────────────────────────────
+# HARDWARE TEST — Donanim Testi (Manuel)
+# Onkosul: Kart JTAG ile programlanmis ve Ethernet baglanmis olmali
+# ────────────────────────────────────────────────────────────────
 hardware_test:
   stage: hardware_test
   tags:
