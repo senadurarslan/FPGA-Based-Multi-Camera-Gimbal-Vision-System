@@ -89,6 +89,8 @@ vitis_build:
     - echo "Vitis ARM build basliyor..."
     - $env:PATH = "C:\Xilinx\Vitis\2022.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin;$env:PATH"
     - arm-none-eabi-gcc --version
+    - echo "BSP_INC degeri: $env:BSP_INC"
+    - ls "$env:BSP_INC\xparameters.h"
     - echo "Kaynak dosyalar derleniyor..."
     - $GCC = "C:\Xilinx\Vitis\2022.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\arm-none-eabi-g++.exe"
     - $SIZE = "C:\Xilinx\Vitis\2022.1\gnu\aarch32\nt\gcc-arm-none-eabi\bin\arm-none-eabi-size.exe"
