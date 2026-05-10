@@ -7,7 +7,7 @@ stages:
 variables:
   SRC_DIR:    "Vitis_project/FMC_Pcam_Adapter_demo/src"
   PYTHON_DIR: "Vitis_project/python"
-  BSP_INC:    "Vitis_project/system_wrapper/ps7_cortexa9_0/standalone_ps7_cortexa9_0/bsp/ps7_cortexa9_0/include"
+  BSP_INC:    "D:\\workspace\\fbga_project\\projem\\system_wrapper\\ps7_cortexa9_0\\standalone_ps7_cortexa9_0\\bsp\\ps7_cortexa9_0\\include"
   BSP_LIB:    "D:\\workspace\\fbga_project\\projem\\system_wrapper\\ps7_cortexa9_0\\standalone_ps7_cortexa9_0\\bsp\\ps7_cortexa9_0\\lib"
   ARM_GCC:    "C:\\Xilinx\\Vitis\\2022.1\\gnu\\aarch32\\nt\\gcc-arm-none-eabi\\bin"
   BOARD_IP:   "192.168.1.50"
