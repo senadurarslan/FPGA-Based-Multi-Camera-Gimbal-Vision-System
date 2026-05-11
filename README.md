@@ -15,7 +15,19 @@ Elektronik ve Haberleşme Mühendisliği — 2025-2026 Dönem Projesi
 </div>
 
 ---
+## Ders ve Proje Oynatma Listeleri
 
+### FPGA ve Gömülü Sistemler Laboratuvarı
+FPGA ve Gömülü Sistemler dersi laboratuvar çalışmaları için YouTube oynatma listesi:
+
+[FPGA ve Gömülü Sistemler Lab Playlist](https://www.youtube.com/playlist?list=PLeLpqnbPLxx7-atBR0zlaCGycbTNQZUoE)
+
+---
+
+### MUHTAS Projesi
+MUHTAS projesi kapsamında kullanılan çalışmalar ve içerikler için YouTube oynatma listesi:
+
+[MUHTAS Projesi Playlist](https://www.youtube.com/playlist?list=PLeLpqnbPLxx6lbPfqskw-W4pXyyLIWIze)
 ##  Proje Özeti
 
 Bu proje, **ZedBoard (Zynq-7000 SoC)** platformu üzerinde **iki adet OV5640 MIPI CSI-2 kamera** kullanarak gerçek zamanlı stereo görüntü yakalama, FPGA tabanlı donanım boru hattında işleme ve **Ethernet (UDP) üzerinden bilgisayara aktarım** sistemini gerçekleştirmektedir.
