@@ -1,0 +1,85 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Tue Apr 28 01:24:39 2026
+| Host         : DESKTOP-TM7VUND running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
+| Design       : top
+| Device       : xc7a35t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |     7 |
+|    Minimum number of control sets                        |     7 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    16 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |     7 |
+| >= 0 to < 4        |     0 |
+| >= 4 to < 6        |     0 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     5 |
+| >= 16              |     2 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              19 |            6 |
+| No           | No                    | Yes                    |              45 |           17 |
+| No           | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |              72 |           19 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------+-------------------------------+------------------+------------------+----------------+--------------+
+|  Clock Signal  |         Enable Signal         | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+-------------------------------+------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG | rtm/reaction_time[13]_i_1_n_0 | btnD_IBUF        |                2 |             14 |         7.00 |
+|  clk_IBUF_BUFG | rtm/wait_count_0              | btnD_IBUF        |                5 |             14 |         2.80 |
+|  clk_IBUF_BUFG | rtm/wait_target_1             | btnD_IBUF        |                4 |             14 |         3.50 |
+|  clk_IBUF_BUFG | db_react/count[0]_i_1__1_n_0  | btnD_IBUF        |                4 |             15 |         3.75 |
+|  clk_IBUF_BUFG | db_start/count[0]_i_1__0_n_0  | btnD_IBUF        |                4 |             15 |         3.75 |
+|  clk_IBUF_BUFG |                               |                  |                6 |             19 |         3.17 |
+|  clk_IBUF_BUFG |                               | btnD_IBUF        |               17 |             45 |         2.65 |
++----------------+-------------------------------+------------------+------------------+----------------+--------------+
+
+

@@ -1,0 +1,11 @@
+0.7
+2020.2
+Apr 18 2022
+16:05:34
+D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sources_1/new/bin_count.v,1778772686,verilog,,D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sources_1/new/count_wrap.v,,bin_count,,,../../../../project_2.gen/sources_1/ip/clk_wiz_0,,,,,
+D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sources_1/new/count_wrap.v,1778772724,verilog,,D:/workspace/LAB/digitalsystem1_2/project_2.srcs/sources_1/new/count_wrap_clk.v,,count_wrap,,,../../../../project_2.gen/sources_1/ip/clk_wiz_0,,,,,
+D:/workspace/LAB/digitalsystem1_2/project_2.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v,1778774428,verilog,,D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sources_1/new/bin_count.v,,clk_wiz_0,,,../../../../project_2.gen/sources_1/ip/clk_wiz_0,,,,,
+D:/workspace/LAB/digitalsystem1_2/project_2.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v,1778774428,verilog,,D:/workspace/LAB/digitalsystem1_2/project_2.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v,,clk_wiz_0_clk_wiz,,,../../../../project_2.gen/sources_1/ip/clk_wiz_0,,,,,
+D:/workspace/LAB/digitalsystem1_2/project_2.sim/sim_1/behav/xsim/glbl.v,1649976174,verilog,,,,glbl,,,,,,,,
+D:/workspace/LAB/digitalsystem1_2/project_2.srcs/sim_1/new/tb_count_wrap_clk.v,1778774548,verilog,,,,tb_count_wrap_clk,,,../../../../project_2.gen/sources_1/ip/clk_wiz_0,,,,,
+D:/workspace/LAB/digitalsystem1_2/project_2.srcs/sources_1/new/count_wrap_clk.v,1778774509,verilog,,D:/workspace/LAB/digitalsystem1_2/project_2.srcs/sim_1/new/tb_count_wrap_clk.v,,count_wrap_clk,,,../../../../project_2.gen/sources_1/ip/clk_wiz_0,,,,,

@@ -1,0 +1,8 @@
+0.7
+2020.2
+Apr 18 2022
+16:05:34
+D:/workspace/LAB/digitalsystem1_1/project_2.sim/sim_1/behav/xsim/glbl.v,1649976174,verilog,,,,glbl,,,,,,,,
+D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sim_1/new/tb_count_wrap.v,1778772771,verilog,,,,tb_count_wrap,,,,,,,,
+D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sources_1/new/bin_count.v,1778772686,verilog,,D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sources_1/new/count_wrap.v,,bin_count,,,,,,,,
+D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sources_1/new/count_wrap.v,1778772724,verilog,,D:/workspace/LAB/digitalsystem1_1/project_2.srcs/sim_1/new/tb_count_wrap.v,,count_wrap,,,,,,,,

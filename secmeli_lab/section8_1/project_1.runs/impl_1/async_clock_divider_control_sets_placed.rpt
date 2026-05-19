@@ -1,0 +1,105 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2022.1 (win64) Build 3526262 Mon Apr 18 15:48:16 MDT 2022
+| Date         : Thu May 14 13:50:54 2026
+| Host         : DESKTOP-TM7VUND running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file async_clock_divider_control_sets_placed.rpt
+| Design       : async_clock_divider
+| Device       : xc7a35t
+------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    27 |
+|    Minimum number of control sets                        |    27 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |   189 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    27 |
+| >= 0 to < 4        |    27 |
+| >= 4 to < 6        |     0 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     0 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     0 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              27 |           27 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------+---------------+------------------+------------------+----------------+--------------+
+|  Clock Signal  | Enable Signal | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+---------------+------------------+------------------+----------------+--------------+
+|  q_1           |               |                  |                1 |              1 |         1.00 |
+|  q_17          |               |                  |                1 |              1 |         1.00 |
+|  q_9           |               |                  |                1 |              1 |         1.00 |
+|  q_11          |               |                  |                1 |              1 |         1.00 |
+|  q_22          |               |                  |                1 |              1 |         1.00 |
+|  q_23          |               |                  |                1 |              1 |         1.00 |
+|  q_12          |               |                  |                1 |              1 |         1.00 |
+|  q_0           |               |                  |                1 |              1 |         1.00 |
+|  q_13          |               |                  |                1 |              1 |         1.00 |
+|  q_15          |               |                  |                1 |              1 |         1.00 |
+|  q_18          |               |                  |                1 |              1 |         1.00 |
+|  q_2           |               |                  |                1 |              1 |         1.00 |
+|  q_14          |               |                  |                1 |              1 |         1.00 |
+|  q_24          |               |                  |                1 |              1 |         1.00 |
+|  q_4           |               |                  |                1 |              1 |         1.00 |
+|  q_16          |               |                  |                1 |              1 |         1.00 |
+|  q_21          |               |                  |                1 |              1 |         1.00 |
+|  q_6           |               |                  |                1 |              1 |         1.00 |
+|  q_19          |               |                  |                1 |              1 |         1.00 |
+|  q_3           |               |                  |                1 |              1 |         1.00 |
+|  q_5           |               |                  |                1 |              1 |         1.00 |
+|  q_10          |               |                  |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG |               |                  |                1 |              1 |         1.00 |
+|  q_8           |               |                  |                1 |              1 |         1.00 |
+|  q_25          |               |                  |                1 |              1 |         1.00 |
+|  q_20          |               |                  |                1 |              1 |         1.00 |
+|  q_7           |               |                  |                1 |              1 |         1.00 |
++----------------+---------------+------------------+------------------+----------------+--------------+
+
+

@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vivado v2022.1 (64-bit)
+# SW Build 3526262 on Mon Apr 18 15:48:16 MDT 2022
+# IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
+# Start of session at: Wed May 13 14:50:00 2026
+# Process ID: 15520
+# Current directory: D:/workspace/LAB/section7_2/project_1.runs/synth_1
+# Command line: vivado.exe -log nand_sr_latch.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source nand_sr_latch.tcl
+# Log file: D:/workspace/LAB/section7_2/project_1.runs/synth_1/nand_sr_latch.vds
+# Journal file: D:/workspace/LAB/section7_2/project_1.runs/synth_1\vivado.jou
+# Running On: DESKTOP-TM7VUND, OS: Windows, CPU Frequency: 2918 MHz, CPU Physical cores: 14, Host memory: 34038 MB
+#-----------------------------------------------------------
+source nand_sr_latch.tcl -notrace

@@ -1,0 +1,11 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../project_2.srcs/sources_1/new/bin_count.v" \
+"../../../../project_2.srcs/sources_1/new/count_wrap.v" \
+"../../../../project_2.srcs/sim_1/new/tb_count_wrap.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
