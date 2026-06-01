@@ -67,3 +67,7 @@ bsp reload
 catch {bsp regenerate}
 platform generate -domains zynq_fsbl 
 platform generate
+platform generate
+platform generate
+platform generate
+platform generate

@@ -1,21 +1,26 @@
 """
-gui_main.py  --  Stereo Vision PyQt5  v3.0
-===========================================
+gui_main.py  --  Stereo Vision PyQt5  v3.3 (v3.1 + sadece HIZ)
+================================================================
 ZedBoard OV5640x2  -->  UDP:7000  -->  Python
 
-SEKMELER (proje akis sirasina gore):
-  Tab 0  Live View      : Ham Port A + Port B goruntuleri, FPS
-  Tab 1  Kalibrasyon    : Checkerboard toplama + stereoCalibrate (3D printer gelince aktif)
-  Tab 2  Rectified      : Kalibrasyon ciktisi -- epipolar cizgili duzeltilmis goruntu
-  Tab 3  Depth Map      : StereoSGBM + WLS -- JET colormap, tikla->mm
-  Tab 4  Panorama       : ORB eslesme + homografi + warpPerspective birlestirme
-  Tab 5  Ayarlar        : UDP, port, dosya yollari
+v3.3 DEGISIKLIKLERI (v3.1 uzerine):
+  [SPEED-1] SGBM mode: HH -> SGBM_3WAY  (~30% hizli, kalite ayni)
+            UI'dan degistirilebilir: 3WAY / HH / SGBM
+  [SPEED-2] Adaptive frame skip          (engine mesgulse atla, kuyruk birikmez)
+  [SPEED-3] Temporal averaging 4 -> 2    (UI'dan ayarlanabilir 1-4)
 
-KURULUM:
-  pip install PyQt5 opencv-python opencv-contrib-python numpy
+v3.2'DEKILER GERI ALINDI:
+  - Half-resolution KALDIRILDI (mozaik efekti yapiyordu)
+  - Texture mask KALDIRILDI (gercek objeleri de siyaha boyuyordu)
+  - Confidence mask KALDIRILDI
+  - Inpainting GERI EKLENDI (v3.1'deki gibi)
 
-CALISTIRMA:
-  python gui_main.py
+v3.1 (devam) DEGISIKLIKLERI:
+  [FIX-A] Gamma LUT kaldirildi
+  [FIX-B] Gray World white balance
+  [FIX-C] CLAHE tile 8x8 -> 16x16
+  [FIX-D] Rectified'da equalizeHist YERINE Gray World
+  [FIX-E] depth_scale = 1.0
 """
 
 import sys, time, socket, struct, csv, threading
@@ -49,42 +54,41 @@ CFG = {
     "height":   540,
     "channels": 3,
 
-    # Port atamasi (network.h ile eslesmeli)
-    # NOT: Disparity negatif cikiyorsa port_left/right yer degistir
-    "port_left":  0,   # Port A = sol kamera (DEGISTIRILDI)
-    "port_right": 1,   # Port B = sag kamera (DEGISTIRILDI)
+    # Port atamasi
+    "port_left":  0,   # Port A = sol
+    "port_right": 1,   # Port B = sag
 
-    # Kalibrasyon dosyalari
+    # Kalibrasyon
     "rectify_path": "stereo_calibration/calibration_data/rectify_maps.npz",
     "calib_path":   "stereo_calibration/calibration_data/stereo_calibration.npz",
 
-    # StereoSGBM -- pürüzsüz depth map için optimize
-    "min_disparity":    -16,  # negatif: sol goruntu sag goruntuden saga kayik
-    "num_disparities":  272,   # 16x17, f=1110 B=69mm icin 300mm=257px, 500mm=154px
-    "block_size":       9,     # daha büyük = daha pürüzsüz
-    "p1_mul":           8,     # P1 = 8*3*bs^2
-    "p2_mul":           48,    # P2 yüksek = pürüzsüz geçişler
+    # StereoSGBM
+    "min_disparity":    -16,
+    "num_disparities":  272,
+    "block_size":       9,
+    "p1_mul":           8,
+    "p2_mul":           48,
     "disp12_max_diff":  1,
-    "uniqueness_ratio": 15,    # yüksek = güvenilir eşleşme
-    "speckle_win_size": 150,   # büyük = daha az gürültü
-    "speckle_range":    2,     # küçük = sıkı filtre
+    "uniqueness_ratio": 12,
+    "speckle_win_size": 150,
+    "speckle_range":    2,
 
     # WLS
     "use_wls":    True,
-    "wls_lambda": 80000,  # referans projeler: 80000
+    "wls_lambda": 80000,
     "wls_sigma":  1.5,
 
     # Derinlik
     "min_depth_mm": 100,
     "max_depth_mm": 5000,
-    "depth_scale":  1.0,    # T mm cinsinden, scale=1.0 baslangic
+    "depth_scale":  1.0,
 
     # Epipolar
     "draw_epilines": True,
     "epiline_step":  40,
 
     # Panorama
-    "pano_detector":   "ORB",   # ORB veya SIFT
+    "pano_detector":   "ORB",
     "pano_max_feat":   2000,
     "pano_match_ratio":0.75,
 
@@ -92,9 +96,16 @@ CFG = {
     "csv_path":     "measurements.csv",
     "snapshot_dir": "snapshots",
 
-    # Kalibrasyondan otomatik dolar
-    "f_pix": 812.0,
-    "b_mm":   60.0,
+    # Kalibrasyondan
+    "f_pix": 1107.38,
+    "b_mm":   69.51,
+
+    # Preprocessing
+    "use_wb": True,
+
+    # ======== v3.3 HIZ AYARLARI ========
+    "sgbm_mode":       "3WAY",  # SPEED-1: "HH" | "3WAY" | "SGBM"
+    "temporal_frames": 2,       # SPEED-3: 1 (kapali) | 2 | 3 | 4
 }
 
 # ============================================================
@@ -174,10 +185,28 @@ QStatusBar {
 # YARDIMCILAR
 # ============================================================
 
+def gray_world_wb(img: np.ndarray) -> np.ndarray:
+    """Gray World white balance - mor/yesil cast'i temizler."""
+    if img is None or img.size == 0:
+        return img
+    result = img.astype(np.float32)
+    mean_b = np.mean(result[:, :, 0])
+    mean_g = np.mean(result[:, :, 1])
+    mean_r = np.mean(result[:, :, 2])
+    mean_gray = (mean_b + mean_g + mean_r) / 3.0
+    if mean_gray < 1.0:
+        return img
+    kb = float(np.clip(mean_gray / max(mean_b, 1.0), 0.33, 3.0))
+    kg = float(np.clip(mean_gray / max(mean_g, 1.0), 0.33, 3.0))
+    kr = float(np.clip(mean_gray / max(mean_r, 1.0), 0.33, 3.0))
+    result[:, :, 0] *= kb
+    result[:, :, 1] *= kg
+    result[:, :, 2] *= kr
+    return np.clip(result, 0, 255).astype(np.uint8)
+
+
 def numpy_to_pixmap(img: np.ndarray, w: int, h: int) -> QPixmap:
-    """Goruntu oranini koruyarak QPixmap'e cevirir (letterbox)."""
     src_h, src_w = img.shape[:2]
-    # En-boy oranini koru
     scale = min(w / src_w, h / src_h)
     new_w = int(src_w * scale)
     new_h = int(src_h * scale)
@@ -185,7 +214,6 @@ def numpy_to_pixmap(img: np.ndarray, w: int, h: int) -> QPixmap:
     rgb = cv2.resize(rgb, (new_w, new_h), interpolation=cv2.INTER_LINEAR)
     qi  = QImage(rgb.data, new_w, new_h, new_w * 3, QImage.Format_RGB888)
     pix = QPixmap.fromImage(qi)
-    # Tam boyutlu siyah arka plan uzerine ortala
     final = QPixmap(w, h)
     final.fill(Qt.black)
     from PyQt5.QtGui import QPainter
@@ -201,7 +229,6 @@ def make_video_label(min_w=480, min_h=270) -> QLabel:
     lbl.setObjectName("lbl_video")
     lbl.setAlignment(Qt.AlignCenter)
     lbl.setMinimumSize(min_w, min_h)
-    # Genislige gore yuksekligi 16:9 oraninda tut
     lbl.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
     lbl.setScaledContents(False)
     return lbl
@@ -247,12 +274,9 @@ class UDPReceiver(QThread):
         self.cfg      = cfg
         self._running = False
         self._mutex   = QMutex()
-        # Dogrudan buffer -- sinyal yok, lock ile erisim
         self.buf = {cfg["port_left"]: None, cfg["port_right"]: None}
         self.buf_lock = threading.Lock()
-        # Istatistik -- GUI timer okur
         self.stats = {"cnt_l": 0, "cnt_r": 0, "drops": 0, "fps_l": 0.0, "fps_r": 0.0}
-        # Eslesmis cift icin
         self.last_frames = {
             cfg["port_left"]:  deque(maxlen=10),
             cfg["port_right"]: deque(maxlen=10),
@@ -267,7 +291,7 @@ class UDPReceiver(QThread):
         self._running = True
         cfg     = self.cfg
         FSIZE   = cfg["width"] * cfg["height"] * cfg["channels"]
-        HDR_FMT = "<IHHHBB"   # network.h frame_pkt_hdr_t ile eslesir
+        HDR_FMT = "<IHHHBB"
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -347,11 +371,6 @@ class UDPReceiver(QThread):
         self.log_message.emit("[RX] Thread durduruldu.")
 
     def get_matched_pair(self):
-        """
-        En iyi frame ciftini sec.
-        Once diff=0 ara (ideal senkron).
-        Bulamazsa diff=1 veya diff=-1 kabul et (FPGA network_poll gecikmesi).
-        """
         pl = self.cfg["port_left"]; pr = self.cfg["port_right"]
         with self.frames_lock:
             if not self.last_frames[pl] or not self.last_frames[pr]:
@@ -367,7 +386,6 @@ class UDPReceiver(QThread):
                     best = (id_l, img_l, id_r, img_r, id_l - id_r)
                 if d == 0:
                     return best
-        # diff=1 kabul edilebilir -- max 2 frame farki
         if best is not None and bd <= 2:
             return best
         return None
@@ -377,27 +395,15 @@ class UDPReceiver(QThread):
 # ============================================================
 
 class LiveViewTab(QWidget):
-    """
-    Ham Port A ve Port B goruntuleri, FPS sayaci.
-    Buffer + QTimer mimarisi: UDP thread goruntuleri buffer'a yazar,
-    display timer 33ms'de bir buffer'dan okuyup ekrana basar.
-    Bu sayede GUI thread bloklanmaz, donma olmaz.
-    """
-
     def __init__(self, parent=None):
         super().__init__(parent)
-        # Son gelen frame'leri tutan buffer (thread-safe degil ama GIL korur)
-        self._buf_l = None
-        self._buf_r = None
-        self._new_l = False
-        self._new_r = False
-        # FPS sayaci
+        self._buf_l = None; self._buf_r = None
+        self._new_l = False; self._new_r = False
         self._cnt_l = self._cnt_r = 0
         self._fps_l = self._fps_r = 0.0
         self._t0 = time.time()
         self._build_ui()
 
-        # Display timer: 33ms = ~30fps, GUI thread'inde calisir
         self._display_timer = QTimer(self)
         self._display_timer.setInterval(33)
         self._display_timer.timeout.connect(self._refresh_display)
@@ -407,15 +413,15 @@ class LiveViewTab(QWidget):
         root = QVBoxLayout(self)
         root.setSpacing(4)
 
-        hdr = QLabel("ADIM 1  --  Ham Kamera Goruntuleri  |  Kalibrasyon yapilmadan once bu sekmeyi dogrula")
+        hdr = QLabel("ADIM 1  --  Ham Kamera Goruntuleri")
         hdr.setStyleSheet("color:#F6AD55; font-size:11px; padding:4px;"
                           "background:#1A1410; border-radius:4px;")
         root.addWidget(hdr)
 
         cam_lay = QHBoxLayout()
         for attr, fps_attr, title, port_txt, col in [
-            ("lbl_l", "fps_left",  "SOL KAMERA  --  PORT B", "PORT B", "#00D296"),
-            ("lbl_r", "fps_right", "SAG KAMERA  --  PORT A", "PORT A", "#409CFF"),
+            ("lbl_l", "fps_left",  "SOL KAMERA  --  PORT A", "PORT A", "#00D296"),
+            ("lbl_r", "fps_right", "SAG KAMERA  --  PORT B", "PORT B", "#409CFF"),
         ]:
             box = QGroupBox(title)
             vl  = QVBoxLayout(box)
@@ -432,24 +438,16 @@ class LiveViewTab(QWidget):
             cam_lay.addWidget(box)
         root.addLayout(cam_lay)
 
-        self.lbl_note = QLabel(
-            "Sol goruntu = Port B  |  Sag goruntu = Port A  |  "
-            "Her iki kamera da geliyorsa sonraki adima gec: Kalibrasyon")
+        self.lbl_note = QLabel("Sol goruntu = Port A  |  Sag goruntu = Port B")
         self.lbl_note.setStyleSheet("color:#4A5568; font-size:11px; padding:4px;")
         root.addWidget(self.lbl_note)
 
     def update_frame(self, port_id: int, img: np.ndarray, cfg: dict):
-        """UDP thread'inden cagirilir -- sadece buffer'a yazar, ekrana BASMAZ."""
         is_l = port_id == cfg["port_left"]
         if is_l:
-            self._buf_l  = img
-            self._new_l  = True
-            self._cnt_l += 1
+            self._buf_l = img; self._new_l = True; self._cnt_l += 1
         else:
-            self._buf_r  = img
-            self._new_r  = True
-            self._cnt_r += 1
-        # FPS hesabi
+            self._buf_r = img; self._new_r = True; self._cnt_r += 1
         elapsed = time.time() - self._t0
         if elapsed >= 1.0:
             self._fps_l = self._cnt_l / elapsed
@@ -458,20 +456,16 @@ class LiveViewTab(QWidget):
             self._t0    = time.time()
 
     def _refresh_display(self):
-        """QTimer'dan cagirilir (GUI thread) -- buffer'dan okuyup ekrana basar."""
         if self._new_l and self._buf_l is not None:
             self._new_l = False
-            w = self.lbl_l.width()
-            h = w * 9 // 16   # 16:9 orani zorla
+            w = self.lbl_l.width(); h = w * 9 // 16
             if w > 10:
                 self.lbl_l.setFixedHeight(h)
                 self.lbl_l.setPixmap(numpy_to_pixmap(self._buf_l, w, h))
             self.fps_left.setText(f"{self._fps_l:.1f} fps")
-
         if self._new_r and self._buf_r is not None:
             self._new_r = False
-            w = self.lbl_r.width()
-            h = w * 9 // 16   # 16:9 orani zorla
+            w = self.lbl_r.width(); h = w * 9 // 16
             if w > 10:
                 self.lbl_r.setFixedHeight(h)
                 self.lbl_r.setPixmap(numpy_to_pixmap(self._buf_r, w, h))
@@ -482,30 +476,21 @@ class LiveViewTab(QWidget):
 # ============================================================
 
 class CalibrationTab(QWidget):
-    """
-    ADIM 2: Checkerboard kalibrasyon.
-    3D printer standi gelince aktif edilecek.
-    Simdilik durum gosterimi ve dosya yukleme mevcut.
-    """
-    calib_loaded = pyqtSignal()   # kalibrasyon yuklendi sinyali
+    calib_loaded = pyqtSignal()
 
     def __init__(self, cfg: dict, parent=None):
         super().__init__(parent)
-        self.cfg = cfg
-        self._saved = 0
+        self.cfg = cfg; self._saved = 0
         self._build_ui()
 
     def _build_ui(self):
-        root = QVBoxLayout(self)
-        root.setSpacing(6)
+        root = QVBoxLayout(self); root.setSpacing(6)
 
-        # Baslik
-        hdr = QLabel("ADIM 2  --  Stereo Kalibrasyon  |  3D Printer Standi Gerekli")
+        hdr = QLabel("ADIM 2  --  Stereo Kalibrasyon")
         hdr.setStyleSheet("color:#F6AD55; font-size:11px; padding:4px;"
                           "background:#1A1410; border-radius:4px;")
         root.addWidget(hdr)
 
-        # Akis diyagrami
         flow_box = QGroupBox("KALIBRASYON AKISI")
         flow_lay = QHBoxLayout(flow_box)
         steps = [
@@ -531,7 +516,6 @@ class CalibrationTab(QWidget):
             flow_lay.addWidget(lbl)
         root.addWidget(flow_box)
 
-        # Durum + ilerleme
         stat_box = QGroupBox("DURUM")
         stat_lay = QVBoxLayout(stat_box)
         self.lbl_status = QLabel("3D printer standi bekleniyor...")
@@ -543,25 +527,22 @@ class CalibrationTab(QWidget):
         stat_lay.addWidget(self.prog)
         root.addWidget(stat_box)
 
-        # Kalibrasyon parametreleri (bilgi)
         info_box = QGroupBox("KALIBRASYON PARAMETRELER")
         info_lay = QGridLayout(info_box)
         params = [
             ("Checkerboard", "9x6 ic kose"),
-            ("Kare boyutu",  "25 mm (baskiya gore ol)"),
-            ("Min cift",     "20 (onerilir: 25-30)"),
-            ("Hedef RMS",    "< 1.0 px (ideal: < 0.5)"),
+            ("Kare boyutu",  "25 mm"),
+            ("Min cift",     "20"),
+            ("Hedef RMS",    "< 1.0 px"),
             ("Algoritma",    "cv2.stereoCalibrate()"),
             ("Cikti",        "rectify_maps.npz + stereo_calibration.npz"),
         ]
         for r, (k, v) in enumerate(params):
             kl = QLabel(k+":"); kl.setStyleSheet("color:#4A5568;")
             vl = QLabel(v);     vl.setStyleSheet("color:#A0AEC0;")
-            info_lay.addWidget(kl, r, 0)
-            info_lay.addWidget(vl, r, 1)
+            info_lay.addWidget(kl, r, 0); info_lay.addWidget(vl, r, 1)
         root.addWidget(info_box)
 
-        # Butonlar
         btn_lay = QHBoxLayout()
         self.btn_collect = QPushButton("Fotograf Toplamaya Basla")
         self.btn_collect.setObjectName("btn_primary")
@@ -575,7 +556,6 @@ class CalibrationTab(QWidget):
         btn_lay.addWidget(self.btn_load)
         root.addLayout(btn_lay)
 
-        # Kalibrasyon sonucu bilgi kutusu
         self.lbl_calib_result = QLabel("Kalibrasyon henuz yuklenmedi.")
         self.lbl_calib_result.setStyleSheet(
             "color:#718096; font-size:11px; padding:8px;"
@@ -585,11 +565,9 @@ class CalibrationTab(QWidget):
         root.addStretch()
 
     def _load_existing(self):
-        rp, _ = QFileDialog.getOpenFileName(
-            self, "Rectify map sec", "", "NumPy (*.npz)")
+        rp, _ = QFileDialog.getOpenFileName(self, "Rectify map sec", "", "NumPy (*.npz)")
         if not rp: return
-        cp, _ = QFileDialog.getOpenFileName(
-            self, "Stereo calib sec", "", "NumPy (*.npz)")
+        cp, _ = QFileDialog.getOpenFileName(self, "Stereo calib sec", "", "NumPy (*.npz)")
         if not cp: return
         try:
             calib = np.load(cp)
@@ -620,24 +598,16 @@ class CalibrationTab(QWidget):
 # ============================================================
 
 class RectifiedTab(QWidget):
-    """
-    ADIM 3: Kalibrasyon sonrasi duzeltilmis goruntu.
-    Epipolar cizgiler yatay hizali olmali (<=2 px sapma).
-    """
-
     def __init__(self, cfg: dict, parent=None):
         super().__init__(parent)
-        self.cfg = cfg
-        self._ok = False
+        self.cfg = cfg; self._ok = False
         self.map1_l = self.map2_l = self.map1_r = self.map2_r = None
-        self._build_ui()
-        self._load()
+        self._build_ui(); self._load()
 
     def _build_ui(self):
-        root = QVBoxLayout(self)
-        root.setSpacing(4)
+        root = QVBoxLayout(self); root.setSpacing(4)
 
-        hdr = QLabel("ADIM 3  --  Stereo Rektifikasyon  |  Epipolar cizgiler yatay hizali olmali (sapma <= 2 px)")
+        hdr = QLabel("ADIM 3  --  Stereo Rektifikasyon")
         hdr.setStyleSheet("color:#F6AD55; font-size:11px; padding:4px;"
                           "background:#1A1410; border-radius:4px;")
         root.addWidget(hdr)
@@ -645,22 +615,25 @@ class RectifiedTab(QWidget):
         self.lbl_status = status_label("Kalibrasyon bekleniyor...", "#F6AD55")
         root.addWidget(self.lbl_status)
 
-        box = QGroupBox("RECTIFIED SOL | SAG  --  Yesil cizgiler epipolar cizgileri gosterir")
+        box = QGroupBox("RECTIFIED SOL | SAG  --  Yesil cizgiler epipolar")
         vl  = QVBoxLayout(box)
         self.lbl_rect = make_video_label(min_w=900, min_h=400)
         vl.addWidget(self.lbl_rect)
         root.addWidget(box)
 
-        # Bilgi paneli
         self.lbl_info = status_label("--", "#68D391")
         root.addWidget(self.lbl_info)
 
-        # Kontroller
         ctrl_lay = QHBoxLayout()
         self.chk_lines = QCheckBox("Epipolar cizgiler goster")
         self.chk_lines.setChecked(self.cfg["draw_epilines"])
         self.chk_lines.stateChanged.connect(
             lambda v: self.cfg.update({"draw_epilines": bool(v)}))
+
+        self.chk_wb = QCheckBox("Gray World WB")
+        self.chk_wb.setChecked(self.cfg["use_wb"])
+        self.chk_wb.stateChanged.connect(
+            lambda v: self.cfg.update({"use_wb": bool(v)}))
 
         lbl_step = QLabel("Cizgi araligi:")
         lbl_step.setStyleSheet("color:#A0AEC0;")
@@ -674,6 +647,7 @@ class RectifiedTab(QWidget):
         btn_snap.clicked.connect(self._snapshot)
 
         ctrl_lay.addWidget(self.chk_lines)
+        ctrl_lay.addWidget(self.chk_wb)
         ctrl_lay.addWidget(lbl_step)
         ctrl_lay.addWidget(self.sld_step)
         ctrl_lay.addStretch()
@@ -681,10 +655,9 @@ class RectifiedTab(QWidget):
         root.addLayout(ctrl_lay)
 
     def _load(self):
-        rp = Path(self.cfg["rectify_path"])
-        cp = Path(self.cfg["calib_path"])
+        rp = Path(self.cfg["rectify_path"]); cp = Path(self.cfg["calib_path"])
         if not rp.exists() or not cp.exists():
-            self.lbl_status.setText("Kalibrasyon dosyasi bulunamadi -- once Kalibrasyon sekmesini kullan")
+            self.lbl_status.setText("Kalibrasyon dosyasi bulunamadi")
             self.lbl_status.setStyleSheet("color:#FC8181; font-size:11px; padding:4px; background:#0D1117; border-radius:4px;")
             return
         try:
@@ -699,13 +672,11 @@ class RectifiedTab(QWidget):
             self.lbl_status.setText(f"Kalibrasyon yuklendi  |  Baseline={B:.2f}mm  f={f:.1f}px")
             self.lbl_status.setStyleSheet("color:#68D391; font-size:11px; padding:4px; background:#0D1117; border-radius:4px;")
             self.lbl_info.setText(
-                f"Rectify: {rp.name}   |   Calib: {cp.name}   |   "
-                f"Epipolar sapma <= 2px olmali -- yetersizse yeniden kalibre et")
+                f"Rectify: {rp.name}   |   Calib: {cp.name}   |   Epipolar sapma <= 2px olmali")
         except Exception as e:
             self.lbl_status.setText(f"Hata: {e}")
 
     def reload(self):
-        """Kalibrasyon sekmesinden sinyal gelince yeniden yukle."""
         self._load()
 
     def update_pair(self, img_l, img_r):
@@ -713,27 +684,18 @@ class RectifiedTab(QWidget):
         rl = cv2.remap(img_l, self.map1_l, self.map2_l, cv2.INTER_LINEAR)
         rr = cv2.remap(img_r, self.map1_r, self.map2_r, cv2.INTER_LINEAR)
 
-        # Renk dengesi: sol ve sag kameranin renk tonunu esitle
-        # Histogram esitleme ile her iki goruntu daha tutarli hale gelir
-        def balance_color(img):
-            """Her kanalı ayri ayri histogram esitle."""
-            result = img.copy()
-            for c in range(3):
-                result[:,:,c] = cv2.equalizeHist(img[:,:,c])
-            return result
-
-        # Gorsellestirme icin renk dengeli versiyon
-        rl_vis = balance_color(rl)
-        rr_vis = balance_color(rr)
+        if self.cfg.get("use_wb", True):
+            rl_vis = gray_world_wb(rl)
+            rr_vis = gray_world_wb(rr)
+        else:
+            rl_vis = rl; rr_vis = rr
 
         v = np.hstack((rl_vis, rr_vis))
         if self.cfg["draw_epilines"]:
             for y in range(0, v.shape[0], self.cfg["epiline_step"]):
                 cv2.line(v, (0, y), (v.shape[1], y), (0, 220, 80), 1)
-        # Merkez ayirici cizgi
         cv2.line(v, (img_l.shape[1], 0),
                  (img_l.shape[1], v.shape[0]), (100, 120, 140), 2)
-        # Etiketler
         cv2.putText(v, "SOL", (10, 24),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,220,80), 2)
         cv2.putText(v, "SAG", (img_l.shape[1]+10, 24),
@@ -750,11 +712,12 @@ class RectifiedTab(QWidget):
         pix.save(str(p)); print(f"[SNAP] {p}")
 
 # ============================================================
-# DEPTH ENGINE  (arka plan thread)
+# DEPTH ENGINE  v3.3 -- v3.1 algoritmasi + hiz iyilestirmesi
 # ============================================================
 
 class DepthEngine(QThread):
-    result_ready = pyqtSignal(np.ndarray, np.ndarray)
+    # +stats dict ile compute_ms gonderir
+    result_ready = pyqtSignal(np.ndarray, np.ndarray, dict)
 
     def __init__(self, cfg, parent=None):
         super().__init__(parent)
@@ -776,54 +739,54 @@ class DepthEngine(QThread):
                 job = self._job; self._job = None
             if job is None: time.sleep(0.015); continue
             try:
+                t0 = time.time()
                 dc, dm = self._compute(*job)
-                self.result_ready.emit(dc, dm)
+                ms = (time.time() - t0) * 1000.0
+                self.result_ready.emit(dc, dm, {"compute_ms": ms})
             except Exception as e:
                 print(f"[DepthEngine] {e}")
+                import traceback; traceback.print_exc()
+
+    def _get_sgbm_mode(self):
+        """SPEED-1: mod string -> OpenCV sabiti"""
+        mode = self.cfg.get("sgbm_mode", "3WAY")
+        if mode == "HH":
+            return cv2.STEREO_SGBM_MODE_HH
+        elif mode == "3WAY":
+            return cv2.STEREO_SGBM_MODE_SGBM_3WAY
+        else:
+            return cv2.STEREO_SGBM_MODE_SGBM
 
     def _compute(self, img_l, img_r, m1l, m2l, m1r, m2r):
         cfg = self.cfg
 
-        # ── Lazily initialize per-instance objects (frame basina degil, bir kere) ──
-        if not hasattr(self, "_lut"):
-            # FIX 1: LUT bir kere hesaplanir, her frame tekrar hesaplanmaz
-            # FPGA AXI_GammaCorrection faktor=1/1.8 uyguluyor
-            # Stereo icin lineer goruntu lazim --> inverse gamma
-            inv_gamma = 1.8
-            self._lut = np.array(
-                [((i / 255.0) ** inv_gamma) * 255 for i in range(256)],
-                dtype=np.uint8)
-
+        # ── Lazy init ──
         if not hasattr(self, "_clahe"):
-            # FIX 2: CLAHE objesi bir kere olusturulur
-            self._clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
+            self._clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(16, 16))
 
         if not hasattr(self, "_disp_history"):
-            # Temporal averaging icin gecmis buffer
             self._disp_history = []
 
-        # ── Rectify ──────────────────────────────────────────────────────────────
+        # ── Rectify ──
         rl = cv2.remap(img_l, m1l, m2l, cv2.INTER_LINEAR)
         rr = cv2.remap(img_r, m1r, m2r, cv2.INTER_LINEAR)
 
-        # ── On isleme ────────────────────────────────────────────────────────────
-        # Inverse gamma: lineer uzaya don
-        rl_lin = cv2.LUT(rl, self._lut)
-        rr_lin = cv2.LUT(rr, self._lut)
+        # ── White balance ──
+        if cfg.get("use_wb", True):
+            rl = gray_world_wb(rl)
+            rr = gray_world_wb(rr)
 
-        # Griye cevir
-        gl_raw = cv2.cvtColor(rl_lin, cv2.COLOR_BGR2GRAY)
-        gr_raw = cv2.cvtColor(rr_lin, cv2.COLOR_BGR2GRAY)
+        # ── Gri ──
+        gl_raw = cv2.cvtColor(rl, cv2.COLOR_BGR2GRAY)
+        gr_raw = cv2.cvtColor(rr, cv2.COLOR_BGR2GRAY)
 
-        # CLAHE: kontrast normalize
         gl = self._clahe.apply(gl_raw)
         gr = self._clahe.apply(gr_raw)
 
-        # Hafif blur: yuksek frekans gurultusunu azalt
         gl = cv2.GaussianBlur(gl, (3, 3), 0)
         gr = cv2.GaussianBlur(gr, (3, 3), 0)
 
-        # ── SGBM ─────────────────────────────────────────────────────────────────
+        # ── SGBM ──
         bs = int(cfg["block_size"])
         if bs % 2 == 0: bs += 1
         if bs < 5: bs = 5
@@ -832,6 +795,7 @@ class DepthEngine(QThread):
         P2 = int(cfg["p2_mul"]) * 3 * bs * bs
         if P2 <= P1: P2 = P1 * 4
 
+        # SPEED-1: SGBM_3WAY varsayilan, HH'dan ~%30 hizli
         left_m = cv2.StereoSGBM_create(
             minDisparity      = int(cfg["min_disparity"]),
             numDisparities    = nd,
@@ -842,10 +806,9 @@ class DepthEngine(QThread):
             uniquenessRatio   = int(cfg["uniqueness_ratio"]),
             speckleWindowSize = int(cfg["speckle_win_size"]),
             speckleRange      = int(cfg["speckle_range"]),
-            mode              = cv2.STEREO_SGBM_MODE_HH)
+            mode              = self._get_sgbm_mode())
 
-        # ── WLS Filtre ────────────────────────────────────────────────────────────
-        # FIX 3: WLS filter'a gl (gri) verilmeli, rl (renkli) degil
+        # ── WLS Filtre ──
         if cfg["use_wls"]:
             try:
                 right_m = cv2.ximgproc.createRightMatcher(left_m)
@@ -854,48 +817,47 @@ class DepthEngine(QThread):
                 wls.setSigmaColor(float(cfg["wls_sigma"]))
                 dl   = left_m.compute(gl, gr)
                 dr   = right_m.compute(gr, gl)
-                # FIX 3: gl (gri, tekkanal) kullan -- rl (BGR) degil
                 disp = wls.filter(dl, gl, disparity_map_right=dr)
             except AttributeError:
                 disp = left_m.compute(gl, gr)
         else:
             disp = left_m.compute(gl, gr)
 
-        # 16-bit fixed --> float (SGBM 16x scale ile dondurur)
+        # 16-bit fixed -> float
         disp_f = disp.astype(np.float32) / 16.0
 
-        # ── Disparity temizleme ───────────────────────────────────────────────────
-        # Gecersiz pikselleri sifirla (minDisparity altindaki degerleri at)
+        # ── Disparity temizleme ──
         min_d = float(cfg["min_disparity"])
         disp_f[disp_f <= min_d] = 0.0
 
-        # FIX 4: Median blur dogru sekilde -- disparity uzayinda, float olarak
-        # Sadece gecerli piksellere medianBlur uygula
-        disp_u8 = np.clip(disp_f * 2, 0, 255).astype(np.uint8)  # scale: /2 cunku max~272
+        # Median blur disparity uzayinda
+        disp_u8 = np.clip(disp_f * 2, 0, 255).astype(np.uint8)
         disp_u8_med = cv2.medianBlur(disp_u8, 5)
-        # Gecersiz bolgeler icin median sonucunu kullan
         mask_invalid = (disp_f <= 0)
         disp_filled  = disp_f.copy()
         disp_filled[mask_invalid] = disp_u8_med[mask_invalid].astype(np.float32) / 2.0
 
-        # ── FIX 5: Temporal averaging -- sadece gecerli pikseller uzerinden ────────
-        # Gecersiz pikselleri (0) ortalamaya katma -- sahte deger uretir
-        self._disp_history.append(disp_filled.copy())
-        if len(self._disp_history) > 4:
-            self._disp_history.pop(0)
+        # ── SPEED-3: Temporal averaging (config'ten frame sayisi) ──
+        temp_frames = int(cfg.get("temporal_frames", 2))
+        if temp_frames > 1:
+            self._disp_history.append(disp_filled.copy())
+            if len(self._disp_history) > temp_frames:
+                self._disp_history.pop(0)
 
-        if len(self._disp_history) > 1:
-            # Yalnizca gecerli pikseller (>0) uzerinden agirlikli ortalama
-            stack   = np.stack(self._disp_history, axis=0)  # (N,H,W)
-            valid_m = (stack > 0).astype(np.float32)
-            sum_d   = np.sum(stack * valid_m, axis=0)
-            cnt_d   = np.sum(valid_m, axis=0)
-            cnt_d   = np.maximum(cnt_d, 1)   # sifira bolme engel
-            disp_final = (sum_d / cnt_d).astype(np.float32)
+            if len(self._disp_history) > 1:
+                stack   = np.stack(self._disp_history, axis=0)
+                valid_m = (stack > 0).astype(np.float32)
+                sum_d   = np.sum(stack * valid_m, axis=0)
+                cnt_d   = np.sum(valid_m, axis=0)
+                cnt_d   = np.maximum(cnt_d, 1)
+                disp_final = (sum_d / cnt_d).astype(np.float32)
+            else:
+                disp_final = disp_filled
         else:
+            self._disp_history.clear()
             disp_final = disp_filled
 
-        # ── Derinlik hesabi: Z = f * B / d ────────────────────────────────────────
+        # ── Derinlik: Z = f * B / d ──
         f  = float(cfg["f_pix"])
         B  = float(cfg["b_mm"])
         sc = float(cfg["depth_scale"])
@@ -906,9 +868,7 @@ class DepthEngine(QThread):
             (f * B / disp_final[valid]) * sc,
             cfg["min_depth_mm"], cfg["max_depth_mm"])
 
-        # ── FIX 6: Inpainting float32 uzayinda dogru yapilmali ───────────────────
-        # depth_mm uint8'e cast edilirse buyuk degerler (>255mm) bozulur!
-        # Cozum: normalize et, inpaint yap, geri donustur
+        # ── Inpainting (v3.1'deki gibi geri eklendi) ──
         if depth_mm.max() > 0:
             mask_holes = (depth_mm == 0).astype(np.uint8) * 255
             kernel     = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
@@ -916,30 +876,26 @@ class DepthEngine(QThread):
             inpaint_mask = ((mask_small > 0) & (mask_holes > 0)).astype(np.uint8)
 
             if inpaint_mask.any():
-                # Float -> uint8 normalize (0-255 araligina)
                 d_max  = depth_mm.max()
                 d_norm = np.clip(depth_mm / d_max * 255, 0, 255).astype(np.uint8)
                 d_inp  = cv2.inpaint(d_norm, inpaint_mask, 5, cv2.INPAINT_TELEA)
-                # Geri donustur: sadece delik bolgelerinde kullan
                 depth_mm[inpaint_mask == 1] = (
                     d_inp[inpaint_mask == 1].astype(np.float32) / 255.0 * d_max)
 
-        # ── JET colormap ──────────────────────────────────────────────────────────
+        # ── JET colormap ──
         dmin = float(cfg["min_depth_mm"])
         dmax = float(cfg["max_depth_mm"])
         v2   = depth_mm > 0
         norm = np.zeros(depth_mm.shape, dtype=np.uint8)
         if v2.any():
-            # Yakin=255(kirmizi) Uzak=0(mavi)
             scaled = 255.0 * (1.0 - (depth_mm[v2] - dmin) / (dmax - dmin))
             norm[v2] = np.clip(scaled, 0, 255).astype(np.uint8)
 
-        # Hafif blur: renk gecislerini yumusatir
         norm_blur = cv2.GaussianBlur(norm, (5, 5), 0)
         norm[v2]  = norm_blur[v2]
 
         depth_color = cv2.applyColorMap(norm, cv2.COLORMAP_JET)
-        depth_color[~v2] = (18, 22, 30)   # gecersiz --> koyu gri
+        depth_color[~v2] = (18, 22, 30)
 
         return depth_color, depth_mm
 
@@ -948,18 +904,14 @@ class DepthEngine(QThread):
 # ============================================================
 
 class DepthMapTab(QWidget):
-    """
-    ADIM 4: StereoSGBM + WLS depth map.
-    Yakin = kirmizi, Uzak = mavi.
-    Tikla --> mm degeri.
-    """
-
     def __init__(self, cfg, parent=None):
         super().__init__(parent)
         self.cfg = cfg; self._ok = False
         self.map1_l = self.map2_l = self.map1_r = self.map2_r = None
         self._depth_mm = None; self._frozen = False
         self._click_pts = []; self._measurements = []
+        # SPEED-2: adaptive frame skip flag
+        self._engine_busy = False
         self._engine = DepthEngine(cfg)
         self._engine.result_ready.connect(self._on_result)
         self._engine.start()
@@ -968,7 +920,6 @@ class DepthMapTab(QWidget):
     def _build_ui(self):
         root = QHBoxLayout(self); root.setSpacing(6)
 
-        # Sol: goruntu
         left_box = QGroupBox("ADIM 4  --  DEPTH MAP  |  Tikla: mesafe olc  |  F: dondur/coz")
         left_lay = QVBoxLayout(left_box)
         self.lbl_dm = make_video_label(min_w=800, min_h=420)
@@ -985,13 +936,14 @@ class DepthMapTab(QWidget):
         left_lay.addWidget(bar)
         self.lbl_calib = status_label("Kalibrasyon kontrol ediliyor...", "#F6AD55")
         left_lay.addWidget(self.lbl_calib)
+        # Performans gostergesi
+        self.lbl_perf = status_label("--", "#A0AEC0")
+        left_lay.addWidget(self.lbl_perf)
         root.addWidget(left_box, stretch=3)
 
-        # Sag: kontroller
         ctrl = QWidget(); ctrl.setMaximumWidth(340)
         ctrl_lay = QVBoxLayout(ctrl); ctrl_lay.setSpacing(6)
 
-        # Son olcum
         m_box = QGroupBox("SON OLCUM")
         m_lay = QVBoxLayout(m_box)
         self.lbl_val = QLabel("--- mm")
@@ -1004,20 +956,42 @@ class DepthMapTab(QWidget):
         m_lay.addWidget(self.lbl_detail)
         ctrl_lay.addWidget(m_box)
 
-        # Isaretlenen noktalar
         pts_box = QGroupBox("ISARETLENEN NOKTALAR  (max 10)")
         pts_lay = QVBoxLayout(pts_box)
         self.lbl_pts = QLabel("--")
         self.lbl_pts.setStyleSheet("color:#A0AEC0; font-size:11px;")
         self.lbl_pts.setWordWrap(True)
         pts_lay.addWidget(self.lbl_pts)
-        QPushButton("Temizle").clicked  # dummy
         btn_clr = QPushButton("Temizle")
         btn_clr.clicked.connect(self._clear)
         pts_lay.addWidget(btn_clr)
         ctrl_lay.addWidget(pts_box)
 
-        # SGBM parametreleri
+        # YENI: Hiz ayarlari
+        perf_box = QGroupBox("HIZ AYARLARI  (v3.3)")
+        perf_lay = QGridLayout(perf_box); perf_lay.setVerticalSpacing(3)
+        perf_lay.addWidget(QLabel("SGBM Mod:"), 0, 0)
+        self.cmb_mode = QComboBox()
+        self.cmb_mode.addItems(["3WAY (hizli, varsayilan)", "HH (yavas, daha kaliteli)", "SGBM (klasik)"])
+        cur_mode = self.cfg.get("sgbm_mode", "3WAY")
+        self.cmb_mode.setCurrentIndex({"3WAY":0,"HH":1,"SGBM":2}.get(cur_mode, 0))
+        self.cmb_mode.currentIndexChanged.connect(self._on_mode_change)
+        perf_lay.addWidget(self.cmb_mode, 0, 1, 1, 2)
+        add_slider(perf_lay, 1, "Temporal frame", "temporal_frames",
+                   self.cfg, 1, 4, 1, color="#B794F4")
+        ctrl_lay.addWidget(perf_box)
+
+        # On isleme
+        wb_box = QGroupBox("ON ISLEME")
+        wb_lay = QVBoxLayout(wb_box)
+        self.chk_wb = QCheckBox("Gray World WB")
+        self.chk_wb.setChecked(self.cfg.get("use_wb", True))
+        self.chk_wb.stateChanged.connect(
+            lambda v: self.cfg.update({"use_wb": bool(v)}))
+        wb_lay.addWidget(self.chk_wb)
+        ctrl_lay.addWidget(wb_box)
+
+        # SGBM
         sgbm_box = QGroupBox("STEREOSGBM PARAMETRELER")
         sgbm_lay = QGridLayout(sgbm_box); sgbm_lay.setVerticalSpacing(3)
         for r,(k,lbl,mn,mx,st,col) in enumerate([
@@ -1035,7 +1009,7 @@ class DepthMapTab(QWidget):
         # WLS
         wls_box = QGroupBox("WLS FILTRE")
         wls_lay = QGridLayout(wls_box); wls_lay.setVerticalSpacing(3)
-        self.chk_wls = QCheckBox("WLS aktif (temiz ama yavas)")
+        self.chk_wls = QCheckBox("WLS aktif")
         self.chk_wls.setChecked(self.cfg["use_wls"])
         self.chk_wls.stateChanged.connect(lambda v: self.cfg.update({"use_wls": bool(v)}))
         wls_lay.addWidget(self.chk_wls, 0, 0, 1, 3)
@@ -1064,6 +1038,10 @@ class DepthMapTab(QWidget):
         ctrl_lay.addStretch()
         root.addWidget(ctrl)
 
+    def _on_mode_change(self, idx):
+        modes = ["3WAY", "HH", "SGBM"]
+        self.cfg["sgbm_mode"] = modes[idx]
+
     def _load_calib(self):
         rp = Path(self.cfg["rectify_path"]); cp = Path(self.cfg["calib_path"])
         if not rp.exists() or not cp.exists():
@@ -1090,11 +1068,15 @@ class DepthMapTab(QWidget):
 
     def update_pair(self, img_l, img_r):
         if not self._ok or self._frozen: return
+        # SPEED-2: Engine mesgulse atla -- kuyruk birikmesin
+        if self._engine_busy: return
+        self._engine_busy = True
         self._engine.submit(img_l, img_r,
                             self.map1_l, self.map2_l,
                             self.map1_r, self.map2_r)
 
-    def _on_result(self, depth_color, depth_mm):
+    def _on_result(self, depth_color, depth_mm, stats):
+        self._engine_busy = False  # SPEED-2: yeni frame kabul edilebilir
         self._depth_mm = depth_mm.copy()
         vis = depth_color.copy()
         for px, py, mm in self._click_pts:
@@ -1103,6 +1085,14 @@ class DepthMapTab(QWidget):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.55, (255,255,255), 2, cv2.LINE_AA)
         lw=self.lbl_dm.width(); lh=self.lbl_dm.height()
         if lw > 10: self.lbl_dm.setPixmap(numpy_to_pixmap(vis, lw, lh))
+
+        # Performans gostergesi
+        ms = stats.get("compute_ms", 0)
+        fps_est = 1000.0 / ms if ms > 0 else 0
+        col = "#68D391" if ms < 100 else "#F6AD55" if ms < 200 else "#FC8181"
+        self.lbl_perf.setText(f"Hesap: {ms:.0f}ms  |  Tahmini FPS: {fps_est:.1f}")
+        self.lbl_perf.setStyleSheet(
+            f"color:{col}; font-size:11px; padding:4px; background:#0D1117; border-radius:4px;")
 
     def _on_click(self, event):
         if self._depth_mm is None: return
@@ -1159,12 +1149,11 @@ class DepthMapTab(QWidget):
         self._engine.stop(); self._engine.wait(2000)
 
 # ============================================================
-# PANORAMA ENGINE  (arka plan thread)
+# PANORAMA ENGINE
 # ============================================================
 
 class PanoEngine(QThread):
-    """ORB/SIFT eslesme + homografi + warpPerspective."""
-    result_ready = pyqtSignal(np.ndarray, int, int)  # pano, n_matches, inliers
+    result_ready = pyqtSignal(np.ndarray, int, int)
 
     def __init__(self, cfg, parent=None):
         super().__init__(parent)
@@ -1193,7 +1182,6 @@ class PanoEngine(QThread):
     def _compute(self, img_l, img_r):
         cfg = self.cfg
 
-        # Dedektör sec
         if cfg["pano_detector"] == "SIFT":
             try:
                 det = cv2.SIFT_create(cfg["pano_max_feat"])
@@ -1202,6 +1190,10 @@ class PanoEngine(QThread):
         else:
             det = cv2.ORB_create(cfg["pano_max_feat"])
 
+        if cfg.get("use_wb", True):
+            img_l = gray_world_wb(img_l)
+            img_r = gray_world_wb(img_r)
+
         gray_l = cv2.cvtColor(img_l, cv2.COLOR_BGR2GRAY)
         gray_r = cv2.cvtColor(img_r, cv2.COLOR_BGR2GRAY)
 
@@ -1209,10 +1201,8 @@ class PanoEngine(QThread):
         kp_r, des_r = det.detectAndCompute(gray_r, None)
 
         if des_l is None or des_r is None or len(kp_l)<4 or len(kp_r)<4:
-            # Eslesme bulunamadi -- yan yana goster
             return np.hstack((img_l, img_r)), 0, 0
 
-        # Eslestirici
         if cfg["pano_detector"] == "SIFT":
             matcher = cv2.BFMatcher(cv2.NORM_L2, crossCheck=False)
         else:
@@ -1230,7 +1220,6 @@ class PanoEngine(QThread):
         if n_matches < 10:
             return np.hstack((img_l, img_r)), n_matches, 0
 
-        # Homografi
         src_pts = np.float32([kp_l[m.queryIdx].pt for m in good]).reshape(-1,1,2)
         dst_pts = np.float32([kp_r[m.trainIdx].pt for m in good]).reshape(-1,1,2)
         H, mask = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
@@ -1239,19 +1228,15 @@ class PanoEngine(QThread):
         if H is None or inliers < 8:
             return np.hstack((img_l, img_r)), n_matches, inliers
 
-        # Perspektif dönüşümü
         h, w = img_l.shape[:2]
-        # Sag goruntu offseti ile birlesik tuval
         offset_x = w
         T_mat = np.array([[1,0,offset_x],[0,1,0],[0,0,1]], dtype=np.float64)
         H_shifted = T_mat @ H
 
         pano_w = w * 2; pano_h = h
         warped = cv2.warpPerspective(img_l, H_shifted, (pano_w, pano_h))
-        # Sag goruntu yerlesimi
         warped[0:h, offset_x:offset_x+w] = img_r
 
-        # Birlesim bolgesi yumusatma
         blend_w = 80
         for i in range(blend_w):
             alpha = i / blend_w
@@ -1269,11 +1254,6 @@ class PanoEngine(QThread):
 # ============================================================
 
 class PanoramaTab(QWidget):
-    """
-    ADIM 5: ORB/SIFT eslesme + homografi + warpPerspective panorama.
-    SRS FR-22: cv2.findHomography + RANSAC + cv2.warpPerspective
-    """
-
     def __init__(self, cfg, parent=None):
         super().__init__(parent)
         self.cfg=cfg
@@ -1285,7 +1265,6 @@ class PanoramaTab(QWidget):
     def _build_ui(self):
         root = QHBoxLayout(self); root.setSpacing(6)
 
-        # Sol: panorama goruntu
         left_box = QGroupBox("ADIM 5  --  PANORAMA  |  ORB/SIFT + Homografi + warpPerspective")
         left_lay = QVBoxLayout(left_box)
         self.lbl_pano = make_video_label(min_w=900, min_h=400)
@@ -1294,11 +1273,9 @@ class PanoramaTab(QWidget):
         left_lay.addWidget(self.lbl_info)
         root.addWidget(left_box, stretch=3)
 
-        # Sag: kontroller
         ctrl = QWidget(); ctrl.setMaximumWidth(300)
         ctrl_lay = QVBoxLayout(ctrl); ctrl_lay.setSpacing(6)
 
-        # Istatistik
         stat_box = QGroupBox("ESLESME ISTATISTIGI")
         stat_lay = QGridLayout(stat_box)
         self.lbl_matches = QLabel("0"); self.lbl_matches.setStyleSheet("color:#00D296; font-size:16px; font-weight:bold;")
@@ -1309,7 +1286,6 @@ class PanoramaTab(QWidget):
         stat_lay.addWidget(self.lbl_inliers, 1, 1)
         ctrl_lay.addWidget(stat_box)
 
-        # Dedektör secimi
         det_box = QGroupBox("OZELLIK DEDEKTORU")
         det_lay = QVBoxLayout(det_box)
         self.cmb_det = QComboBox()
@@ -1326,7 +1302,6 @@ class PanoramaTab(QWidget):
         det_lay.addLayout(feat_lay)
         ctrl_lay.addWidget(det_box)
 
-        # Bilgi
         info_box = QGroupBox("NASIL CALISIR")
         info_lay = QVBoxLayout(info_box)
         info_txt = QLabel(
@@ -1419,7 +1394,7 @@ class SettingsTab(QWidget):
         for r,(k,v) in enumerate([
             ("ZedBoard IP",  "192.168.1.50"),
             ("Bilgisayar IP","192.168.1.100"),
-            ("Kamera",       "OV5640 x2  (Port A=sag, Port B=sol)"),
+            ("Kamera",       "OV5640 x2  (Port A=sol, Port B=sag)"),
             ("Cozunurluk",   "960x540  |  RGB  |  ~20fps"),
             ("Protokol",     "UDP  |  LwIP  |  Frame paketleme"),
         ]):
@@ -1454,7 +1429,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(
-            "MUHTAS-2  --  Stereo Vision Dashboard  --  ZedBoard OV5640x2  v3.0")
+            "MUHTAS-2  --  Stereo Vision Dashboard  --  ZedBoard OV5640x2  v3.3")
         self.resize(1440, 900)
         self.setStyleSheet(DARK_STYLE)
         self.cfg = CFG.copy()
@@ -1462,7 +1437,7 @@ class MainWindow(QMainWindow):
         self._build_ui()
         self._start_rx()
         self._timer = QTimer(self)
-        self._timer.setInterval(40)  # ~25 fps
+        self._timer.setInterval(40)
         self._timer.timeout.connect(self._push_pair)
         self._timer.start()
 
@@ -1474,7 +1449,6 @@ class MainWindow(QMainWindow):
 
         self.tabs = QTabWidget()
 
-        # Sekme olusturma
         self.t0 = LiveViewTab()
         self.t1 = CalibrationTab(self.cfg)
         self.t2 = RectifiedTab(self.cfg)
@@ -1489,29 +1463,26 @@ class MainWindow(QMainWindow):
         self.tabs.addTab(self.t4, "  Panorama  ")
         self.tabs.addTab(self.t5, "  Ayarlar  ")
 
-        # Kalibrasyon yuklendi sinyali --> rectified + depth map'i yenile
         self.t1.calib_loaded.connect(self.t2.reload)
         self.t1.calib_loaded.connect(self.t3.reload)
         self.t1.calib_loaded.connect(
-            lambda: self._on_log("[GUI] Kalibrasyon yuklendi, Rectified + Depth Map guncellendi."))
+            lambda: self._on_log("[GUI] Kalibrasyon yuklendi."))
 
         lay.addWidget(self.tabs)
 
-        # Log
         self.log = QTextEdit()
         self.log.setReadOnly(True)
         self.log.setMaximumHeight(70)
         self.log.setPlaceholderText("Sistem logları...")
         lay.addWidget(self.log)
 
-        # Durum cubugu
         sb = QStatusBar(); self.setStatusBar(sb)
         self.lbl_sl = QLabel("L: -- fps")
         self.lbl_sr = QLabel("R: -- fps")
         self.lbl_sd = QLabel("drop: 0")
         self.lbl_sf = QLabel("diff: --")
         self.lbl_sf.setToolTip("Frame ID farki. 0 = mukemmel senkron.")
-        for w in [QLabel("MUHTAS-2  |  ZedBoard OV5640x2  |"),
+        for w in [QLabel("MUHTAS-2  v3.3  |  ZedBoard OV5640x2  |"),
                   self.lbl_sl, self.lbl_sr, self.lbl_sd, self.lbl_sf]:
             w.setStyleSheet("padding: 0 6px;")
             sb.addPermanentWidget(w)
@@ -1521,14 +1492,12 @@ class MainWindow(QMainWindow):
         self.rx.log_message.connect(self._on_log)
         self.rx.start()
         self._on_log("[GUI] UDP alici baslatildi.")
-        # Ayri display timer -- buffer'dan okur, sinyal YOK
         self._display_timer = QTimer(self)
-        self._display_timer.setInterval(33)   # ~30 fps
+        self._display_timer.setInterval(33)
         self._display_timer.timeout.connect(self._refresh_frames)
         self._display_timer.start()
 
     def _refresh_frames(self):
-        """GUI thread'inde 33ms'de bir calisir -- buffer'dan okuyup ekrana basar."""
         pl = self.cfg["port_left"]; pr = self.cfg["port_right"]
         with self.rx.buf_lock:
             img_l = self.rx.buf[pl]
@@ -1537,7 +1506,6 @@ class MainWindow(QMainWindow):
             self.t0.update_frame(pl, img_l, self.cfg)
         if img_r is not None:
             self.t0.update_frame(pr, img_r, self.cfg)
-        # Istatistik guncelle
         s = self.rx.stats
         self.lbl_sl.setText(f"L: {s['fps_l']:.1f} fps")
         self.lbl_sr.setText(f"R: {s['fps_r']:.1f} fps")
@@ -1575,11 +1543,10 @@ class MainWindow(QMainWindow):
         event.accept()
 
 # ============================================================
-# GIRIS NOKTASI
+# GIRIS
 # ============================================================
 
 def main():
-    # DPI ayarlari QApplication olusturulmadan ONCE yapilmali
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
     app = QApplication(sys.argv)

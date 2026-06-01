@@ -795,6 +795,17 @@ public:
 		return OK;
 	}
 
+	Errc set_brightness(uint8_t level)
+	{
+	    // level: 0x00=karanlýk, 0x30=normal, 0x50=parlak, 0x70=çok parlak
+	    // AEC hedef parlaklýðý ayarla
+	    writeReg(0x3a0f, level);        // stable range high
+	    writeReg(0x3a10, level - 0x08); // stable range low
+	    writeReg(0x3a1b, level);        // out range high
+	    writeReg(0x3a1e, level - 0x08); // out range low
+	    return OK;
+	}
+
 	~OV5640() { }
 	void set_test(OV5640_cfg::test_t test)
 	{
