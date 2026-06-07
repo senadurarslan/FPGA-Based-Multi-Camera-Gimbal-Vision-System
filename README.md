@@ -75,7 +75,7 @@ PC tarafında **PyQt5 tabanlı çok sekmeli GUI** uygulaması geliştirilmiş; s
 
 ### GUI — Stereo Vision Dashboard
 
-![Live View](görseller/GUI_1.png)
+![Live View](görseller/GUİ_1.png)
 *PyQt5 tabanlı çok sekmeli arayüz — Live View sekmesi (~20.7 FPS)*
 
 ### Derinlik Haritası
