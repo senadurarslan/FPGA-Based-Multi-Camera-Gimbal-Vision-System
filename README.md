@@ -239,22 +239,6 @@ Frame başına 1111 UDP paketi gönderilmektedir. Her paket 12 baytlık özel ba
 - [x] Panorama sekmesi (ORB eşleme + homografi)
 - [x] Ayarlar sekmesi (UDP port, dosya yolları)
 
----
-
-## Devam Eden / Planlanan Aşamalar
-
-### Kısa Vadeli
-- [ ] Çift tamponlama (double buffering) ile tearing probleminin kalıcı çözümü
-- [ ] Kamera senkronizasyonu iyileştirmesi (donanımsal VSYNC)
-
-### Orta Vadeli
-- [ ] FPGA PL katmanında HLS tabanlı donanımsal disparity hesaplama modülü
-- [ ] PTP (IEEE 1588) tabanlı donanımsal kamera çerçeve senkronizasyonu
-
-### Uzun Vadeli
-- [ ] Gerçek zamanlı FPGA tabanlı derinlik haritası üretimi
-- [ ] Nesne tespiti ve mesafe hesaplama entegrasyonu
-- [ ] Gimbal entegrasyonu için kamera yön kontrolü
 
 ---
 
@@ -286,29 +270,23 @@ Frame başına 1111 UDP paketi gönderilmektedir. Her paket 12 baytlık özel ba
 | Kamera Modülleri | 2× Digilent Pcam 5C (OV5640, MIPI CSI-2) |
 | Bağlantı | Gigabit Ethernet (RJ45) |
 | Bellek | 512 MB DDR3 |
-| Stereo Aparat | SolidWorks tasarım, PLA 3D baskı (~69.5 mm baseline) |
+| Stereo Aparat | SolidWorks tasarım, PLA 3D baskı  |
 
 ### Yazılım ve Araçlar
 
 | Araç | Versiyon | Kullanım Alanı |
 |------|----------|----------------|
-| Vivado | 2020.1 | FPGA tasarımı ve blok diyagram |
-| Vitis IDE | 2020.1 | Bare-metal yazılım geliştirme |
+| Vivado | 2022.1 | FPGA tasarımı ve blok diyagram |
+| Vitis IDE | 2022.1 | Bare-metal yazılım geliştirme |
 | C / C++ | — | PS tarafı sistem yazılımı |
 | lwIP | 2.1 | Hafif ağ yığını (UDP) |
-| Python | 3.10 | PC tarafı veri alma ve görüntüleme |
-| OpenCV | 4.x | Görüntü işleme, kalibrasyon, disparity |
-| opencv-contrib | 4.x | WLS filtresi (ximgproc) |
-| NumPy | — | Frame verisi manipülasyonu |
-| PyQt5 | 5.x | GUI arayüzü (Stereo Vision Dashboard) |
+| Python | 3.13.3 | PC tarafı veri alma ve görüntüleme |
+| OpenCV | 4.13.0 | Görüntü işleme, kalibrasyon, disparity |
+| opencv-contrib | 4.13.0 | WLS filtresi (ximgproc) |
+| NumPy | 2.2.5 | Frame verisi manipülasyonu |
+| PyQt5 | 5.15.11 | GUI arayüzü (Stereo Vision Dashboard) |
 
-### Kurulum
 
-```bash
-pip install PyQt5 opencv-python opencv-contrib-python numpy
-```
-
----
 
 ## Klasör Yapısı
 
@@ -384,7 +362,6 @@ pip install PyQt5 opencv-python opencv-contrib-python numpy
 | Stereo RMS hatası | **0.954 px** |
 | Baseline | **69.51 mm** |
 | Odak uzaklığı (rectified) | **1107.38 px** |
-| Derinlik ölçüm aralığı | **1402 – 3373 mm** |
 | Gecikme tipi | Düşük (UDP, bare-metal) |
 
 ---
